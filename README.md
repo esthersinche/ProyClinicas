@@ -1,2 +1,4 @@
 # ProyClinicas
-Con mucha fe esto funcionará, no intentes entender como, pero lo hará 
+- Requerimientos para este proyecto:
+  - Java 21 en adelante
+  - 
