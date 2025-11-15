@@ -1,8 +1,5 @@
 package com.gestor.clinicas.appointments.application.dto;
 
-/**
- * DTO para transferir datos de un paciente
- */
 public class PacienteDto {
     private Long id;
     private String nombre;
@@ -11,11 +8,9 @@ public class PacienteDto {
     private String telefono;
     private String email;
 
-    // Constructor vacío
     public PacienteDto() {
     }
 
-    // Constructor completo
     public PacienteDto(Long id, String nombre, String nacionalidad, String dni, 
                       String telefono, String email) {
         this.id = id;
@@ -26,7 +21,6 @@ public class PacienteDto {
         this.email = email;
     }
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }

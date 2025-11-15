@@ -2,9 +2,6 @@ package com.gestor.clinicas.appointments.application.dto;
 
 import java.util.List;
 
-/**
- * DTO para transferir datos de un doctor
- */
 public class DoctorDto {
     private Long id;
     private String nombre;
@@ -12,11 +9,9 @@ public class DoctorDto {
     private String consultorio;
     private List<String> especialidades;
 
-    // Constructor vacío
     public DoctorDto() {
     }
 
-    // Constructor completo
     public DoctorDto(Long id, String nombre, String cmp, String consultorio, 
                     List<String> especialidades) {
         this.id = id;
@@ -26,7 +21,6 @@ public class DoctorDto {
         this.especialidades = especialidades;
     }
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }

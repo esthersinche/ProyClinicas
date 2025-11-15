@@ -1,8 +1,5 @@
 package com.gestor.clinicas.appointments.application.command;
 
-/**
- * Command para cancelar una cita existente
- */
 public class CancelarCitaCommand {
     private Long citaId;
     private String motivoCancelacion;

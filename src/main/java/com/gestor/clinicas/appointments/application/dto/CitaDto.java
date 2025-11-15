@@ -2,9 +2,6 @@ package com.gestor.clinicas.appointments.application.dto;
 
 import java.time.LocalDateTime;
 
-/**
- * DTO para transferir datos de una cita
- */
 public class CitaDto {
     private Long id;
     private String motivo;
@@ -17,11 +14,9 @@ public class CitaDto {
     private String clinica;
     private String especialidad;
 
-    // Constructor vacío
     public CitaDto() {
     }
 
-    // Constructor completo
     public CitaDto(Long id, String motivo, String estado, String canal, 
                    LocalDateTime inicio, LocalDateTime fin, PacienteDto paciente, 
                    DoctorDto doctor, String clinica, String especialidad) {
@@ -37,7 +32,6 @@ public class CitaDto {
         this.especialidad = especialidad;
     }
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }

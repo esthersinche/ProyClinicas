@@ -1,11 +1,8 @@
 package com.gestor.clinicas.appointments.application.query;
 
-/**
- * Query para listar citas por especialidad
- */
 public class ListarCitasPorEspecialidadQuery {
     private String especialidad;
-    private String estado; // opcional
+    private String estado;
 
     public ListarCitasPorEspecialidadQuery(String especialidad) {
         this.especialidad = especialidad;

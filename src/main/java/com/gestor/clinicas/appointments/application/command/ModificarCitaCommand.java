@@ -2,9 +2,6 @@ package com.gestor.clinicas.appointments.application.command;
 
 import java.time.LocalDateTime;
 
-/**
- * Command para modificar una cita existente
- */
 public class ModificarCitaCommand {
     private Long citaId;
     private String motivo;
@@ -23,7 +20,6 @@ public class ModificarCitaCommand {
         this.especialidad = especialidad;
     }
 
-    // Getters
     public Long getCitaId() {
         return citaId;
     }

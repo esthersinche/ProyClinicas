@@ -1,8 +1,5 @@
 package com.gestor.clinicas.appointments.application.exception;
 
-/**
- * Excepción lanzada cuando el doctor no está disponible para una cita
- */
 public class DoctorNoDisponibleException extends Exception {
     
     public DoctorNoDisponibleException(String mensaje) {

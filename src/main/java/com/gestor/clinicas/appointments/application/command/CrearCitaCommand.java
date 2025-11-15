@@ -2,9 +2,6 @@ package com.gestor.clinicas.appointments.application.command;
 
 import java.time.LocalDateTime;
 
-/**
- * Command para crear una nueva cita
- */
 public class CrearCitaCommand {
     private String motivo;
     private String canal;
@@ -27,7 +24,6 @@ public class CrearCitaCommand {
         this.especialidad = especialidad;
     }
 
-    // Getters
     public String getMotivo() {
         return motivo;
     }

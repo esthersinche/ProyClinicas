@@ -1,11 +1,8 @@
 package com.gestor.clinicas.appointments.application.query;
 
-/**
- * Query para listar citas de un doctor específico
- */
 public class ListarCitasPorDoctorQuery {
     private Long doctorId;
-    private String estado; // PENDIENTE, CONFIRMADA, CANCELADA, COMPLETADA (opcional)
+    private String estado;
     
     public ListarCitasPorDoctorQuery(Long doctorId) {
         this.doctorId = doctorId;

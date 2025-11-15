@@ -1,8 +1,5 @@
 package com.gestor.clinicas.appointments.application.exception;
 
-/**
- * Excepción lanzada cuando no se encuentra una cita
- */
 public class CitaNoEncontradaException extends Exception {
     
     public CitaNoEncontradaException(String mensaje) {
