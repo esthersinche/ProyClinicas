@@ -1,4 +1,4 @@
-package com.gestor.clinicas.appointments.application.dto;
+package com.Clinica1.myApp.appointments.application.dto;
 
 public class PacienteDto {
     private Long id;

@@ -1,6 +1,6 @@
-package com.gestor.clinicas.appointments.application.handler;
+package com.Clinica1.myApp.appointments.application.handler;
 
-import com.gestor.clinicas.appointments.application.command.CancelarCitaCommand;
+import com.Clinica1.myApp.appointments.application.command.CancelarCitaCommand;
 
 public class CancelarCitaCommandHandler {
     

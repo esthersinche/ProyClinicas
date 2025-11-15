@@ -1,4 +1,4 @@
-package com.gestor.clinicas.appointments.application.query;
+package com.Clinica1.myApp.appointments.application.query;
 
 public class ObtenerCitaPorIdQuery {
     private Long citaId;

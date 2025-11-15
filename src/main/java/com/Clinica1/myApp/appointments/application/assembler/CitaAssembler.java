@@ -1,8 +1,8 @@
-package com.gestor.clinicas.appointments.application.assembler;
+package com.Clinica1.myApp.appointments.application.assembler;
 
-import com.gestor.clinicas.appointments.application.dto.CitaDto;
-import com.gestor.clinicas.appointments.application.dto.PacienteDto;
-import com.gestor.clinicas.appointments.application.dto.DoctorDto;
+import com.Clinica1.myApp.appointments.application.dto.CitaDto;
+import com.Clinica1.myApp.appointments.application.dto.PacienteDto;
+import com.Clinica1.myApp.appointments.application.dto.DoctorDto;
 
 public class CitaAssembler {
 

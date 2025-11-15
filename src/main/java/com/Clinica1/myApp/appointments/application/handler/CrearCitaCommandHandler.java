@@ -1,9 +1,8 @@
-package com.gestor.clinicas.appointments.application.handler;
+package com.Clinica1.myApp.appointments.application.handler;
 
-import com.gestor.clinicas.appointments.application.command.CrearCitaCommand;
-import com.gestor.clinicas.appointments.application.dto.CitaDto;
-import com.gestor.clinicas.appointments.application.assembler.CitaAssembler;
-import com.gestor.clinicas.appointments.application.exception.FechaInvalidaException;
+import com.Clinica1.myApp.appointments.application.command.CrearCitaCommand;
+import com.Clinica1.myApp.appointments.application.dto.CitaDto;
+import com.Clinica1.myApp.appointments.application.exception.FechaInvalidaException;
 
 public class CrearCitaCommandHandler {
     

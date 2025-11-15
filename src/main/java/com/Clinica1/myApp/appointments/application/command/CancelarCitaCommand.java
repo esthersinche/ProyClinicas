@@ -1,4 +1,4 @@
-package com.gestor.clinicas.appointments.application.command;
+package com.Clinica1.myApp.appointments.application.command;
 
 public class CancelarCitaCommand {
     private Long citaId;

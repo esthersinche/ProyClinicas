@@ -1,4 +1,4 @@
-package com.gestor.clinicas.appointments.application.exception;
+package com.Clinica1.myApp.appointments.application.exception;
 
 public class FechaInvalidaException extends Exception {
     
