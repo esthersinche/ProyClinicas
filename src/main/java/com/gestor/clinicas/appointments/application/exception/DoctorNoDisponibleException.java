@@ -1,0 +1,19 @@
+package com.gestor.clinicas.appointments.application.exception;
+
+/**
+ * Excepción lanzada cuando el doctor no está disponible para una cita
+ */
+public class DoctorNoDisponibleException extends Exception {
+    
+    public DoctorNoDisponibleException(String mensaje) {
+        super(mensaje);
+    }
+
+    public DoctorNoDisponibleException(Long doctorId, String fecha) {
+        super("El doctor con ID " + doctorId + " no está disponible para la fecha: " + fecha);
+    }
+
+    public DoctorNoDisponibleException(String mensaje, Throwable causa) {
+        super(mensaje, causa);
+    }
+}

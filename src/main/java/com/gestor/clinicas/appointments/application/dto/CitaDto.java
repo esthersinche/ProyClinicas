@@ -1,0 +1,120 @@
+package com.gestor.clinicas.appointments.application.dto;
+
+import java.time.LocalDateTime;
+
+/**
+ * DTO para transferir datos de una cita
+ */
+public class CitaDto {
+    private Long id;
+    private String motivo;
+    private String estado;
+    private String canal;
+    private LocalDateTime inicio;
+    private LocalDateTime fin;
+    private PacienteDto paciente;
+    private DoctorDto doctor;
+    private String clinica;
+    private String especialidad;
+
+    // Constructor vacío
+    public CitaDto() {
+    }
+
+    // Constructor completo
+    public CitaDto(Long id, String motivo, String estado, String canal, 
+                   LocalDateTime inicio, LocalDateTime fin, PacienteDto paciente, 
+                   DoctorDto doctor, String clinica, String especialidad) {
+        this.id = id;
+        this.motivo = motivo;
+        this.estado = estado;
+        this.canal = canal;
+        this.inicio = inicio;
+        this.fin = fin;
+        this.paciente = paciente;
+        this.doctor = doctor;
+        this.clinica = clinica;
+        this.especialidad = especialidad;
+    }
+
+    // Getters y Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getCanal() {
+        return canal;
+    }
+
+    public void setCanal(String canal) {
+        this.canal = canal;
+    }
+
+    public LocalDateTime getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(LocalDateTime inicio) {
+        this.inicio = inicio;
+    }
+
+    public LocalDateTime getFin() {
+        return fin;
+    }
+
+    public void setFin(LocalDateTime fin) {
+        this.fin = fin;
+    }
+
+    public PacienteDto getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(PacienteDto paciente) {
+        this.paciente = paciente;
+    }
+
+    public DoctorDto getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(DoctorDto doctor) {
+        this.doctor = doctor;
+    }
+
+    public String getClinica() {
+        return clinica;
+    }
+
+    public void setClinica(String clinica) {
+        this.clinica = clinica;
+    }
+
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+}
