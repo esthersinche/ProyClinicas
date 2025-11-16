@@ -9,4 +9,7 @@ public final class Email {
     }
 
     //public static Email
+    public static Email of(String email_valor){
+        return new Email(email_valor);
+    }
 }
