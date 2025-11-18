@@ -7,6 +7,7 @@ import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Especialidad;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Doctor extends Empleado {
     private String cmp_doc;
@@ -24,7 +25,22 @@ public class Doctor extends Empleado {
     }
 
     //metodo factory q devuelve instancia valida
-    public static Doctor creardoc(){
-
+    public static Doctor creardoc(String nombre, String apellido, String telefono, Email email, Rol rolemp,
+                                  String cmp_doc, String consultorio_doc, List<Especialidad> especialidades){
+        return new Doctor(IDEntidad.generar(), nombre, apellido, telefono, email, Rol.doctor, cmp_doc,consultorio_doc, especialidades);
     }
+
+    public String getCmp_doc() {
+        return cmp_doc;
+    }
+
+    public String getConsultorio_doc() {
+        return consultorio_doc;
+    }
+
+    public List<Especialidad> getEspecialidades() {
+        return especialidades;
+    }
+
+    //empleado ya tiene equals y hashcode causas
 }

@@ -12,11 +12,27 @@ public final class Rol {
     private HashSet<Funcion> funciones;//evita los duplicados y es mas facil de hacer operaciones
     //debido al hash
 
+    public Rol() {
+    }
 
     public Rol(IDEntidad id_rol, String nombrerol, HashSet<Funcion> funciones) {
         this.id_rol = id_rol;
         this.nombrerol = nombrerol;
         this.funciones = new HashSet<>(funciones);
+    }
+
+    public static Rol crearrol(String nombrerol, HashSet<Funcion> funciones){
+        return new Rol(IDEntidad.generar(), nombrerol, funciones);
+    }
+    //para dcotor solamente, borrar dsps
+    //por ahora
+    public static final Rol doctor= creardoctor();
+    public static Rol creardoctor(){
+        HashSet<Funcion> funciones= new HashSet<>();
+        funciones.add(Funcion.of("Atender_paciente"));
+        funciones.add(Funcion.of("buscar_paciente"));
+
+        return new Rol(IDEntidad.generar(), "Doctor", funciones);
     }
 
     public boolean estapermitido(Funcion funcion){
@@ -29,6 +45,18 @@ public final class Rol {
         //busca por nombre de funcion si esta
         //of: metodo estatico q crea instancias, en vez de usar new funcion()
         return funciones.contains(Funcion.of(nombre_fun));
+    }
+
+    public IDEntidad getId_rol() {
+        return id_rol;
+    }
+
+    public String getNombrerol() {
+        return nombrerol;
+    }
+
+    public HashSet<Funcion> getFunciones() {
+        return funciones;
     }
 
     //solo por id debido a q es una entidad y son identificadas nomas por su id
