@@ -4,6 +4,7 @@ import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
 import java.util.HashSet;
+import java.util.Objects;
 
 public final class Rol {
     private IDEntidad id_rol;
@@ -19,13 +20,27 @@ public final class Rol {
     }
 
     public boolean estapermitido(Funcion funcion){
+        //si es q las funciones estan dentro del set en la clase de cualquier empleado
         return funciones.contains(funcion);
     }
 
     //para llamar a funcion permite mas facil
-    public boolean estapermitidio(String nombre_fun){
+    public boolean estapermitidonombre(String nombre_fun){
+        //busca por nombre de funcion si esta
+        //of: metodo estatico q crea instancias, en vez de usar new funcion()
         return funciones.contains(Funcion.of(nombre_fun));
     }
 
+    //solo por id debido a q es una entidad y son identificadas nomas por su id
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Rol rol = (Rol) o;
+        return Objects.equals(id_rol, rol.id_rol);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id_rol);
+    }
 }

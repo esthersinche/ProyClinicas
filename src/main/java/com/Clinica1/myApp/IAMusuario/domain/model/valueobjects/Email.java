@@ -1,15 +1,26 @@
 package com.Clinica1.myApp.IAMusuario.domain.model.valueobjects;
 
-public final class Email {
-    //para validacion
-    private final String email_valor;
+import java.util.Objects;
 
-    private Email(String email_valor) {//VO siempre debe tener constructor private y metodos estaticos
-        this.email_valor = email_valor;
+public record Email(String email_valor) {
+    //para validacion
+    public Email{
+        if (email_valor == null || email_valor.trim().isBlank()){
+            throw new IllegalArgumentException("Email cannot be null or be empty");
+        }
+
+        if (!email_valor.matches("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")){
+            throw new IllegalArgumentException("Invalid Email");
+        }
     }
 
-    //public static Email
+    //public static Email el of es un metodo estatico q permite no usar el constructor luego
     public static Email of(String email_valor){
         return new Email(email_valor);
     }
+
+    //vo siempre deben tener hashcode e equals pq se comparan por valor no identidad, record los tiene
+    //automaticamente
+
+
 }

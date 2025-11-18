@@ -4,6 +4,8 @@ import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.ContraHash;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
+import java.util.Objects;
+
 public class Usuario {
     private IDEntidad id_usu;
     private String username;
@@ -20,6 +22,7 @@ public class Usuario {
         this.emp = emp;
     }
 
+    //metodo factory
     public static Usuario crearusu(String username, ContraHash passhash, Empleado emp){
         return new Usuario(IDEntidad.generar(), username, passhash, emp);
     }
@@ -38,5 +41,18 @@ public class Usuario {
 
     public Empleado getEmp() {
         return emp;
+    }
+
+    //todas las entidades deben tener equals y hashcode basados en su id solamente
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(id_usu, usuario.id_usu);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id_usu);
     }
 }
