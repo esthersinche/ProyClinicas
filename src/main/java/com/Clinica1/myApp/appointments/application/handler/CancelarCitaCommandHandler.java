@@ -1,18 +1,32 @@
 package com.Clinica1.myApp.appointments.application.handler;
 
 import com.Clinica1.myApp.appointments.application.command.CancelarCitaCommand;
+import com.Clinica1.myApp.appointments.application.exception.CitaNoEncontradaException;
+import com.Clinica1.myApp.appointments.domain.model.aggregates.Cita;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.Estado;
+import com.Clinica1.myApp.appointments.domain.repository.CitaRepository;
+
+import java.util.UUID;
 
 public class CancelarCitaCommandHandler {
     
-    // TODO: Inyectar dependencias necesarias
-    // private final ICitaRepository citaRepository;
-    // private final CitaDomainService citaDomainService;
+    private final CitaRepository citaRepository;
 
-    public CancelarCitaCommandHandler() {
+    public CancelarCitaCommandHandler(CitaRepository citaRepository) {
+        this.citaRepository = citaRepository;
     }
 
-    public void handle(CancelarCitaCommand command) {
-        // TODO: Implementar
-        throw new UnsupportedOperationException("Pendiente de implementación");
+    public void handle(CancelarCitaCommand command) throws CitaNoEncontradaException {
+        Cita cita = citaRepository.findbyId(UUID.fromString(command.getCitaId().toString()));
+        
+        if (cita == null) {
+            throw new CitaNoEncontradaException(command.getCitaId());
+        }
+        
+        if (cita.getEstado_cita() == Estado.Desercion) {
+            throw new CitaNoEncontradaException("La cita ya está cancelada");
+        }
+        
+        citaRepository.delete(UUID.fromString(command.getCitaId().toString()));
     }
 }

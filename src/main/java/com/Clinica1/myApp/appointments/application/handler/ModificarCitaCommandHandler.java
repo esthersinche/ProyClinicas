@@ -3,20 +3,69 @@ package com.Clinica1.myApp.appointments.application.handler;
 import com.Clinica1.myApp.appointments.application.command.ModificarCitaCommand;
 import com.Clinica1.myApp.appointments.application.dto.CitaDto;
 import com.Clinica1.myApp.appointments.application.exception.FechaInvalidaException;
+import com.Clinica1.myApp.appointments.application.exception.CitaNoEncontradaException;
+import com.Clinica1.myApp.appointments.application.exception.DoctorNoDisponibleException;
+import com.Clinica1.myApp.appointments.application.assembler.CitaAssembler;
+import com.Clinica1.myApp.appointments.domain.model.aggregates.Cita;
+import com.Clinica1.myApp.appointments.domain.model.aggregates.Doctor;
+import com.Clinica1.myApp.appointments.domain.repository.CitaRepository;
+import com.Clinica1.myApp.appointments.domain.repository.DoctorRepository;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class ModificarCitaCommandHandler {
     
-    // TODO: Inyectar dependencias necesarias
-    // private final ICitaRepository citaRepository;
-    // private final IDoctorRepository doctorRepository;
-    // private final CitaDomainService citaDomainService;
-    // private final CitaAssembler citaAssembler;
+    private final CitaRepository citaRepository;
+    private final DoctorRepository doctorRepository;
+    private final CitaAssembler citaAssembler;
 
-    public ModificarCitaCommandHandler() {
+    public ModificarCitaCommandHandler(CitaRepository citaRepository, DoctorRepository doctorRepository,
+                                      CitaAssembler citaAssembler) {
+        this.citaRepository = citaRepository;
+        this.doctorRepository = doctorRepository;
+        this.citaAssembler = citaAssembler;
     }
 
-    public CitaDto handle(ModificarCitaCommand command) throws FechaInvalidaException {
-        // TODO: Implementar
-        throw new UnsupportedOperationException("Pendiente de implementación");
+    public CitaDto handle(ModificarCitaCommand command) throws FechaInvalidaException, CitaNoEncontradaException, DoctorNoDisponibleException {
+        Cita cita = citaRepository.findbyId(UUID.fromString(command.getCitaId().toString()));
+        
+        if (cita == null) {
+            throw new CitaNoEncontradaException(command.getCitaId());
+        }
+        
+        validarFechas(command.getInicio(), command.getFin());
+        
+        if (command.getDoctorId() != null) {
+            Doctor doctor = doctorRepository.findbyId(UUID.fromString(command.getDoctorId().toString()));
+            if (doctor == null) {
+                throw new CitaNoEncontradaException("Doctor no encontrado con ID: " + command.getDoctorId());
+            }
+            verificarDisponibilidadDoctor(doctor, command.getInicio(), command.getFin());
+        }
+        
+        Cita citaActualizada = citaRepository.update(cita);
+        
+        return citaAssembler.toDto(citaActualizada);
+    }
+    
+    private void validarFechas(LocalDateTime inicio, LocalDateTime fin) throws FechaInvalidaException {
+        if (inicio == null || fin == null) {
+            throw new FechaInvalidaException("Las fechas de inicio y fin no pueden ser nulas");
+        }
+        
+        if (inicio.isBefore(LocalDateTime.now())) {
+            throw new FechaInvalidaException("La fecha de inicio no puede ser en el pasado");
+        }
+        
+        if (fin.isBefore(inicio)) {
+            throw new FechaInvalidaException("La fecha de fin debe ser posterior a la fecha de inicio");
+        }
+    }
+    
+    private void verificarDisponibilidadDoctor(Doctor doctor, LocalDateTime inicio, LocalDateTime fin) 
+            throws DoctorNoDisponibleException {
+        
+        throw new UnsupportedOperationException("Verificación de disponibilidad pendiente");
     }
 }
