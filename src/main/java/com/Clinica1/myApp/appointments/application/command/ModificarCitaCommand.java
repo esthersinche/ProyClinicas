@@ -1,6 +1,7 @@
 package com.Clinica1.myApp.appointments.application.command;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class ModificarCitaCommand {
     private Long citaId;
@@ -18,6 +19,9 @@ public class ModificarCitaCommand {
         this.fin = fin;
         this.doctorId = doctorId;
         this.especialidad = especialidad;
+    }
+
+    public ModificarCitaCommand(UUID citaId, Object motivo, LocalDateTime inicio, LocalDateTime fin) {
     }
 
     public Long getCitaId() {

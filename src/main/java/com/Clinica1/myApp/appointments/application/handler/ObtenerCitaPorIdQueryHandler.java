@@ -7,8 +7,6 @@ import com.Clinica1.myApp.appointments.application.exception.CitaNoEncontradaExc
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Cita;
 import com.Clinica1.myApp.appointments.domain.repository.CitaRepository;
 
-import java.util.UUID;
-
 public class ObtenerCitaPorIdQueryHandler {
     
     private final CitaRepository citaRepository;
@@ -20,8 +18,8 @@ public class ObtenerCitaPorIdQueryHandler {
     }
 
     public CitaDto handle(ObtenerCitaPorIdQuery query) throws CitaNoEncontradaException {
-        Cita cita = citaRepository.findbyId(UUID.fromString(query.getCitaId().toString()));
-        
+        Cita cita = citaRepository.findById(query.getCitaId());
+
         if (cita == null) {
             throw new CitaNoEncontradaException(query.getCitaId());
         }

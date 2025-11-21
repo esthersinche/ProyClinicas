@@ -14,4 +14,5 @@ public interface CitaRepository extends ICRUD<Cita>{
     List<Cita> findbyDates(LocalDateTime fec_search_cita);
     List<Cita> findbyDoctor(String nombre_doc_cita);
 
+    Cita findById(Long citaId);
 }
