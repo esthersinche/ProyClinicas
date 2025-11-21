@@ -32,6 +32,9 @@ public class Paciente {
         this.sexo_pac = sexo_pac;
     }
 
+    public Paciente(String juan, String perez, String number) {
+    }
+
     //metodo builder por la cantidad de parametros
     public static Paciente createpac(String id_pac, String nacionalidad_pac, String dni_pac, String tel_pac,
                                      Email email_pac, Date fec_nac_pac, String sexo_pac){

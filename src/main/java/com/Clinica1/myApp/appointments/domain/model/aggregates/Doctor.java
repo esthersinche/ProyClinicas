@@ -24,6 +24,9 @@ public class Doctor extends Empleado {
         this.especialidades = especialidades;
     }
 
+    public Doctor(String luis, String ramos, Object o) {
+    }
+
     //metodo factory q devuelve instancia valida
     public static Doctor creardoc(String nombre, String apellido, String telefono, Email email, Rol rolemp,
                                   String cmp_doc, String consultorio_doc, List<Especialidad> especialidades){

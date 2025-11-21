@@ -5,10 +5,7 @@ import com.Clinica1.myApp.appointments.domain.model.valueobjects.Canal;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Direccion;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Especialidad;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Estado;
-import org.springframework.cglib.core.Local;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.print.Doc;
 import java.time.LocalDateTime;
 import java.util.Objects;
 

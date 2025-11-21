@@ -59,7 +59,7 @@ public class ModificarCitaCommandHandlerTest {
 
         ModificarCitaCommand cmd = new ModificarCitaCommand(
                 citaId, null,
-                LocalDateTime.now().minusDays(1),  // fecha inválida
+                LocalDateTime.now().minusDays(1),
                 LocalDateTime.now().plusHours(2)
         );
 
@@ -74,7 +74,7 @@ public class ModificarCitaCommandHandlerTest {
         when(citaRepository.findbyId(citaId)).thenReturn(cita);
 
         LocalDateTime inicio = LocalDateTime.now().plusDays(1);
-        LocalDateTime fin = inicio.minusHours(1); // inválido
+        LocalDateTime fin = inicio.minusHours(1);
 
         ModificarCitaCommand cmd = new ModificarCitaCommand(
                 citaId, null, inicio, fin

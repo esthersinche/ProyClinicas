@@ -1,8 +1,7 @@
 package com.Clinica1.myApp.appointments.domain.model.valueobjects;
 
-import java.util.Objects;
-
 public record Especialidad (String nom_espe){
+
     //si se necesita subespecialidad de especialidad tipo electrofisiologia de cardiologia ps creen otra nomas
     public Especialidad{
         if (nom_espe == null || nom_espe.trim().isBlank()){

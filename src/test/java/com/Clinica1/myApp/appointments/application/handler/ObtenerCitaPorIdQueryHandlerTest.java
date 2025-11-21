@@ -57,7 +57,7 @@ public class ObtenerCitaPorIdQueryHandlerTest {
         assertThrows(CitaNoEncontradaException.class, () -> handler.handle(query));
 
         verify(citaRepository).findById(citaId);
-        verifyNoInteractions(citaAssembler); // no debe llamar a assembler
+        verifyNoInteractions(citaAssembler);
     }
 }
 
