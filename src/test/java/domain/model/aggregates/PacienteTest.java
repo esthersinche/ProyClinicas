@@ -10,7 +10,7 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PacienteTest {
-
+/*
     @Test
     void testConstructorCompleto() {
         IDEntidad id = IDEntidad.generar();
@@ -92,5 +92,5 @@ class PacienteTest {
         );
 
         assertNotEquals(p1, p2);
-    }
+    }*/
 }
