@@ -4,15 +4,15 @@ import java.time.LocalDateTime;
 
 public class CitaDto {
     private Long id;
-    private String motivo;
-    private String estado;
-    private String canal;
-    private LocalDateTime inicio;
-    private LocalDateTime fin;
-    private PacienteDto paciente;
-    private DoctorDto doctor;
+    public String motivo;
+    public String estado;
+    public String canal;
+    public LocalDateTime inicio;
+    public LocalDateTime fin;
+    public PacienteDto paciente;
+    public DoctorDto doctor;
     private String clinica;
-    private String especialidad;
+    public String especialidad;
 
     public CitaDto() {
     }
@@ -110,5 +110,41 @@ public class CitaDto {
 
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
+    }
+
+    public PacienteDto paciente() {
+        return null;
+    }
+
+    public String nombreClinica() {
+        return "";
+    }
+
+    public String motivo() {
+        return "";
+    }
+
+    public String estado() {
+        return "";
+    }
+
+    public String canal() {
+        return "";
+    }
+
+    public LocalDateTime inicio() {
+        return null;
+    }
+
+    public LocalDateTime fin() {
+        return null;
+    }
+
+    public String especialidad() {
+        return "";
+    }
+
+    public DoctorDto doctor() {
+        return null;
     }
 }

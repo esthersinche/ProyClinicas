@@ -1,13 +1,14 @@
 package com.Clinica1.myApp.appointments.application.dto;
 
+import java.util.Collection;
 import java.util.List;
 
 public class DoctorDto {
     private Long id;
     private String nombre;
-    private String cmp;
-    private String consultorio;
-    private List<String> especialidades;
+    public String cmp;
+    public String consultorio;
+    public List<String> especialidades;
 
     public DoctorDto() {
     }
@@ -59,5 +60,21 @@ public class DoctorDto {
 
     public void setEspecialidades(List<String> especialidades) {
         this.especialidades = especialidades;
+    }
+
+    public String nombreCompleto() {
+        return "";
+    }
+
+    public String cmp() {
+        return "";
+    }
+
+    public String consultorio() {
+        return "";
+    }
+
+    public Collection<Object> especialidades() {
+        return List.of();
     }
 }

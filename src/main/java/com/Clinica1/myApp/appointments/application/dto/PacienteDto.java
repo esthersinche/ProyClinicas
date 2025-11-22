@@ -2,11 +2,11 @@ package com.Clinica1.myApp.appointments.application.dto;
 
 public class PacienteDto {
     private Long id;
-    private String nombre;
-    private String nacionalidad;
-    private String dni;
-    private String telefono;
-    private String email;
+    public String nombre;
+    public String nacionalidad;
+    public String dni;
+    public String telefono;
+    public String email;
 
     public PacienteDto() {
     }
@@ -67,5 +67,25 @@ public class PacienteDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String nombre() {
+        return "";
+    }
+
+    public String nacionalidad() {
+        return "";
+    }
+
+    public String dni() {
+        return "";
+    }
+
+    public String telefono() {
+        return "";
+    }
+
+    public String email() {
+        return "";
     }
 }
