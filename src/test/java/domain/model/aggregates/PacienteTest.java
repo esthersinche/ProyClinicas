@@ -1,6 +1,6 @@
 package domain.model.aggregates;
 
-import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.Email;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Paciente;
 import org.junit.jupiter.api.Test;
