@@ -1,6 +1,6 @@
 package com.Clinica1.myApp.appointments.domain.model.aggregates;
 
-import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.Email;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
 import java.util.Date;

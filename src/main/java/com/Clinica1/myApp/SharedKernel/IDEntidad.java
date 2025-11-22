@@ -18,7 +18,7 @@ public final class IDEntidad {
     }
 
     public static IDEntidad astring(String idmostlyall){
-        //para q convierta un string a coso
+        //para q convierta un string a coso, reconstruye el uuid q se paso a string xsia
         return new IDEntidad(idmostlyall);
     }
 

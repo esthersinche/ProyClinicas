@@ -56,15 +56,15 @@ public class Empleado {
         return rolemp;
     }
 
-    //instanceof permite que las clases hijas(doctor,admin,recepcionista) sean consideradas iguales
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Empleado empleado)) return false;
-        return Objects.equals(id_emp, empleado.id_emp);
+        if (o == null || getClass() != o.getClass()) return false;
+        Empleado empleado = (Empleado) o;
+        return Objects.equals(getId_emp(), empleado.getId_emp());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id_emp);
+        return Objects.hashCode(getId_emp());
     }
 }
