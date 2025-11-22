@@ -47,4 +47,18 @@ public class RolEntity {
     public void setFunciones(Set<String> funciones) {
         this.funciones = funciones;
     }
+
+    public void setIdRol(String number) {
+    }
+
+    public void setNomRol(String admin) {
+    }
+
+    public String getIdRol() {
+        return "";
+    }
+
+    public String getNomRol() {
+        return "";
+    }
 }

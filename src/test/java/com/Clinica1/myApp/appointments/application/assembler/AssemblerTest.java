@@ -136,11 +136,9 @@ class CitaAssemblerTest {
         assertEquals("Clínica Vida", dto.nombreClinica());
         assertEquals("Neurología", dto.especialidad());
 
-        // nested objects
         assertNotNull(dto.paciente());
         assertNotNull(dto.doctor());
 
-        // verify nested mapping
         assertEquals("Juan Pérez", dto.paciente().nombre());
         assertEquals("Luis Ramos", dto.doctor().nombreCompleto());
     }
