@@ -1,4 +1,4 @@
-package domain.model.aggregates;
+package com.domain.model.aggregates;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Clinica;

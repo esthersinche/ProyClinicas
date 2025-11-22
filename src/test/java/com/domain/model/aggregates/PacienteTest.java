@@ -1,4 +1,4 @@
-package domain.model.aggregates;
+package com.domain.model.aggregates;
 
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
