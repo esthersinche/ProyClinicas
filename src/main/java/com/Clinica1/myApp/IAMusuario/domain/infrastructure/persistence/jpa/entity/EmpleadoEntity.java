@@ -76,4 +76,12 @@ public class EmpleadoEntity {
     public void setRol(RolEntity rol) {
         this.rol = rol;
     }
+
+    public void setNombre(String luis) {
+
+    }
+
+    public void setApellido(String ramos) {
+
+    }
 }

@@ -29,9 +29,9 @@ public class Doctor {//se quita la herencia para q no compartan persistencia
     }
 
 
-    /*
+
     public Doctor(String luis, String ramos, Object o) {
-    }*/
+    }
 
     //metodo factory q devuelve instancia valida
     public static Doctor creardoc(Empleado empleado, String cmp_doc, String consultorio_doc,
@@ -71,5 +71,13 @@ public class Doctor {//se quita la herencia para q no compartan persistencia
     @Override
     public int hashCode() {
         return Objects.hashCode(getId_doc());
+    }
+
+    public String getNombre() {
+        return "";
+    }
+
+    public String getApellido() {
+        return "";
     }
 }
