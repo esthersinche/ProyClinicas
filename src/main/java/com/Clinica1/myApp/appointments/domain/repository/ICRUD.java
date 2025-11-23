@@ -8,9 +8,9 @@ import java.util.UUID;
 public interface ICRUD<T>{
     T insert(T tall);
     T update(T tall);
-    T findbyId(UUID id_all);
+    T findById(IDEntidad id_all);
     List<T> findall();
-    void delete(UUID id_someone);
+    void delete(IDEntidad id_someone);
 
 
 }
