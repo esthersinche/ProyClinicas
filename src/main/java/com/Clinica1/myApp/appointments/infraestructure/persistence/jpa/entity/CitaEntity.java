@@ -41,15 +41,21 @@ public class CitaEntity {
     private LocalDateTime fin_cita;//luego cambiar a VO
 
     //otros
+    @Column(name = "pac_id", nullable = false)
+    private String pac_id;
+
+    @Column(name = "doc_id", nullable = false)
+    private String doc_id;
 
     @Embedded
-    private Pac_info_cita pac_info;
+    private Pac_info_cita_embeddable pac_info;
 
     @Embedded
-    private Doc_info_cita doc_info;
+    private Doc_info_cita_embeddable doc_info;
     //private Paciente inst_pac; //nombres, dni
     //private Doctor inst_doctor; //nombre, especialidad, consultorio por ahora
-    //private Especialidad espe_cita;// por si acaso
+    @Embedded
+    private EspecialidadEmbeddable espe_cita;// por si acaso
     /*
     private Clinica inst_clin; //nombre
     private Direccion dir_clin_cita;*/

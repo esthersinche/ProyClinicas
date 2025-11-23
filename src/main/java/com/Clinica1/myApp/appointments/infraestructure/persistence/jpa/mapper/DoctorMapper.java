@@ -24,7 +24,7 @@ public class DoctorMapper {
         List<Especialidad> listacambiada= doc_ent.getEspecialidades().stream()
                 .map(espe_map::ToDomain).toList();
         return new Doctor(IDEntidad.astring(doc_ent.getId_doc()), IDEntidad.astring(doc_ent.getId_empleado_doc()),
-                doc_ent.getCmp_doc(), doc_ent.getConsultorio_doc(), listacambiada);
+                doc_ent.getNom_com_doc(), doc_ent.getCmp_doc(), doc_ent.getConsultorio_doc(), listacambiada);
     }
 
     public DoctorEntity ToEntity(Doctor doc){
@@ -32,6 +32,7 @@ public class DoctorMapper {
                 .map(espe_map::ToEntity).toList();
         return DoctorEntity.builder().id_doc(doc.getId_doc().obtenerid())
                 .id_empleado_doc(doc.getId_empleado_doc().obtenerid())
+                .nom_com_doc(doc.getNom_com_doc())
                 .cmp_doc(doc.getCmp_doc())
                 .consultorio_doc(doc.getConsultorio_doc())
                 .especialidades(listacambiada2)
