@@ -30,6 +30,7 @@ public class Doctor {//se quita la herencia para q no compartan persistencia
         this.consultorio_doc = consultorio_doc;
         this.especialidades = especialidades;
     }
+  
     /*
     public Doctor(String luis, String ramos, Object o) {
     }*/
@@ -77,4 +78,13 @@ public class Doctor {//se quita la herencia para q no compartan persistencia
     public int hashCode() {
         return Objects.hashCode(getId_doc());
     }
+
+  /*
+    public String getNombre() {
+        return "";
+    }
+
+    public String getApellido() {
+        return "";
+    }*/
 }
