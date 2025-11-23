@@ -84,4 +84,11 @@ public class CrearUsuarioRequest {
     public void setRol(String rol) {
         this.rol = rol;
     }
+
+    public void setNombre(String juan) {
+    }
+
+    public void setApellido(String lopez) {
+
+    }
 }
