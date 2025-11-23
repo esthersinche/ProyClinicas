@@ -1,9 +1,9 @@
 package com.IAMusuario.adapter;
 
-import com.Clinica1.myApp.IAMusuario.domain.infrastructure.persistence.jpa.adapter.UsuarioRepositoryAdapter;
-import com.Clinica1.myApp.IAMusuario.domain.infrastructure.persistence.jpa.entity.UsuarioEntity;
-import com.Clinica1.myApp.IAMusuario.domain.infrastructure.persistence.jpa.mapper.UsuarioMapper;
-import com.Clinica1.myApp.IAMusuario.domain.infrastructure.persistence.jpa.repository.JPAUsuarioRepository;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.adapter.UsuarioRepositoryAdapter;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioEntity;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper.UsuarioMapper;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.repository.JPAUsuarioRepository;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Usuario;
 
 import org.junit.jupiter.api.BeforeEach;

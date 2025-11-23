@@ -1,4 +1,4 @@
-package com.Clinica1.myApp.IAMusuario.domain.infrastructure.persistence.jpa.entity;
+package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity;
 
 import jakarta.persistence.*;
 

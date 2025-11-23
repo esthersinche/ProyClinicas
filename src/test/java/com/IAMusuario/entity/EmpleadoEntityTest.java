@@ -1,7 +1,7 @@
 package com.IAMusuario.entity;
 
-import com.Clinica1.myApp.IAMusuario.domain.infrastructure.persistence.jpa.entity.EmpleadoEntity;
-import com.Clinica1.myApp.IAMusuario.domain.infrastructure.persistence.jpa.entity.RolEntity;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.EmpleadoEntity;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.RolEntity;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

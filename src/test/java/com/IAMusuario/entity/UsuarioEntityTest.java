@@ -1,7 +1,7 @@
 package com.IAMusuario.entity;
 
-import com.Clinica1.myApp.IAMusuario.domain.infrastructure.persistence.jpa.entity.EmpleadoEntity;
-import com.Clinica1.myApp.IAMusuario.domain.infrastructure.persistence.jpa.entity.UsuarioEntity;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.EmpleadoEntity;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

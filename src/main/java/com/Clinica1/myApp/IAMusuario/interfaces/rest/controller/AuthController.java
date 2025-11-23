@@ -1,10 +1,10 @@
-package com.Clinica1.myApp.IAMusuario.domain.interfaces.rest.controller;
+package com.Clinica1.myApp.IAMusuario.interfaces.rest.controller;
 
 import com.Clinica1.myApp.IAMusuario.domain.exception.CredencialesInvalidasException;
-import com.Clinica1.myApp.IAMusuario.domain.interfaces.rest.dto.request.CrearUsuarioRequest;
-import com.Clinica1.myApp.IAMusuario.domain.interfaces.rest.dto.request.LoginRequest;
-import com.Clinica1.myApp.IAMusuario.domain.interfaces.rest.dto.response.TokenResponse;
-import com.Clinica1.myApp.IAMusuario.domain.interfaces.rest.mapper.UsuarioRequestMapper;
+import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.CrearUsuarioRequest;
+import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.LoginRequest;
+import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.response.TokenResponse;
+import com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper.UsuarioRequestMapper;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Usuario;
 import com.Clinica1.myApp.IAMusuario.domain.repository.UsuarioRepository;
 import org.springframework.http.HttpStatus;

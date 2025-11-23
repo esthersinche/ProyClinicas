@@ -1,6 +1,6 @@
 package com.IAMusuario.interfaces.response;
 
-import com.Clinica1.myApp.IAMusuario.domain.interfaces.rest.dto.response.TokenResponse;
+import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.response.TokenResponse;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

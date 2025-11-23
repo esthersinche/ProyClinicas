@@ -1,8 +1,8 @@
-package com.Clinica1.myApp.IAMusuario.domain.infrastructure.persistence.jpa.mapper;
+package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper;
 
-import com.Clinica1.myApp.IAMusuario.domain.infrastructure.persistence.jpa.entity.EmpleadoEntity;
-import com.Clinica1.myApp.IAMusuario.domain.infrastructure.persistence.jpa.entity.RolEntity;
-import com.Clinica1.myApp.IAMusuario.domain.infrastructure.persistence.jpa.entity.UsuarioEntity;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.EmpleadoEntity;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.RolEntity;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioEntity;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Usuario;

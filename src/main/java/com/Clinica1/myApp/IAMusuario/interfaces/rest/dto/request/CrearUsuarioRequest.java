@@ -1,4 +1,4 @@
-package com.Clinica1.myApp.IAMusuario.domain.interfaces.rest.dto.request;
+package com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

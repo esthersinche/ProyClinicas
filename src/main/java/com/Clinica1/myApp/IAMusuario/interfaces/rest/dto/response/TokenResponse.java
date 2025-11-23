@@ -1,4 +1,4 @@
-package com.Clinica1.myApp.IAMusuario.domain.interfaces.rest.dto.response;
+package com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.response;
 
 public class TokenResponse {
 

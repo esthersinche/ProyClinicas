@@ -1,7 +1,7 @@
 package com.IAMusuario.interfaces.exception;
 
 import com.Clinica1.myApp.IAMusuario.domain.exception.CredencialesInvalidasException;
-import com.Clinica1.myApp.IAMusuario.domain.interfaces.rest.exception.GlobalExceptionHandler;
+import com.Clinica1.myApp.IAMusuario.interfaces.rest.exception.GlobalExceptionHandler;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
