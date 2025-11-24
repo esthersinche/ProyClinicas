@@ -2,6 +2,7 @@ package com.Clinica1.myApp.appointments.interfaces.rest.controller;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.appointments.application.command.CrearCitaCommand;
+import com.Clinica1.myApp.appointments.application.dto.CitaDto;
 import com.Clinica1.myApp.appointments.application.handler.CrearCitaCommandHandler;
 import com.Clinica1.myApp.appointments.interfaces.rest.dto.request.CrearCitaRequest;
 import com.Clinica1.myApp.appointments.interfaces.rest.dto.response.CrearCitaResponse;
@@ -27,32 +28,28 @@ public class CitaController {
     @PostMapping
     public ResponseEntity<CrearCitaResponse> crearCita(@Valid @RequestBody CrearCitaRequest request) {
         try {
-            // Mapear request a command
-            CrearCitaCommand command = citaReqMapper.toCommand(request);
+            //Mapear request a command
+            CrearCitaCommand command = citaReqMapper.ToCommand(request);
 
-            // Llamar al handler
+            //Llamar al handler
             CitaDto citaDto = crearCitaHandler.handle(command);
 
-            // Mapear CitaDto a response
-            CrearCitaResponse response = new CrearCitaResponse(
-                    citaDto.getId(),
-                    citaDto.getMotivo(),
-                    citaDto.getEstado(),
-                    citaDto.getCanal(),
-                    citaDto.getInicio(),
-                    citaDto.getFin(),
-                    citaDto.getPaciente(),
-                    citaDto.getDoctor(),
-                    citaDto.getEspecialidad()
-            );
+            //Mapear CitaDto a response
+            CrearCitaResponse response = CrearCitaResponse.builder()
+                    .cita_id(citaDto.getId())
+                    .message_cita("Cita creada exitosamente")
+                    .build();
 
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {
-            //manejo d errores generico
-            return ResponseEntity.badRequest().body(
-                    new CrearCitaResponse("Error: " + e.getMessage())
-            );
+            //Respuesta de error
+            CrearCitaResponse errorResponse = CrearCitaResponse.builder()
+                    .cita_id(null)
+                    .message_cita("Error: " + e.getMessage())
+                    .build();
+
+            return ResponseEntity.badRequest().body(errorResponse);
         }
     }
 }
