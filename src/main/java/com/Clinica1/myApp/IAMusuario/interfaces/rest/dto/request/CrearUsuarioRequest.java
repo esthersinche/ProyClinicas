@@ -3,6 +3,8 @@ package com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.UUID;
+
 public class CrearUsuarioRequest {
 
     @NotBlank(message = "El username es obligatorio")
@@ -90,5 +92,9 @@ public class CrearUsuarioRequest {
 
     public void setApellido(String lopez) {
 
+    }
+
+    public UUID idEmpleado() {
+        return null;
     }
 }

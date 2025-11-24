@@ -67,4 +67,8 @@ public class Empleado {
     public int hashCode() {
         return Objects.hashCode(getId_emp());
     }
+
+    public Empleado orElseThrow(Object empleadoNoEncontrado) {
+        return null;
+    }
 }

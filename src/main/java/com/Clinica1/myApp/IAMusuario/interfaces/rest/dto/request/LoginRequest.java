@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 public class LoginRequest {
 
     @NotBlank(message = "El username es obligatorio")
-    private String username;
+    public String username;
 
     @NotBlank(message = "La contraseña es obligatoria")
     private String password;
@@ -27,5 +27,9 @@ public class LoginRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String username() {
+        return "";
     }
 }
