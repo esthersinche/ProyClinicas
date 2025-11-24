@@ -34,7 +34,6 @@ public class CitaAssembler {
     // ------- SOLO LA INFO RESUMIDA DEL PACIENTE -------
     public PacienteInfoDto toPacienteInfoDto(Pac_info_cita pac) {
         if (pac == null) return null;
-
         return new PacienteInfoDto(
                 pac.nomb_com_pac(),
                 pac.dni_pac()
