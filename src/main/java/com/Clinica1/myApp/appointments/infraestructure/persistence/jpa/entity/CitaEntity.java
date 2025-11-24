@@ -32,11 +32,9 @@ public class CitaEntity {
     @Column(name = "canal_cita", nullable = false, length = 10)
     private String canal_cita;
 
-    @Temporal(TemporalType.TIMESTAMP)//fecha y hr
     @Column(name = "inicio_cita", nullable = false)
     private LocalDateTime inicio_cita; //cambiar a date y hora typeshi, luego cambiar a VO
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fin_cita", nullable = false)
     private LocalDateTime fin_cita;//luego cambiar a VO
 

@@ -41,6 +41,11 @@ public class PacienteEntity {
     @Column(name = "fec_nac_pac", nullable = false)
     private Date fec_nac_pac;
 
-    @Column(name = "dni_pac", nullable = false, length = 10)
+    @Column(name = "sexo_pac", nullable = false, length = 10)
     private String sexo_pac;
+    /*porsia
+    @ManyToOne
+    @JoinColumn(name = "clin_id")
+    private ClinicaEntity clinica;
+    * */
 }

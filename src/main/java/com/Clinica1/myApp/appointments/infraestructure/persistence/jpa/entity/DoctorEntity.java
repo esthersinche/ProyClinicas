@@ -26,7 +26,7 @@ public class DoctorEntity {
     //diferente
 
     @Column(name = "nom_com_doc", nullable = false)
-    private NombreCompleto nom_com_doc;
+    private NombreCompletoEmbeddable nom_com_doc;
 
     @Column(name= "cmp_doc", nullable = false)
     private String cmp_doc;
@@ -40,6 +40,10 @@ public class DoctorEntity {
     @CollectionTable(name = "especialidades", joinColumns = @JoinColumn(name = "id_doc"))//usado con el de arriba para
     //dar nombre a la tabla, columna relacionada
     private List<EspecialidadEmbeddable> especialidades;
+
+    /* @ManyToOne
+    @JoinColumn(name = "clin_id")
+    private ClinicaEntity clinica;*/
 
 
 }

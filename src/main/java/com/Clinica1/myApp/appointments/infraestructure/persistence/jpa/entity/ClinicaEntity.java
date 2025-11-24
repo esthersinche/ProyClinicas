@@ -28,17 +28,9 @@ public class ClinicaEntity {
     @Embedded
     private DireccionEmbeddable dir_clin;
 
-    //persistir listas de VO
-    @ElementCollection//anotacion q mapea una coleccion de basicos u objetos embeddable a una tabla separada en la bd
-    //mapear non-entities
-    @CollectionTable(name = "doctorescli", joinColumns = @JoinColumn(name = "id_cli"))//usado con el de arriba para
-    //dar nombre a la tabla, columna relacionada
+    @OneToMany(mappedBy = "clinica")
     private List<DoctorEntity> doctorescli;
 
-    //persistir listas de VO
-    @ElementCollection//anotacion q mapea una coleccion de basicos u objetos embeddable a una tabla separada en la bd
-    //mapear non-entities
-    @CollectionTable(name = "pacientescli", joinColumns = @JoinColumn(name = "id_cli"))//usado con el de arriba para
-    //dar nombre a la tabla, columna relacionada
+    @OneToMany(mappedBy = "clinica")
     private List<PacienteEntity> pacientescli;
 }

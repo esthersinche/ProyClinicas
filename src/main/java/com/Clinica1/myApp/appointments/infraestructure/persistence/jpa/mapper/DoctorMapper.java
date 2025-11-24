@@ -13,10 +13,14 @@ import java.util.List;
 public class DoctorMapper {
 
     private EspecialidadesMapper espe_map;
+    private NombreCompletoMapper nom_com_map;
 
     //inyeccion
-    public DoctorMapper(EspecialidadesMapper espe_map) {
+
+
+    public DoctorMapper(EspecialidadesMapper espe_map, NombreCompletoMapper nom_com_map) {
         this.espe_map = espe_map;
+        this.nom_com_map = nom_com_map;
     }
 
     public Doctor ToDomain(DoctorEntity doc_ent){
@@ -26,7 +30,7 @@ public class DoctorMapper {
         return new Doctor(
                 IDEntidad.astring(doc_ent.getId_empleado_doc()), // primero VA EL ID_EMPLEADO
                 IDEntidad.astring(doc_ent.getId_doc()),          // segundo VA EL ID_DEL_DOCTOR
-                doc_ent.getNom_com_doc(),
+                nom_com_map.ToDomain(doc_ent.getNom_com_doc()),
                 doc_ent.getCmp_doc(),
                 doc_ent.getConsultorio_doc(),
                 listacambiada
@@ -38,7 +42,7 @@ public class DoctorMapper {
                 .map(espe_map::ToEntity).toList();
         return DoctorEntity.builder().id_doc(doc.getId_doc().obtenerid())
                 .id_empleado_doc(doc.getId_empleado_doc().obtenerid())
-                .nom_com_doc(doc.getNom_com_doc())
+                .nom_com_doc(nom_com_map.ToEmbeddable(doc.getNom_com_doc()))
                 .cmp_doc(doc.getCmp_doc())
                 .consultorio_doc(doc.getConsultorio_doc())
                 .especialidades(listacambiada2)
