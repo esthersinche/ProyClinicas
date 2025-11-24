@@ -24,8 +24,8 @@ public class DoctorMapper {
         List<Especialidad> listacambiada = doc_ent.getEspecialidades().stream()
                 .map(espe_map::ToDomain).toList();
         return new Doctor(
-                IDEntidad.astring(doc_ent.getId_empleado_doc()), // ✔ primero VA EL ID_EMPLEADO
-                IDEntidad.astring(doc_ent.getId_doc()),          // ✔ segundo VA EL ID_DEL_DOCTOR
+                IDEntidad.astring(doc_ent.getId_empleado_doc()), // primero VA EL ID_EMPLEADO
+                IDEntidad.astring(doc_ent.getId_doc()),          // segundo VA EL ID_DEL_DOCTOR
                 doc_ent.getNom_com_doc(),
                 doc_ent.getCmp_doc(),
                 doc_ent.getConsultorio_doc(),

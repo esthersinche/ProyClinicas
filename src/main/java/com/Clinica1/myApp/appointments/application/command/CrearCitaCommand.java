@@ -1,9 +1,10 @@
 package com.Clinica1.myApp.appointments.application.command;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
-
+@Builder
 public class CrearCitaCommand {
     private String motivo;
     private String canal;

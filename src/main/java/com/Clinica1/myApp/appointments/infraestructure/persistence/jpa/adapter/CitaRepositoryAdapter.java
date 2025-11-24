@@ -39,6 +39,7 @@ public class CitaRepositoryAdapter implements CitaRepository {
                 .stream().map(cit_map::ToDomain).collect(Collectors.toList());
     }
 
+    //especialidad
     @Override
     public List<Cita> findbyEspecialidad(String nom_espe){
         return citadao.findByEspecialidad(nom_espe)

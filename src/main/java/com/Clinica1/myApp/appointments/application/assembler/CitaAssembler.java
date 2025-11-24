@@ -4,10 +4,12 @@ import com.Clinica1.myApp.appointments.application.dto.*;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Cita;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Doctor;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Paciente;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.Canal;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Doc_info_cita;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Especialidad;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Pac_info_cita;
 
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 public class CitaAssembler {
