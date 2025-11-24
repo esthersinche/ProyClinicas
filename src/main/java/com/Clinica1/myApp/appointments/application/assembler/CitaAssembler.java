@@ -49,4 +49,32 @@ public class CitaAssembler {
                 doc.consult_doc()
         );
     }
+
+    public Pac_info_cita toPacInfoCita(PacienteInfoDto dto) {
+        if (dto == null) return null;
+        return new Pac_info_cita(dto.getNombre(), dto.getDni());
+    }
+
+    public Doc_info_cita toDocInfoCita(DoctorInfoDto dto) {
+        if (dto == null) return null;
+        return Doc_info_cita.of(dto.getNombre(), dto.getEspecialidad(), dto.getConsultorio());
+    }
+
+    public Especialidad toEspecialidad(String nombreEspe) {
+        if (nombreEspe == null || nombreEspe.isBlank()) return null;
+        return Especialidad.of(nombreEspe);
+    }
+
+    public Cita toCita(String motivo, String canal, LocalDateTime inicio, LocalDateTime fin,
+                       Paciente paciente, Doctor doctor, String nombreEspecialidad) {
+        return Cita.crearcita(
+                motivo,
+                Canal.valueOf(canal),
+                inicio,
+                fin,
+                paciente,
+                doctor,
+                toEspecialidad(nombreEspecialidad)
+        );
+    }
 }
