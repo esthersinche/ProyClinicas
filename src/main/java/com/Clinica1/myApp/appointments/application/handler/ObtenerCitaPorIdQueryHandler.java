@@ -6,9 +6,10 @@ import com.Clinica1.myApp.appointments.application.assembler.CitaAssembler;
 import com.Clinica1.myApp.appointments.application.exception.CitaNoEncontradaException;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Cita;
 import com.Clinica1.myApp.appointments.domain.repository.CitaRepository;
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
 public class ObtenerCitaPorIdQueryHandler {
-    
+
     private final CitaRepository citaRepository;
     private final CitaAssembler citaAssembler;
 
@@ -18,12 +19,15 @@ public class ObtenerCitaPorIdQueryHandler {
     }
 
     public CitaDto handle(ObtenerCitaPorIdQuery query) throws CitaNoEncontradaException {
-        Cita cita = citaRepository.findById(query.getCitaId());
+
+        IDEntidad id = IDEntidad.astring(query.getCitaId());
+
+        Cita cita = citaRepository.findById(id);
 
         if (cita == null) {
             throw new CitaNoEncontradaException(query.getCitaId());
         }
-        
+
         return citaAssembler.toDto(cita);
     }
 }

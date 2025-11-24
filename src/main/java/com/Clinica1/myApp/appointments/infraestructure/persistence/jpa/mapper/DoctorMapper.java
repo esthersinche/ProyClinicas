@@ -21,10 +21,16 @@ public class DoctorMapper {
 
     public Doctor ToDomain(DoctorEntity doc_ent){
         //cambiar de especialidadesembbedable a especialidades
-        List<Especialidad> listacambiada= doc_ent.getEspecialidades().stream()
+        List<Especialidad> listacambiada = doc_ent.getEspecialidades().stream()
                 .map(espe_map::ToDomain).toList();
-        return new Doctor(IDEntidad.astring(doc_ent.getId_doc()), IDEntidad.astring(doc_ent.getId_empleado_doc()),
-                doc_ent.getNom_com_doc(), doc_ent.getCmp_doc(), doc_ent.getConsultorio_doc(), listacambiada);
+        return new Doctor(
+                IDEntidad.astring(doc_ent.getId_empleado_doc()), // ✔ primero VA EL ID_EMPLEADO
+                IDEntidad.astring(doc_ent.getId_doc()),          // ✔ segundo VA EL ID_DEL_DOCTOR
+                doc_ent.getNom_com_doc(),
+                doc_ent.getCmp_doc(),
+                doc_ent.getConsultorio_doc(),
+                listacambiada
+        );
     }
 
     public DoctorEntity ToEntity(Doctor doc){

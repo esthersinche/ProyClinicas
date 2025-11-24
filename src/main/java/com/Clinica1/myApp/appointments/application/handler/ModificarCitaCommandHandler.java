@@ -1,5 +1,6 @@
 package com.Clinica1.myApp.appointments.application.handler;
 
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.appointments.application.command.ModificarCitaCommand;
 import com.Clinica1.myApp.appointments.application.dto.CitaDto;
 import com.Clinica1.myApp.appointments.application.exception.FechaInvalidaException;
@@ -12,7 +13,6 @@ import com.Clinica1.myApp.appointments.domain.repository.CitaRepository;
 import com.Clinica1.myApp.appointments.domain.repository.DoctorRepository;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class ModificarCitaCommandHandler {
     
@@ -20,32 +20,48 @@ public class ModificarCitaCommandHandler {
     private final DoctorRepository doctorRepository;
     private final CitaAssembler citaAssembler;
 
-    public ModificarCitaCommandHandler(CitaRepository citaRepository, DoctorRepository doctorRepository,
-                                      CitaAssembler citaAssembler) {
+    public ModificarCitaCommandHandler(CitaRepository citaRepository,
+                                       DoctorRepository doctorRepository,
+                                       CitaAssembler citaAssembler) {
         this.citaRepository = citaRepository;
         this.doctorRepository = doctorRepository;
         this.citaAssembler = citaAssembler;
     }
 
-    public CitaDto handle(ModificarCitaCommand command) throws FechaInvalidaException, CitaNoEncontradaException, DoctorNoDisponibleException {
-        Cita cita = citaRepository.findbyId(UUID.fromString(command.getCitaId().toString()));
-        
+    public CitaDto handle(ModificarCitaCommand command)
+            throws FechaInvalidaException, CitaNoEncontradaException, DoctorNoDisponibleException {
+
+        IDEntidad citaId = command.getCitaId();
+
+        Cita cita = citaRepository.findById(citaId);
         if (cita == null) {
-            throw new CitaNoEncontradaException(command.getCitaId());
+            throw new CitaNoEncontradaException("No existe la cita con ID: " + command.getCitaId());
         }
-        
+
         validarFechas(command.getInicio(), command.getFin());
-        
+
+        // Cambio de doctor
         if (command.getDoctorId() != null) {
-            Doctor doctor = doctorRepository.findbyId(UUID.fromString(command.getDoctorId().toString()));
+
+            IDEntidad doctorId = command.getDoctorId();
+            Doctor doctor = doctorRepository.findById(doctorId);
+
             if (doctor == null) {
-                throw new CitaNoEncontradaException("Doctor no encontrado con ID: " + command.getDoctorId());
+                throw new DoctorNoDisponibleException("El doctor no existe: " + command.getDoctorId());
             }
+
             verificarDisponibilidadDoctor(doctor, command.getInicio(), command.getFin());
+            cita.setInst_doctor(doctor);
         }
-        
+
+        cita.modificar(
+                command.getMotivo(),
+                command.getInicio(),
+                command.getFin()
+        );
+
         Cita citaActualizada = citaRepository.update(cita);
-        
+
         return citaAssembler.toDto(citaActualizada);
     }
     
@@ -65,7 +81,6 @@ public class ModificarCitaCommandHandler {
     
     private void verificarDisponibilidadDoctor(Doctor doctor, LocalDateTime inicio, LocalDateTime fin) 
             throws DoctorNoDisponibleException {
-        
         throw new UnsupportedOperationException("Verificación de disponibilidad pendiente");
     }
 }

@@ -1,15 +1,17 @@
 package com.Clinica1.myApp.appointments.application.command;
 
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
+
 public class CancelarCitaCommand {
-    private Long citaId;
+    private IDEntidad citaId;
     private String motivoCancelacion;
 
-    public CancelarCitaCommand(Long citaId, String motivoCancelacion) {
+    public CancelarCitaCommand(IDEntidad citaId, String motivoCancelacion) {
         this.citaId = citaId;
         this.motivoCancelacion = motivoCancelacion;
     }
 
-    public Long getCitaId() {
+    public IDEntidad getCitaId() {
         return citaId;
     }
 

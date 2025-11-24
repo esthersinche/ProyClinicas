@@ -1,5 +1,6 @@
 package com.Clinica1.myApp.appointments.application.handler;
 
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.appointments.application.command.CrearCitaCommand;
 import com.Clinica1.myApp.appointments.application.dto.CitaDto;
 import com.Clinica1.myApp.appointments.application.exception.FechaInvalidaException;
@@ -17,7 +18,7 @@ import com.Clinica1.myApp.appointments.domain.repository.DoctorRepository;
 import com.Clinica1.myApp.appointments.domain.repository.PacienteRepository;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
+
 
 public class CrearCitaCommandHandler {
     
@@ -34,37 +35,35 @@ public class CrearCitaCommandHandler {
         this.citaAssembler = citaAssembler;
     }
 
-    public CitaDto handle(CrearCitaCommand command) throws FechaInvalidaException, DoctorNoDisponibleException, CitaNoEncontradaException {
+    public CitaDto handle(CrearCitaCommand command)
+            throws FechaInvalidaException, DoctorNoDisponibleException, CitaNoEncontradaException {
+
         validarFechas(command.getInicio(), command.getFin());
-        
-        Paciente paciente = pacienteRepository.findbyId(UUID.fromString(command.getPacienteId().toString()));
-        if (paciente == null) {
-            throw new CitaNoEncontradaException("Paciente no encontrado con ID: " + command.getPacienteId());
-        }
-        
-        Doctor doctor = doctorRepository.findbyId(UUID.fromString(command.getDoctorId().toString()));
-        if (doctor == null) {
-            throw new CitaNoEncontradaException("Doctor no encontrado con ID: " + command.getDoctorId());
-        }
-        
+
+        Paciente paciente = pacienteRepository.findById(command.getPacienteId());
+
+        if (paciente == null)
+            throw new CitaNoEncontradaException("Paciente no encontrado: " + command.getPacienteId());
+
+        Doctor doctor = doctorRepository.findById(command.getDoctorId());
+
+        if (doctor == null)
+            throw new CitaNoEncontradaException("Doctor no encontrado: " + command.getDoctorId());
+
         verificarDisponibilidadDoctor(doctor, command.getInicio(), command.getFin());
-        
-        Clinica clinica = new Clinica();
-        
+
         Cita cita = Cita.crearcita(
-            command.getMotivo(),
-            Canal.valueOf(command.getCanal()),
-            command.getInicio(),
-            command.getFin(),
-            paciente,
-            doctor,
-            Especialidad.of(command.getEspecialidad()),
-            clinica,
-            null
+                command.getMotivo(),
+                Canal.valueOf(command.getCanal()),
+                command.getInicio(),
+                command.getFin(),
+                paciente,
+                doctor,
+                Especialidad.of(command.getEspecialidad())
         );
-        
+
         Cita citaGuardada = citaRepository.insert(cita);
-        
+
         return citaAssembler.toDto(citaGuardada);
     }
     

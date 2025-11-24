@@ -1,5 +1,7 @@
 package com.Clinica1.myApp.appointments.application.command;
 
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
+
 import java.time.LocalDateTime;
 
 public class CrearCitaCommand {
@@ -7,13 +9,13 @@ public class CrearCitaCommand {
     private String canal;
     private LocalDateTime inicio;
     private LocalDateTime fin;
-    private Long pacienteId;
-    private Long doctorId;
-    private Long clinicaId;
+    private IDEntidad pacienteId;
+    private IDEntidad doctorId;
+    private IDEntidad clinicaId;
     private String especialidad;
 
-    public CrearCitaCommand(String motivo, String canal, LocalDateTime inicio, LocalDateTime fin, 
-                           Long pacienteId, Long doctorId, Long clinicaId, String especialidad) {
+    public CrearCitaCommand(String motivo, String canal, LocalDateTime inicio, LocalDateTime fin,
+                            IDEntidad pacienteId, IDEntidad doctorId, IDEntidad clinicaId, String especialidad) {
         this.motivo = motivo;
         this.canal = canal;
         this.inicio = inicio;
@@ -40,15 +42,15 @@ public class CrearCitaCommand {
         return fin;
     }
 
-    public Long getPacienteId() {
+    public IDEntidad getPacienteId() {
         return pacienteId;
     }
 
-    public Long getDoctorId() {
+    public IDEntidad getDoctorId() {
         return doctorId;
     }
 
-    public Long getClinicaId() {
+    public IDEntidad getClinicaId() {
         return clinicaId;
     }
 

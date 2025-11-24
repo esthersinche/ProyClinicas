@@ -1,13 +1,13 @@
 package com.Clinica1.myApp.appointments.application.query;
 
 public class ObtenerCitaPorIdQuery {
-    private Long citaId;
+    private String citaId;
 
-    public ObtenerCitaPorIdQuery(Long citaId) {
+    public ObtenerCitaPorIdQuery(String citaId) {
         this.citaId = citaId;
     }
 
-    public Long getCitaId() {
+    public String getCitaId() {
         return citaId;
     }
 }

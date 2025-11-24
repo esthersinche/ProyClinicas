@@ -12,5 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class DireccionEmbeddable {
-
+    private String avenida;
+    private String calle;
+    private String distrito;
+    private String pais;
 }

@@ -1,20 +1,21 @@
 package com.Clinica1.myApp.appointments.application.dto;
 
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import java.util.Collection;
 import java.util.List;
 
 public class DoctorDto {
-    private Long id;
+    private String  id;
     private String nombre;
-    public String cmp;
-    public String consultorio;
-    public List<String> especialidades;
+    private String cmp;
+    private String consultorio;
+    private List<String> especialidades;
 
     public DoctorDto() {
     }
 
-    public DoctorDto(Long id, String nombre, String cmp, String consultorio, 
-                    List<String> especialidades) {
+    public DoctorDto(String  id, String nombre, String cmp, String consultorio,
+                     List<String> especialidades) {
         this.id = id;
         this.nombre = nombre;
         this.cmp = cmp;
@@ -22,11 +23,11 @@ public class DoctorDto {
         this.especialidades = especialidades;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -61,6 +62,7 @@ public class DoctorDto {
     public void setEspecialidades(List<String> especialidades) {
         this.especialidades = especialidades;
     }
+
 
     public String nombreCompleto() {
         return "";

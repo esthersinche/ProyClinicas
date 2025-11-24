@@ -112,4 +112,23 @@ public class Cita {
     public int hashCode() {
         return Objects.hashCode(getId_cita());
     }
+
+    public void setInst_doctor(Doctor doctor) {
+        this.doc_id = doctor.getId_doc();
+        this.inst_doctor = new Doc_info_cita(
+                doctor.getNom_com_doc().completar(),
+                doctor.getEspecialidades().get(0).nom_espe(),
+                doctor.getConsultorio_doc()
+        );
+    }
+
+    public void modificar(String motivo_cita, LocalDateTime inicio_cita, LocalDateTime fin_cita) {
+        this.motivo_cita = motivo_cita;
+        this.inicio_cita = inicio_cita;
+        this.fin_cita = fin_cita;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.espe_cita = especialidad;
+    }
 }

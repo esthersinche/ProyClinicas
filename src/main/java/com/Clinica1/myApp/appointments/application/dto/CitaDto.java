@@ -3,23 +3,23 @@ package com.Clinica1.myApp.appointments.application.dto;
 import java.time.LocalDateTime;
 
 public class CitaDto {
-    private Long id;
+    private String  id;
     public String motivo;
     public String estado;
     public String canal;
     public LocalDateTime inicio;
     public LocalDateTime fin;
-    public PacienteDto paciente;
-    public DoctorDto doctor;
+    public PacienteInfoDto  paciente;
+    public DoctorInfoDto  doctor;
     private String clinica;
     public String especialidad;
 
     public CitaDto() {
     }
 
-    public CitaDto(Long id, String motivo, String estado, String canal, 
-                   LocalDateTime inicio, LocalDateTime fin, PacienteDto paciente, 
-                   DoctorDto doctor, String clinica, String especialidad) {
+    public CitaDto(String id, String motivo, String estado, String canal,
+                   LocalDateTime inicio, LocalDateTime fin, PacienteInfoDto paciente,
+                   DoctorInfoDto  doctor, String clinica, String especialidad) {
         this.id = id;
         this.motivo = motivo;
         this.estado = estado;
@@ -32,11 +32,11 @@ public class CitaDto {
         this.especialidad = especialidad;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -80,19 +80,19 @@ public class CitaDto {
         this.fin = fin;
     }
 
-    public PacienteDto getPaciente() {
+    public PacienteInfoDto getPaciente() {
         return paciente;
     }
 
-    public void setPaciente(PacienteDto paciente) {
+    public void setPaciente(PacienteInfoDto paciente) {
         this.paciente = paciente;
     }
 
-    public DoctorDto getDoctor() {
+    public DoctorInfoDto  getDoctor() {
         return doctor;
     }
 
-    public void setDoctor(DoctorDto doctor) {
+    public void setDoctor(DoctorInfoDto  doctor) {
         this.doctor = doctor;
     }
 
@@ -112,39 +112,5 @@ public class CitaDto {
         this.especialidad = especialidad;
     }
 
-    public PacienteDto paciente() {
-        return null;
-    }
 
-    public String nombreClinica() {
-        return "";
-    }
-
-    public String motivo() {
-        return "";
-    }
-
-    public String estado() {
-        return "";
-    }
-
-    public String canal() {
-        return "";
-    }
-
-    public LocalDateTime inicio() {
-        return null;
-    }
-
-    public LocalDateTime fin() {
-        return null;
-    }
-
-    public String especialidad() {
-        return "";
-    }
-
-    public DoctorDto doctor() {
-        return null;
-    }
 }

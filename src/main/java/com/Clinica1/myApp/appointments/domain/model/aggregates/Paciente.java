@@ -32,16 +32,10 @@ public class Paciente {
         this.sexo_pac = sexo_pac;
     }
 
-    public Paciente(String juan, String perez, String number) {
-    }
-
-    public Paciente(IDEntidad generar, String juanPérez, String peruana, String number, String number1, com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email email, Date fecNacPac, String masculino) {
-    }
-
     //metodo builder por la cantidad de parametros
-    public static Paciente createpac(String id_pac, String nacionalidad_pac, String dni_pac, String tel_pac,
+    public static Paciente createpac(String nombre_com_pac, String nacionalidad_pac, String dni_pac, String tel_pac,
                                      Email email_pac, Date fec_nac_pac, String sexo_pac){
-        return new Paciente(IDEntidad.generar(), id_pac, nacionalidad_pac, dni_pac, tel_pac, email_pac,
+        return new Paciente(IDEntidad.generar(), nombre_com_pac, nacionalidad_pac, dni_pac, tel_pac, email_pac,
                 fec_nac_pac, sexo_pac);
 
     }

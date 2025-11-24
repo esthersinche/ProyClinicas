@@ -1,4 +1,4 @@
-package com.domain.model.aggregates;
+package com.Clinica1.myApp.appointments.domain.model.aggregates;
 
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;

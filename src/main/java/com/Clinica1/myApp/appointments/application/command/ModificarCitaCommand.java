@@ -1,18 +1,20 @@
 package com.Clinica1.myApp.appointments.application.command;
 
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class ModificarCitaCommand {
-    private Long citaId;
+    private IDEntidad citaId;
     private String motivo;
     private LocalDateTime inicio;
     private LocalDateTime fin;
-    private Long doctorId;
+    private IDEntidad doctorId;
     private String especialidad;
 
-    public ModificarCitaCommand(Long citaId, String motivo, LocalDateTime inicio, 
-                               LocalDateTime fin, Long doctorId, String especialidad) {
+    public ModificarCitaCommand(IDEntidad citaId, String motivo, LocalDateTime inicio,
+                               LocalDateTime fin, IDEntidad doctorId, String especialidad) {
         this.citaId = citaId;
         this.motivo = motivo;
         this.inicio = inicio;
@@ -21,10 +23,10 @@ public class ModificarCitaCommand {
         this.especialidad = especialidad;
     }
 
-    public ModificarCitaCommand(UUID citaId, Object motivo, LocalDateTime inicio, LocalDateTime fin) {
+    public ModificarCitaCommand(IDEntidad citaId, Object motivo, LocalDateTime inicio, LocalDateTime fin) {
     }
 
-    public Long getCitaId() {
+    public IDEntidad getCitaId() {
         return citaId;
     }
 
@@ -40,7 +42,7 @@ public class ModificarCitaCommand {
         return fin;
     }
 
-    public Long getDoctorId() {
+    public IDEntidad getDoctorId() {
         return doctorId;
     }
 
