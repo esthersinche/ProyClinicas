@@ -1,5 +1,6 @@
 package com.Clinica1.myApp.appointments.application.exception;
 
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,28 +8,22 @@ class CitaNoEncontradaExceptionTest {
 
     @Test
     void deberiaCrearExcepcionConMensaje() {
-        String mensaje = "Cita no encontrada";
-        CitaNoEncontradaException exception = new CitaNoEncontradaException(mensaje);
-        
-        assertEquals(mensaje, exception.getMessage());
+        CitaNoEncontradaException ex = new CitaNoEncontradaException("Cita no encontrada");
+        assertEquals("Cita no encontrada", ex.getMessage());
     }
 
     @Test
     void deberiaCrearExcepcionConId() {
-        Long citaId = 123L;
-        CitaNoEncontradaException exception = new CitaNoEncontradaException(citaId);
-        
-        assertTrue(exception.getMessage().contains("123"));
+        IDEntidad citaId = IDEntidad.generar();
+        CitaNoEncontradaException ex = new CitaNoEncontradaException(citaId);
+        assertEquals("No se encontró la cita con ID: " + citaId, ex.getMessage());
     }
 
     @Test
     void deberiaCrearExcepcionConMensajeYCausa() {
-        String mensaje = "Error al buscar cita";
-        Throwable causa = new RuntimeException("Causa original");
-        
-        CitaNoEncontradaException exception = new CitaNoEncontradaException(mensaje, causa);
-        
-        assertEquals(mensaje, exception.getMessage());
-        assertEquals(causa, exception.getCause());
+        Throwable causa = new RuntimeException("Causa");
+        CitaNoEncontradaException ex = new CitaNoEncontradaException("Cita no encontrada", causa);
+        assertEquals("Cita no encontrada", ex.getMessage());
+        assertEquals(causa, ex.getCause());
     }
 }

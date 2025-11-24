@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,14 +21,38 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 //controladores q exponen endpoints
 public class CitaController {
-    private final CrearCitaCommandHandler crear_cita_handler;
-    private final CitaRequestMapper citareq_map;
+    private final CrearCitaCommandHandler crearCitaHandler;
+    private final CitaRequestMapper citaReqMapper;
 
-    public ResponseEntity<CrearCitaResponse> CrearCita(@Valid @RequestBody CrearCitaRequest cre_cit_req){
-        CrearCitaCommand crearcit_com= citareq_map.ToCommand(cre_cit_req);
+    @PostMapping
+    public ResponseEntity<CrearCitaResponse> crearCita(@Valid @RequestBody CrearCitaRequest request) {
+        try {
+            // Mapear request a command
+            CrearCitaCommand command = citaReqMapper.toCommand(request);
 
-        IDEntidad cita_id= crear_cita_handler.handle(crearcit_com);
+            // Llamar al handler
+            CitaDto citaDto = crearCitaHandler.handle(command);
 
+            // Mapear CitaDto a response
+            CrearCitaResponse response = new CrearCitaResponse(
+                    citaDto.getId(),
+                    citaDto.getMotivo(),
+                    citaDto.getEstado(),
+                    citaDto.getCanal(),
+                    citaDto.getInicio(),
+                    citaDto.getFin(),
+                    citaDto.getPaciente(),
+                    citaDto.getDoctor(),
+                    citaDto.getEspecialidad()
+            );
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            //manejo d errores generico
+            return ResponseEntity.badRequest().body(
+                    new CrearCitaResponse("Error: " + e.getMessage())
+            );
+        }
     }
-
 }

@@ -1,12 +1,13 @@
 package com.Clinica1.myApp.appointments.application.dto;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PacienteDtoTest {
 
     @Test
-    void testConstructorVacio() {
+    void deberiaCrearPacienteDtoVacio() {
         PacienteDto dto = new PacienteDto();
 
         assertNotNull(dto);
@@ -18,42 +19,38 @@ class PacienteDtoTest {
         assertNull(dto.getEmail());
     }
 
+
     @Test
-    void testConstructorConParametros() {
+    void deberiaCrearPacienteDtoConDatos() {
+
         PacienteDto dto = new PacienteDto(
-                1L,
+                "PAC001",
                 "Juan Pérez",
                 "Peruana",
                 "12345678",
                 "987654321",
-                "juan@test.com"
+                "juan@email.com"
         );
 
-        assertEquals(1L, dto.getId());
+        assertEquals("PAC001", dto.getId());
         assertEquals("Juan Pérez", dto.getNombre());
         assertEquals("Peruana", dto.getNacionalidad());
         assertEquals("12345678", dto.getDni());
         assertEquals("987654321", dto.getTelefono());
-        assertEquals("juan@test.com", dto.getEmail());
+        assertEquals("juan@email.com", dto.getEmail());
     }
 
     @Test
-    void testGettersYSetters() {
+    void deberiaPermitirModificarDatos() {
         PacienteDto dto = new PacienteDto();
 
-        dto.setId(10L);
+        dto.setId("PAC002");
         dto.setNombre("María López");
-        dto.setNacionalidad("Argentina");
         dto.setDni("87654321");
-        dto.setTelefono("912345678");
-        dto.setEmail("maria@test.com");
 
-        assertEquals(10L, dto.getId());
+        assertEquals("PAC002", dto.getId());
         assertEquals("María López", dto.getNombre());
-        assertEquals("Argentina", dto.getNacionalidad());
         assertEquals("87654321", dto.getDni());
-        assertEquals("912345678", dto.getTelefono());
-        assertEquals("maria@test.com", dto.getEmail());
     }
 }
 

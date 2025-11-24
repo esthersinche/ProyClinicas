@@ -2,6 +2,7 @@ package com.Clinica1.myApp.appointments.application.dto;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DoctorDtoTest {
 
     @Test
-    void testConstructorVacio() {
+    void deberiaCrearDoctorDtoVacio() {
         DoctorDto dto = new DoctorDto();
 
         assertNotNull(dto);
@@ -21,38 +22,45 @@ class DoctorDtoTest {
     }
 
     @Test
-    void testConstructorConParametros() {
-        List<String> especialidades = List.of("Cardiología", "Emergencias");
+    void deberiaCrearDoctorDtoConDatos() {
+        List<String> especialidades = Arrays.asList("Cardiología", "Medicina Interna");
 
         DoctorDto dto = new DoctorDto(
-                1L,
-                "Carlos Ramírez",
-                "CMP1234",
-                "Consultorio 5",
+                "DOC001",
+                "Dr. López",
+                "CMP-12345",
+                "Consultorio 101",
                 especialidades
         );
 
-        assertEquals(1L, dto.getId());
-        assertEquals("Carlos Ramírez", dto.getNombre());
-        assertEquals("CMP1234", dto.getCmp());
-        assertEquals("Consultorio 5", dto.getConsultorio());
+        assertEquals("DOC001", dto.getId());
+        assertEquals("Dr. López", dto.getNombre());
+        assertEquals("CMP-12345", dto.getCmp());
+        assertEquals("Consultorio 101", dto.getConsultorio());
         assertEquals(especialidades, dto.getEspecialidades());
     }
 
     @Test
-    void testGettersYSetters() {
+    void deberiaPermitirModificarDatos() {
         DoctorDto dto = new DoctorDto();
 
-        dto.setId(10L);
-        dto.setNombre("María López");
-        dto.setCmp("CMP5678");
-        dto.setConsultorio("Consultorio 2");
-        dto.setEspecialidades(List.of("Pediatría"));
+        dto.setId("DOC002");
+        dto.setNombre("Dra. Martínez");
+        dto.setCmp("CMP-77777");
 
-        assertEquals(10L, dto.getId());
-        assertEquals("María López", dto.getNombre());
-        assertEquals("CMP5678", dto.getCmp());
-        assertEquals("Consultorio 2", dto.getConsultorio());
-        assertEquals(List.of("Pediatría"), dto.getEspecialidades());
+        assertEquals("DOC002", dto.getId());
+        assertEquals("Dra. Martínez", dto.getNombre());
+        assertEquals("CMP-77777", dto.getCmp());
+    }
+
+    @Test
+    void metodosVaciosDeberianRetornarValoresPorDefecto() {
+        DoctorDto dto = new DoctorDto();
+
+        // Estos métodos retornan valores fijos (vacíos)
+        assertEquals("", dto.nombreCompleto());
+        assertEquals("", dto.cmp());
+        assertEquals("", dto.consultorio());
+        assertTrue(dto.especialidades().isEmpty());
     }
 }

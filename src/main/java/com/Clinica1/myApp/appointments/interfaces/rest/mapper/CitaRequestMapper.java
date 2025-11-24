@@ -10,7 +10,10 @@ import com.Clinica1.myApp.appointments.domain.model.valueobjects.Doc_info_cita;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Pac_info_cita;
 import com.Clinica1.myApp.appointments.interfaces.rest.dto.request.CrearCitaRequest;
 
-//convierte request a application/comand o aplicationdto
+/**
+ * Mapper que convierte un request REST de creación de cita
+ * a un comando de aplicación (CrearCitaCommand) que el handler puede procesar.
+ */
 
 public class CitaRequestMapper {
 
@@ -19,13 +22,16 @@ public class CitaRequestMapper {
     private Doc_infoRequestMapper docingo_reqmap;
 
 
-    public CitaRequestMapper(CitaAssembler cit_asse, Pac_infoRequestMapper pacinfo_reqmap, Doc_infoRequestMapper docingo_reqmap) {
-        this.cit_asse = cit_asse;
-        this.pacinfo_reqmap = pacinfo_reqmap;
-        this.docingo_reqmap = docingo_reqmap;
+    // Constructor con inyección de dependencias
+    public CitaRequestMapper(CitaAssembler citaAssembler,
+                             Pac_infoRequestMapper pacInfoMapper,
+                             Doc_infoRequestMapper docInfoMapper) {
+        this.cit_asse = citaAssembler;
+        this.pacinfo_reqmap = pacInfoMapper;
+        this.docingo_reqmap = docInfoMapper;
     }
 
-    public CrearCitaCommand ToCommand(CrearCitaRequest crear_cita_req){
+    public CrearCitaCommand ToCommand(CrearCitaRequest request){
         /* aydua estonoeraxddd peor se queda porsiacaso
         Pac_info_cita pacinfo_cita= pacinfo_reqmap.toDomain(crear_cita_req.getPac_info_req());
         Doc_info_cita docinfo_cita= docingo_reqmap.toDomain(crear_cita_req.getDoc_info_req());
@@ -41,14 +47,14 @@ public class CitaRequestMapper {
                 .especialidad(crear_cita_req.getEspe_cita())
                 .build();*/
         return CrearCitaCommand.builder()
-                .motivo(crear_cita_req.getMotivo_cita())
-                .canal(crear_cita_req.getCanal_cita())
-                .inicio(crear_cita_req.getInicio_cita())
-                .fin(crear_cita_req.getFin_cita())
-                .pacienteId(IDEntidad.astring(crear_cita_req.getId_pac()))
-                .doctorId(IDEntidad.astring(crear_cita_req.getId_doc()))
-                .clinicaId(null)
-                .especialidad(crear_cita_req.getEspe_cita())
+                .motivo(request.getMotivo_cita())
+                .canal(request.getCanal_cita())
+                .inicio(request.getInicio_cita())
+                .fin(request.getFin_cita())
+                .pacienteId(IDEntidad.astring(request.getId_pac()))   // conversion de String a IDEntidad
+                .doctorId(IDEntidad.astring(request.getId_doc()))
+                .clinicaId(null)                                       // clinica aún no usada
+                .especialidad(request.getEspe_cita())
                 .build();
     }
 

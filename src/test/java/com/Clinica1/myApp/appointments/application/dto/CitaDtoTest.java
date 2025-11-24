@@ -2,7 +2,7 @@ package com.Clinica1.myApp.appointments.application.dto;
 
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
-import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CitaDtoTest {
@@ -10,31 +10,55 @@ class CitaDtoTest {
     @Test
     void deberiaCrearCitaDtoVacio() {
         CitaDto dto = new CitaDto();
-        
         assertNotNull(dto);
     }
 
     @Test
     void deberiaCrearCitaDtoConDatos() {
+
         LocalDateTime inicio = LocalDateTime.now();
         LocalDateTime fin = inicio.plusHours(1);
-        
-        PacienteDto paciente = new PacienteDto(1L, "Juan Pérez", "Peruana", "12345678", "999888777", "juan@email.com");
-        DoctorDto doctor = new DoctorDto(2L, "Dr. López", "CMP-12345", "Consultorio 101", Arrays.asList("Cardiología"));
-        
-        CitaDto dto = new CitaDto(
-            1L, "Consulta", "Pendiente", "Presencial",
-            inicio, fin, paciente, doctor, "Clínica Central", "Cardiología"
+
+        PacienteInfoDto paciente = new PacienteInfoDto(
+                "Juan Pérez",
+                "12345678"
         );
-        
-        assertEquals(1L, dto.getId());
+
+        DoctorInfoDto doctor = new DoctorInfoDto(
+                "Dr. López",
+                "Cardiología",
+                "Consultorio 101"
+        );
+
+        CitaDto dto = new CitaDto(
+                "CITA123",
+                "Consulta",
+                "Pendiente",
+                "Presencial",
+                inicio,
+                fin,
+                paciente,
+                doctor,
+                "Clínica Central",
+                "Cardiología"
+        );
+
+        assertEquals("CITA123", dto.getId());
         assertEquals("Consulta", dto.getMotivo());
         assertEquals("Pendiente", dto.getEstado());
         assertEquals("Presencial", dto.getCanal());
         assertEquals(inicio, dto.getInicio());
         assertEquals(fin, dto.getFin());
+
+        assertNotNull(dto.getPaciente());
         assertEquals("Juan Pérez", dto.getPaciente().getNombre());
+        assertEquals("12345678", dto.getPaciente().getDni());
+
+        assertNotNull(dto.getDoctor());
         assertEquals("Dr. López", dto.getDoctor().getNombre());
+        assertEquals("Cardiología", dto.getDoctor().getEspecialidad());
+        assertEquals("Consultorio 101", dto.getDoctor().getConsultorio());
+
         assertEquals("Clínica Central", dto.getClinica());
         assertEquals("Cardiología", dto.getEspecialidad());
     }
@@ -42,12 +66,12 @@ class CitaDtoTest {
     @Test
     void deberiaPermitirModificarDatos() {
         CitaDto dto = new CitaDto();
-        
-        dto.setId(1L);
+
+        dto.setId("ABC123");
         dto.setMotivo("Consulta general");
         dto.setEstado("Confirmada");
-        
-        assertEquals(1L, dto.getId());
+
+        assertEquals("ABC123", dto.getId());
         assertEquals("Consulta general", dto.getMotivo());
         assertEquals("Confirmada", dto.getEstado());
     }

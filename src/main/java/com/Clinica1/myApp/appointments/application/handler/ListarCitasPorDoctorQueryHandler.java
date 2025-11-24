@@ -20,7 +20,7 @@ public class ListarCitasPorDoctorQueryHandler {
     }
 
     public List<CitaDto> handle(ListarCitasPorDoctorQuery query) {
-        List<Cita> citas = citaRepository.findbyDoctor(query.getDoctorId().toString());
+        List<Cita> citas = citaRepository.findbyDoctor(query.getDoctorId());
         
         return citas.stream()
             .map(citaAssembler::toDto)

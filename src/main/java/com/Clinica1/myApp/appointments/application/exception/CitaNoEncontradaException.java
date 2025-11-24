@@ -1,12 +1,14 @@
 package com.Clinica1.myApp.appointments.application.exception;
 
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
+
 public class CitaNoEncontradaException extends Exception {
     
     public CitaNoEncontradaException(String mensaje) {
         super(mensaje);
     }
 
-    public CitaNoEncontradaException(Long citaId) {
+    public CitaNoEncontradaException(IDEntidad citaId) {
         super("No se encontró la cita con ID: " + citaId);
     }
 

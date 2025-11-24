@@ -7,22 +7,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class ListarCitasPorEspecialidadQueryTest {
 
     @Test
-    void testConstructorSoloEspecialidad() {
-        ListarCitasPorEspecialidadQuery query = new ListarCitasPorEspecialidadQuery("Cardiología");
+    void constructorConSoloEspecialidad() {
+        String especialidad = "Cardiología";
+        ListarCitasPorEspecialidadQuery query = new ListarCitasPorEspecialidadQuery(especialidad);
 
-        assertNotNull(query);
-        assertEquals("Cardiología", query.getEspecialidad());
-        assertNull(query.getEstado());
+        assertEquals(especialidad, query.getEspecialidad());
+        assertNull(query.getEstado(), "El estado debería ser null si no se pasa en el constructor");
     }
 
     @Test
-    void testConstructorEspecialidadYEstado() {
-        ListarCitasPorEspecialidadQuery query =
-                new ListarCitasPorEspecialidadQuery("Dermatología", "CANCELADA");
+    void constructorConEspecialidadYEstado() {
+        String especialidad = "Cardiología";
+        String estado = "ACTIVA";
+        ListarCitasPorEspecialidadQuery query = new ListarCitasPorEspecialidadQuery(especialidad, estado);
 
-        assertNotNull(query);
-        assertEquals("Dermatología", query.getEspecialidad());
-        assertEquals("CANCELADA", query.getEstado());
+        assertEquals(especialidad, query.getEspecialidad());
+        assertEquals(estado, query.getEstado());
     }
 }
 

@@ -7,21 +7,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class ListarCitasPorDoctorQueryTest {
 
     @Test
-    void testConstructorSoloDoctorId() {
-        ListarCitasPorDoctorQuery query = new ListarCitasPorDoctorQuery(10L);
+    void constructorConSoloDoctorId() {
+        String doctorId = "doc123";
+        ListarCitasPorDoctorQuery query = new ListarCitasPorDoctorQuery(doctorId);
 
-        assertNotNull(query);
-        assertEquals(10L, query.getDoctorId());
-        assertNull(query.getEstado());
+        assertEquals(doctorId, query.getDoctorId());
+        assertNull(query.getEstado(), "El estado debería ser null si no se pasa en el constructor");
     }
 
     @Test
-    void testConstructorDoctorIdYEstado() {
-        ListarCitasPorDoctorQuery query = new ListarCitasPorDoctorQuery(5L, "AGENDADA");
+    void constructorConDoctorIdYEstado() {
+        String doctorId = "doc123";
+        String estado = "ACTIVA";
+        ListarCitasPorDoctorQuery query = new ListarCitasPorDoctorQuery(doctorId, estado);
 
-        assertNotNull(query);
-        assertEquals(5L, query.getDoctorId());
-        assertEquals("AGENDADA", query.getEstado());
+        assertEquals(doctorId, query.getDoctorId());
+        assertEquals(estado, query.getEstado());
     }
 }
 
