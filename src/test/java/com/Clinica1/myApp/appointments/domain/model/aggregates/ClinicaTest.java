@@ -1,12 +1,14 @@
 package com.Clinica1.myApp.appointments.domain.model.aggregates;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import com.Clinica1.myApp.appointments.domain.model.aggregates.Clinica;
-import com.Clinica1.myApp.appointments.domain.model.aggregates.Doctor;
-import com.Clinica1.myApp.appointments.domain.model.aggregates.Paciente;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Direccion;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.Especialidad;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.NombreCompleto;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.Email;
+
 import org.junit.jupiter.api.Test;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,22 +21,53 @@ class ClinicaTest {
         String nombre = "Clínica San José";
         Direccion direccion = new Direccion("Av. Lima", "Calle 1", "Miraflores", "Perú");
 
-        Doctor d1 = new Doctor("Luis", "Ramos", null);
-        Doctor d2 = new Doctor("Ana", "Salazar", null);
+        Doctor d1 = new Doctor(
+                IDEntidad.generar(),
+                IDEntidad.generar(),
+                new NombreCompleto("Luis", "Ramos"),
+                "CMP1",
+                "C-01",
+                List.of(new Especialidad("Cardiología"))
+        );
 
-        Paciente p1 = new Paciente("Juan", "Perez", "12345678");
-        Paciente p2 = new Paciente("Maria", "Torres", "87654321");
+        Doctor d2 = new Doctor(
+                IDEntidad.generar(),
+                IDEntidad.generar(),
+                new NombreCompleto("Ana", "Salazar"),
+                "CMP2",
+                "C-02",
+                List.of(new Especialidad("Neurología"))
+        );
 
-        List<Doctor> doctores = List.of(d1, d2);
-        List<Paciente> pacientes = List.of(p1, p2);
+        Paciente p1 = new Paciente(
+                IDEntidad.generar(),
+                "Juan Perez",
+                "Peruana",
+                "12345678",
+                "987654321",
+                new Email("juan@mail.com"),
+                new Date(),
+                "M"
+        );
 
-        Clinica clinica = new Clinica(id, nombre, direccion, doctores, pacientes);
+        Paciente p2 = new Paciente(
+                IDEntidad.generar(),
+                "Maria Torres",
+                "Peruana",
+                "87654321",
+                "912345678",
+                new Email("maria@mail.com"),
+                new Date(),
+                "F"
+        );
+
+        Clinica clinica = new Clinica(id, nombre, direccion, List.of(d1, d2), List.of(p1, p2));
 
         assertEquals(id, clinica.getId_cli());
         assertEquals(nombre, clinica.getNom_clin());
         assertEquals(direccion, clinica.getDir_clin());
-        assertEquals(doctores, clinica.getDoctorescli());
-        assertEquals(pacientes, clinica.getPacientescli());
+        assertEquals(List.of(d1, d2), clinica.getDoctorescli());
+        assertEquals(List.of(p1, p2), clinica.getPacientescli());
     }
 
     @Test
@@ -58,9 +91,26 @@ class ClinicaTest {
     }
 
     @Test
-    void testGetters_ListasInmutablesReferencia() {
-        Doctor d1 = new Doctor("Luis", "Ramos", null);
-        Paciente p1 = new Paciente("Juan", "Perez", "12345678");
+    void testGetters_ListasNoNulas() {
+        Doctor d1 = new Doctor(
+                IDEntidad.generar(),
+                IDEntidad.generar(),
+                new NombreCompleto("Luis", "Ramos"),
+                "CMP1",
+                "C-01",
+                List.of(new Especialidad("Dermatología"))
+        );
+
+        Paciente p1 = new Paciente(
+                IDEntidad.generar(),
+                "Juan Perez",
+                "Peruana",
+                "12345678",
+                "987654321",
+                new Email("juan@mail.com"),
+                new Date(),
+                "M"
+        );
 
         Clinica clinica = new Clinica(
                 IDEntidad.generar(),

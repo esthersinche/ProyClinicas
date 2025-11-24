@@ -1,41 +1,38 @@
 package com.Clinica1.myApp.appointments.domain.model.aggregates;
 
-import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
-import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import com.Clinica1.myApp.appointments.domain.model.aggregates.Doctor;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Especialidad;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.NombreCompleto;
 
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 class DoctorTest {
 
     @Test
     void testConstructorCompleto() {
-        IDEntidad id = IDEntidad.generar();
-        Email email = new Email("doctor@mail.com");
+        IDEntidad idEmpleado = IDEntidad.generar();
+        IDEntidad idDoctor = IDEntidad.generar();
+        NombreCompleto nombre = new NombreCompleto("Luis", "Ramos");
         List<Especialidad> especialidades = List.of(new Especialidad("Cardiología"));
 
         Doctor doctor = new Doctor(
-                id,
-                "Luis",
-                "Ramos",
-                "999888777",
-                email,
-                Rol.doctor,
+                idEmpleado,
+                idDoctor,
+                nombre,
                 "CMP123",
                 "Consultorio A",
                 especialidades
         );
 
-        assertEquals(id, doctor.getId_emp());
-        assertEquals("Luis", doctor.getNombre());
-        assertEquals("Ramos", doctor.getApellido());
-        assertEquals("999888777", doctor.getTelefono());
-        assertEquals(email, doctor.getEmail());
+        assertEquals(idEmpleado, doctor.getId_empleado_doc());
+        assertEquals(idDoctor, doctor.getId_doc());
+        assertEquals("Luis", doctor.getNom_com_doc().nombre());
+        assertEquals("Ramos", doctor.getNom_com_doc().apellido());
         assertEquals("CMP123", doctor.getCmp_doc());
         assertEquals("Consultorio A", doctor.getConsultorio_doc());
         assertEquals(1, doctor.getEspecialidades().size());
@@ -43,39 +40,37 @@ class DoctorTest {
 
     @Test
     void testFactoryMethod() {
-        Email email = new Email("doc@mail.com");
+        IDEntidad idEmpleado = IDEntidad.generar();
+        NombreCompleto nombre = new NombreCompleto("Ana", "Medina");
         List<Especialidad> especialidades = List.of(new Especialidad("Pediatría"));
 
         Doctor doctor = Doctor.creardoc(
-                "Ana",
-                "Medina",
-                "999123456",
-                email,
-                Rol.doctor,
+                idEmpleado,
+                nombre,
                 "CMP999",
-                "Consul B",
+                "Consultorio B",
                 especialidades
         );
 
-        assertNotNull(doctor.getId_emp());
-        assertEquals("Ana", doctor.getNombre());
-        assertEquals("Medina", doctor.getApellido());
+        assertNotNull(doctor.getId_doc()); // generado por la factory
+        assertEquals(idEmpleado, doctor.getId_empleado_doc());
+        assertEquals("Ana", doctor.getNom_com_doc().nombre());
+        assertEquals("Medina", doctor.getNom_com_doc().apellido());
         assertEquals("CMP999", doctor.getCmp_doc());
-        assertEquals("Consul B", doctor.getConsultorio_doc());
+        assertEquals("Consultorio B", doctor.getConsultorio_doc());
         assertEquals(1, doctor.getEspecialidades().size());
     }
 
+
     @Test
-    void testEqualsEnEmpleadoFunciona() {
-        IDEntidad id = IDEntidad.generar();
+    void testEqualsUsaSoloIdDoc() {
+        IDEntidad idEmpleado = IDEntidad.generar();
+        IDEntidad idDoctor = IDEntidad.generar();
 
-        Doctor d1 = new Doctor(id, "Juan", "Perez", "900111222",
-                new Email("jp@mail.com"), Rol.doctor,
-                "CMP1", "C1", List.of());
+        NombreCompleto nombre = new NombreCompleto("Juan", "Perez");
 
-        Doctor d2 = new Doctor(id, "Juan", "Perez", "900111222",
-                new Email("jp@mail.com"), Rol.doctor,
-                "CMP1", "C1", List.of());
+        Doctor d1 = new Doctor(idEmpleado, idDoctor, nombre, "CMP1", "C1", List.of());
+        Doctor d2 = new Doctor(idEmpleado, idDoctor, nombre, "CMP1", "C1", List.of());
 
         assertEquals(d1, d2);
     }
