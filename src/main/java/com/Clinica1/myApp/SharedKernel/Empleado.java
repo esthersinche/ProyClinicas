@@ -1,7 +1,7 @@
-package com.Clinica1.myApp.IAMusuario.domain.model.aggregates;
+package com.Clinica1.myApp.SharedKernel;
 
+import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
-import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
 import java.util.Objects;
 

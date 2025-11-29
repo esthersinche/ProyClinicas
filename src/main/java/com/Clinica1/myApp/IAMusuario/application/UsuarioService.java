@@ -1,9 +1,9 @@
 package com.Clinica1.myApp.IAMusuario.application;
 
 
-import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Usuario;
+import com.Clinica1.myApp.SharedKernel.Usuario;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.ContraHash;
-import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Empleado;
+import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.IAMusuario.domain.repository.UsuarioRepository;
 import com.Clinica1.myApp.IAMusuario.domain.repository.EmpleadoRepository;
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.CrearUsuarioRequest;

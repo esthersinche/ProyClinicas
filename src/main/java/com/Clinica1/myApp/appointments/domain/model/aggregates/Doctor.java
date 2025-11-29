@@ -1,8 +1,5 @@
 package com.Clinica1.myApp.appointments.domain.model.aggregates;
 
-import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Empleado;
-import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
-import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Especialidad;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.NombreCompleto;
@@ -41,6 +38,8 @@ public class Doctor {//se quita la herencia para q no compartan persistencia
         return new Doctor(id_empleado_doc, IDEntidad.generar(),  nom_com_doc, cmp_doc, consultorio_doc, especialidades);
 
     }
+
+
 
     public IDEntidad getId_empleado_doc() {
         return id_empleado_doc;

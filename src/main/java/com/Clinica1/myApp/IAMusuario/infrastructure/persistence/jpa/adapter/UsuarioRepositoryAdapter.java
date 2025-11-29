@@ -3,7 +3,7 @@ package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.adapter;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioEntity;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper.UsuarioMapper;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.repository.JPAUsuarioRepository;
-import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Usuario;
+import com.Clinica1.myApp.SharedKernel.Usuario;
 import com.Clinica1.myApp.IAMusuario.domain.repository.UsuarioRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

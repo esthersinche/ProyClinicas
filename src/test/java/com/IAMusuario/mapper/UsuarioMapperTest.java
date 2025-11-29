@@ -4,9 +4,9 @@ import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.Emple
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.RolEntity;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioEntity;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper.UsuarioMapper;
-import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Empleado;
+import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
-import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Usuario;
+import com.Clinica1.myApp.SharedKernel.Usuario;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.ContraHash;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;

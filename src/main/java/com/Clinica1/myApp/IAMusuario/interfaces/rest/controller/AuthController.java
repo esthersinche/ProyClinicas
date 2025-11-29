@@ -5,7 +5,7 @@ import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.CrearUsuarioReq
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.LoginRequest;
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.response.TokenResponse;
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper.UsuarioRequestMapper;
-import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Usuario;
+import com.Clinica1.myApp.SharedKernel.Usuario;
 import com.Clinica1.myApp.IAMusuario.domain.repository.UsuarioRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

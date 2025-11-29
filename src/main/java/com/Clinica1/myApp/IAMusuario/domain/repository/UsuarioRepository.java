@@ -1,6 +1,6 @@
 package com.Clinica1.myApp.IAMusuario.domain.repository;
 
-import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Usuario;
+import com.Clinica1.myApp.SharedKernel.Usuario;
 
 
 public interface UsuarioRepository extends ICRUD<Usuario>{

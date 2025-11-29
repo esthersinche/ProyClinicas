@@ -4,7 +4,7 @@ import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.adapter.Usua
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioEntity;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper.UsuarioMapper;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.repository.JPAUsuarioRepository;
-import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Usuario;
+import com.Clinica1.myApp.SharedKernel.Usuario;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
