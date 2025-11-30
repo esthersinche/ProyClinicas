@@ -1,25 +1,24 @@
-package com.Clinica1.myApp.appointments.application.dto;
+package com.Clinica1.myApp.appointments.application.command;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import lombok.Builder;
 
 import java.util.Date;
 
-public class PacienteDto {
+@Builder
+public class CrearPacienteCommand {
     private IDEntidad id;
     private String nombre;
     private String nacionalidad;
     private String dni;
     private String tel;
-    private String email;   // <-- STRING, no VO
+    private String email;
     private Date fec_nac;
     private String sexo;
 
-    public PacienteDto() {
-    }
-
-    public PacienteDto(IDEntidad id, String nombre, String nacionalidad,
-                       String dni, String tel, String email, Date fec_nac,
-                       String sexo) {
+    public CrearPacienteCommand(IDEntidad id, String nombre, String nacionalidad,
+                                String dni, String tel, String email, Date fec_nac,
+                                String sexo) {
         this.id = id;
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
@@ -60,37 +59,5 @@ public class PacienteDto {
 
     public String getSexo() {
         return sexo;
-    }
-
-    public void setId(IDEntidad id) {
-        this.id = id;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setFec_nac(Date fec_nac) {
-        this.fec_nac = fec_nac;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
     }
 }

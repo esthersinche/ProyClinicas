@@ -1,13 +1,15 @@
 package com.Clinica1.myApp.appointments.application.query;
 
-public class ObtenerCitaPorIdQuery {
-    private String citaId;
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
-    public ObtenerCitaPorIdQuery(String citaId) {
+public class ObtenerCitaPorIdQuery {
+    private IDEntidad citaId;
+
+    public ObtenerCitaPorIdQuery(IDEntidad citaId) {
         this.citaId = citaId;
     }
 
-    public String getCitaId() {
+    public IDEntidad getCitaId() {
         return citaId;
     }
 }

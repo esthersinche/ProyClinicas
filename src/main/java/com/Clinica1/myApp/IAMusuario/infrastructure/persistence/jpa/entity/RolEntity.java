@@ -1,5 +1,6 @@
 package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity;
 
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +11,7 @@ public class RolEntity {
 
     @Id
     @Column(name = "id_rol", length = 36)
-    private String id; // IDEntidad.obtenerid()
+    private IDEntidad id; // IDEntidad.obtenerid()
 
     @Column(name = "nombre_rol", nullable = false, unique = true, length = 50)
     private String nombreRol;
@@ -24,11 +25,11 @@ public class RolEntity {
     public RolEntity() {
     }
 
-    public String getId() {
+    public IDEntidad getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(IDEntidad id) {
         this.id = id;
     }
 

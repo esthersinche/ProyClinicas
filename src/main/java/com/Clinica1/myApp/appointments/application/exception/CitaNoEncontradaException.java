@@ -4,7 +4,7 @@ import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
 public class CitaNoEncontradaException extends Exception {
     
-    public CitaNoEncontradaException(String mensaje) {
+    public CitaNoEncontradaException(IDEntidad mensaje) {
         super(mensaje);
     }
 

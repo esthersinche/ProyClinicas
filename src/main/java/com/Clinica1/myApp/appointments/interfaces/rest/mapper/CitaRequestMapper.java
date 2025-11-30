@@ -16,7 +16,7 @@ import com.Clinica1.myApp.appointments.interfaces.rest.dto.request.CrearCitaRequ
  */
 
 public class CitaRequestMapper {
-
+    /*
     private CitaAssembler cit_asse;
     private Pac_infoRequestMapper pacinfo_reqmap;
     private Doc_infoRequestMapper docingo_reqmap;
@@ -30,7 +30,7 @@ public class CitaRequestMapper {
         this.pacinfo_reqmap = pacInfoMapper;
         this.docingo_reqmap = docInfoMapper;
     }
-
+*/
     public CrearCitaCommand ToCommand(CrearCitaRequest request){
         /* aydua estonoeraxddd peor se queda porsiacaso
         Pac_info_cita pacinfo_cita= pacinfo_reqmap.toDomain(crear_cita_req.getPac_info_req());

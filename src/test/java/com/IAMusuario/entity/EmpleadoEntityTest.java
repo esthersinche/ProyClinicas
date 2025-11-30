@@ -2,6 +2,7 @@ package com.IAMusuario.entity;
 
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.EmpleadoEntity;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.RolEntity;
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +13,7 @@ class EmpleadoEntityTest {
     void testGettersAndSetters() {
         EmpleadoEntity empleado = new EmpleadoEntity();
 
-        String id = "123456";
+        IDEntidad id = "123456";
         String nombres = "Juan";
         String apellidos = "Pérez";
         String telefono = "987654321";

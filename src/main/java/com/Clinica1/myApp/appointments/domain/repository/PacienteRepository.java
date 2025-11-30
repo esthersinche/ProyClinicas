@@ -8,5 +8,4 @@ public interface PacienteRepository extends ICRUD<Paciente> {
     Paciente findbyName(String nom_com_pac);
     Paciente findbyDNI(String dni_pac);
     Paciente findbyEmail(Email email);
-
 }

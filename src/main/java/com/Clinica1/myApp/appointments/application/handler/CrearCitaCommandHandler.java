@@ -39,19 +39,20 @@ public class CrearCitaCommandHandler {
             throws FechaInvalidaException, DoctorNoDisponibleException, CitaNoEncontradaException {
 
         validarFechas(command.getInicio(), command.getFin());
-
+    // 1. Buscar paciente
         Paciente paciente = pacienteRepository.findById(command.getPacienteId());
-
         if (paciente == null)
             throw new CitaNoEncontradaException("Paciente no encontrado: " + command.getPacienteId());
 
+        // 2. Buscar doctor
         Doctor doctor = doctorRepository.findById(command.getDoctorId());
-
         if (doctor == null)
             throw new CitaNoEncontradaException("Doctor no encontrado: " + command.getDoctorId());
 
+        // 3. Verificar disponibilidad del doctor
         verificarDisponibilidadDoctor(doctor, command.getInicio(), command.getFin());
 
+        // 4. Crear cita usando el FACTORY exacto que tú definiste
         Cita cita = Cita.crearcita(
                 command.getMotivo(),
                 Canal.valueOf(command.getCanal()),
@@ -62,28 +63,29 @@ public class CrearCitaCommandHandler {
                 Especialidad.of(command.getEspecialidad())
         );
 
+        // 5. Persistir cita
         Cita citaGuardada = citaRepository.insert(cita);
 
+        // 6. Convertir a DTO
         return citaAssembler.toDto(citaGuardada);
     }
-    
+
     private void validarFechas(LocalDateTime inicio, LocalDateTime fin) throws FechaInvalidaException {
-        if (inicio == null || fin == null) {
+
+        if (inicio == null || fin == null)
             throw new FechaInvalidaException("Las fechas de inicio y fin no pueden ser nulas");
-        }
-        
-        if (inicio.isBefore(LocalDateTime.now())) {
-            throw new FechaInvalidaException("La fecha de inicio no puede ser en el pasado");
-        }
-        
-        if (fin.isBefore(inicio)) {
-            throw new FechaInvalidaException("La fecha de fin debe ser posterior a la fecha de inicio");
-        }
+
+        if (inicio.isBefore(LocalDateTime.now()))
+            throw new FechaInvalidaException("La hora de inicio no puede ser en el pasado");
+
+        if (fin.isBefore(inicio))
+            throw new FechaInvalidaException("La fecha de fin debe ser posterior al inicio");
     }
-    
-    private void verificarDisponibilidadDoctor(Doctor doctor, LocalDateTime inicio, LocalDateTime fin) 
+
+    private void verificarDisponibilidadDoctor(Doctor doctor, LocalDateTime inicio, LocalDateTime fin)
             throws DoctorNoDisponibleException {
-        
+
+        // Aún no implementado — placeholder tuyo
         throw new UnsupportedOperationException("Verificación de disponibilidad pendiente");
     }
 }

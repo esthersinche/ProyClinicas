@@ -1,5 +1,6 @@
 package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity;
 
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,7 +9,7 @@ public class EmpleadoEntity {
 
     @Id
     @Column(name = "id_emp", length = 36)
-    private String idEmp;
+    private IDEntidad idEmp;
 
     @Column(name = "nombres_emp", nullable = false, length = 80)
     private String nombresEmp;
@@ -29,11 +30,11 @@ public class EmpleadoEntity {
     public EmpleadoEntity() {
     }
 
-    public String getIdEmp() {
+    public IDEntidad getIdEmp() {
         return idEmp;
     }
 
-    public void setIdEmp(String idEmp) {
+    public void setIdEmp(IDEntidad idEmp) {
         this.idEmp = idEmp;
     }
 

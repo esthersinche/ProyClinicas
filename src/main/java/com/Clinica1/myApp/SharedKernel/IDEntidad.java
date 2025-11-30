@@ -1,13 +1,11 @@
 package com.Clinica1.myApp.SharedKernel;
 
-import com.zaxxer.hikari.SQLExceptionOverride;
-
 import java.util.UUID;
 
 public final class IDEntidad {
-    private final String idmostlyall;
+    private final IDEntidad idmostlyall;
 
-    private IDEntidad(String idmostlyall) {
+    private IDEntidad(IDEntidad idmostlyall) {
 
         this.idmostlyall = idmostlyall;
     }
@@ -17,12 +15,12 @@ public final class IDEntidad {
         return new IDEntidad(UUID.randomUUID().toString());
     }
 
-    public static IDEntidad astring(String idmostlyall){
+    public static IDEntidad astring(IDEntidad idmostlyall){
         //para q convierta un string a coso, reconstruye el uuid q se paso a string xsia
         return new IDEntidad(idmostlyall);
     }
 
-    public String obtenerid(){
+    public IDEntidad obtenerid(){
         //retorna id
         return idmostlyall;
     }

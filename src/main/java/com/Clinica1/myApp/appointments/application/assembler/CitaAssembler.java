@@ -10,7 +10,6 @@ import com.Clinica1.myApp.appointments.domain.model.valueobjects.Especialidad;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Pac_info_cita;
 
 import java.time.LocalDateTime;
-import java.util.stream.Collectors;
 
 public class CitaAssembler {
 

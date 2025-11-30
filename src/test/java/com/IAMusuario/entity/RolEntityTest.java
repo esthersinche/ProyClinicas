@@ -1,6 +1,7 @@
 package com.IAMusuario.entity;
 
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.RolEntity;
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -14,7 +15,7 @@ class RolEntityTest {
     void testGettersAndSetters() {
         RolEntity rol = new RolEntity();
 
-        String id = "12345";
+        IDEntidad id = "12345";
         String nombre = "ADMIN";
         Set<String> funciones = new HashSet<>();
         funciones.add("CREAR_USUARIO");
