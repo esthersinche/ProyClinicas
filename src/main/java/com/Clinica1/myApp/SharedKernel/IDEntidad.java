@@ -2,18 +2,12 @@ package com.Clinica1.myApp.SharedKernel;
 
 import java.util.UUID;
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-public final class IDEntidad {
-    private final IDEntidad idmostlyall;
-=======
-=======
->>>>>>> Stashed changes
+
 public class IDEntidad {
     private final String idmostlyall;
->>>>>>> Stashed changes
 
-    private IDEntidad(IDEntidad idmostlyall) {
+
+    private IDEntidad(String idmostlyall) {
 
         this.idmostlyall = idmostlyall;
     }
@@ -23,12 +17,12 @@ public class IDEntidad {
         return new IDEntidad(UUID.randomUUID().toString());
     }
 
-    public static IDEntidad astring(IDEntidad idmostlyall){
+    public static IDEntidad astring(String idmostlyall){
         //para q convierta un string a coso, reconstruye el uuid q se paso a string xsia
         return new IDEntidad(idmostlyall);
     }
 
-    public IDEntidad obtenerid(){
+    public String obtenerid(){
         //retorna id
         return idmostlyall;
     }
