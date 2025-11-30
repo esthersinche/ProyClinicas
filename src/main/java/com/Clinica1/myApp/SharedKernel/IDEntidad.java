@@ -6,6 +6,8 @@ import java.util.UUID;
 public final class IDEntidad {
     private final IDEntidad idmostlyall;
 =======
+=======
+>>>>>>> Stashed changes
 public class IDEntidad {
     private final String idmostlyall;
 >>>>>>> Stashed changes
