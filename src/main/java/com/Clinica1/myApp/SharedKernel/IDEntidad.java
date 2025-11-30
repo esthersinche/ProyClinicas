@@ -3,6 +3,7 @@ package com.Clinica1.myApp.SharedKernel;
 import java.util.UUID;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 public final class IDEntidad {
     private final IDEntidad idmostlyall;
 =======
