@@ -1,6 +1,6 @@
 package com.IAMusuario.valueobjects;
 
-import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
+import com.Clinica1.myApp.SharedKernel.Email;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

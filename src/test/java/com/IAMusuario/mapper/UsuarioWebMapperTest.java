@@ -6,12 +6,12 @@ import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.Usuar
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper.UsuarioMapper;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
-import com.Clinica1.myApp.SharedKernel.Usuario;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.ContraHash;
-import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
+import com.Clinica1.myApp.SharedKernel.Email;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
+import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UsuarioMapperTest {
+class UsuarioWebMapperTest {
 
     private UsuarioMapper mapper;
 
@@ -50,19 +50,19 @@ class UsuarioMapperTest {
                 rol
         );
 
-        Usuario usuario = new Usuario(
+        UsuarioWeb usuarioWeb = new UsuarioWeb(
                 IDEntidad.generar(),
                 "user123",
-                ContraHash.hasheandocB("123456"),
+                ContraHash.deHash("123456"),
                 empleado
         );
 
-        UsuarioEntity entity = mapper.toEntity(usuario);
+        UsuarioEntity entity = mapper.toEntity(usuarioWeb);
 
         assertNotNull(entity);
-        assertEquals(usuario.getId_usu().obtenerid(), entity.getIdEmp());
+        assertEquals(usuarioWeb.getId_usu().obtenerid(), entity.getIdEmp());
         assertEquals("user123", entity.getUsername());
-        assertEquals(usuario.getPasshash().getValor_contra_hash(), entity.getPass());
+        assertEquals(usuarioWeb.getPasshash().getValor_contra_hash(), entity.getPass());
 
         assertNotNull(entity.getEmpleado());
         assertEquals(empleado.getNombre(), entity.getEmpleado().getNombresEmp());
@@ -102,7 +102,7 @@ class UsuarioMapperTest {
         usuarioEntity.setPass("HASHED123");
         usuarioEntity.setEmpleado(empEntity);
 
-        Usuario domain = mapper.toDomain(usuarioEntity);
+        UsuarioWeb domain = mapper.toDomain(usuarioEntity);
 
         assertNotNull(domain);
         assertEquals("EMP001", domain.getId_usu().obtenerid());

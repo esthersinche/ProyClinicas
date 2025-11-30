@@ -3,10 +3,10 @@ package com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper;
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.CrearUsuarioRequest;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
-import com.Clinica1.myApp.SharedKernel.Usuario;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.ContraHash;
-import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
+import com.Clinica1.myApp.SharedKernel.Email;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
+import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -14,7 +14,7 @@ import java.util.HashSet;
 @Component
 public class UsuarioRequestMapper {
 
-    public Usuario toUsuario(CrearUsuarioRequest request) {
+    public UsuarioWeb toUsuario(CrearUsuarioRequest request) {
         // Email VO
         Email email = Email.of(request.getEmail());
 
@@ -31,10 +31,10 @@ public class UsuarioRequestMapper {
 
         // Contraseña: VO ContraHash (aquí todavía no estamos aplicando BCrypt, solo
         // envolvemos)
-        ContraHash contraHash = ContraHash.hasheandocB(request.getPassword());
+        ContraHash contraHash = ContraHash.deHash(request.getPassword());
 
-        // Usuario: también usamos el factory method
-        return Usuario.crearusu(
+        // UsuarioWeb: también usamos el factory method
+        return UsuarioWeb.crearusu(
                 request.getUsername(),
                 contraHash,
                 empleado);

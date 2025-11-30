@@ -3,9 +3,9 @@ package com.IAMusuario.adapter;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.adapter.UsuarioRepositoryAdapter;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioEntity;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper.UsuarioMapper;
-import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.repository.JPAUsuarioRepository;
-import com.Clinica1.myApp.SharedKernel.Usuario;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.repository.JPAUsuarioEntityRepository;
 
+import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,52 +16,52 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class UsuarioRepositoryAdapterTest {
+class UsuarioWebRepositoryAdapterTest {
 
-    private JPAUsuarioRepository jpaRepo;
+    private JPAUsuarioEntityRepository jpaRepo;
     private UsuarioMapper mapper;
     private UsuarioRepositoryAdapter adapter;
 
     @BeforeEach
     void setUp() {
-        jpaRepo = mock(JPAUsuarioRepository.class);
+        jpaRepo = mock(JPAUsuarioEntityRepository.class);
         mapper = mock(UsuarioMapper.class);
         adapter = new UsuarioRepositoryAdapter(jpaRepo, mapper);
     }
 
     @Test
     void testInsert() {
-        Usuario usuario = new Usuario();
+        UsuarioWeb usuarioWeb = new UsuarioWeb();
         UsuarioEntity entity = new UsuarioEntity();
         UsuarioEntity savedEntity = new UsuarioEntity();
-        Usuario mappedBack = new Usuario();
+        UsuarioWeb mappedBack = new UsuarioWeb();
 
-        when(mapper.toEntity(usuario)).thenReturn(entity);
+        when(mapper.toEntity(usuarioWeb)).thenReturn(entity);
         when(jpaRepo.save(entity)).thenReturn(savedEntity);
         when(mapper.toDomain(savedEntity)).thenReturn(mappedBack);
 
-        Usuario result = adapter.insert(usuario);
+        UsuarioWeb result = adapter.insert(usuarioWeb);
 
         assertNotNull(result);
         assertEquals(mappedBack, result);
 
-        verify(mapper).toEntity(usuario);
+        verify(mapper).toEntity(usuarioWeb);
         verify(jpaRepo).save(entity);
         verify(mapper).toDomain(savedEntity);
     }
 
     @Test
     void testUpdate() {
-        Usuario usuario = new Usuario();
+        UsuarioWeb usuarioWeb = new UsuarioWeb();
         UsuarioEntity entity = new UsuarioEntity();
         UsuarioEntity savedEntity = new UsuarioEntity();
-        Usuario mappedBack = new Usuario();
+        UsuarioWeb mappedBack = new UsuarioWeb();
 
-        when(mapper.toEntity(usuario)).thenReturn(entity);
+        when(mapper.toEntity(usuarioWeb)).thenReturn(entity);
         when(jpaRepo.save(entity)).thenReturn(savedEntity);
         when(mapper.toDomain(savedEntity)).thenReturn(mappedBack);
 
-        Usuario result = adapter.update(usuario);
+        UsuarioWeb result = adapter.update(usuarioWeb);
 
         assertNotNull(result);
         assertEquals(mappedBack, result);
@@ -71,15 +71,15 @@ class UsuarioRepositoryAdapterTest {
     void testFindById_found() {
         UUID id = UUID.randomUUID();
         UsuarioEntity entity = new UsuarioEntity();
-        Usuario usuario = new Usuario();
+        UsuarioWeb usuarioWeb = new UsuarioWeb();
 
         when(jpaRepo.findById(id.toString())).thenReturn(Optional.of(entity));
-        when(mapper.toDomain(entity)).thenReturn(usuario);
+        when(mapper.toDomain(entity)).thenReturn(usuarioWeb);
 
-        Usuario result = adapter.FindById(id);
+        UsuarioWeb result = adapter.FindById(id);
 
         assertNotNull(result);
-        assertEquals(usuario, result);
+        assertEquals(usuarioWeb, result);
     }
 
     @Test
@@ -88,7 +88,7 @@ class UsuarioRepositoryAdapterTest {
 
         when(jpaRepo.findById(id.toString())).thenReturn(Optional.empty());
 
-        Usuario result = adapter.FindById(id);
+        UsuarioWeb result = adapter.FindById(id);
 
         assertNull(result);
     }
@@ -98,14 +98,14 @@ class UsuarioRepositoryAdapterTest {
         UsuarioEntity e1 = new UsuarioEntity();
         UsuarioEntity e2 = new UsuarioEntity();
 
-        Usuario u1 = new Usuario();
-        Usuario u2 = new Usuario();
+        UsuarioWeb u1 = new UsuarioWeb();
+        UsuarioWeb u2 = new UsuarioWeb();
 
         when(jpaRepo.findAll()).thenReturn(List.of(e1, e2));
         when(mapper.toDomain(e1)).thenReturn(u1);
         when(mapper.toDomain(e2)).thenReturn(u2);
 
-        List<Usuario> result = adapter.getall();
+        List<UsuarioWeb> result = adapter.getall();
 
         assertEquals(2, result.size());
         assertTrue(result.contains(u1));
@@ -126,15 +126,15 @@ class UsuarioRepositoryAdapterTest {
         String username = "juan123";
 
         UsuarioEntity entity = new UsuarioEntity();
-        Usuario usuario = new Usuario();
+        UsuarioWeb usuarioWeb = new UsuarioWeb();
 
         when(jpaRepo.findByUsername(username)).thenReturn(Optional.of(entity));
-        when(mapper.toDomain(entity)).thenReturn(usuario);
+        when(mapper.toDomain(entity)).thenReturn(usuarioWeb);
 
-        Usuario result = adapter.findbyUsername(username);
+        UsuarioWeb result = adapter.findbyUsername(username);
 
         assertNotNull(result);
-        assertEquals(usuario, result);
+        assertEquals(usuarioWeb, result);
     }
 
     @Test
@@ -143,7 +143,7 @@ class UsuarioRepositoryAdapterTest {
 
         when(jpaRepo.findByUsername(username)).thenReturn(Optional.empty());
 
-        Usuario result = adapter.findbyUsername(username);
+        UsuarioWeb result = adapter.findbyUsername(username);
 
         assertNull(result);
     }

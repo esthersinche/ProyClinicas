@@ -2,15 +2,15 @@ package com.IAMusuario.aggregates;
 
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
-import com.Clinica1.myApp.SharedKernel.Usuario;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.ContraHash;
-import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
+import com.Clinica1.myApp.SharedKernel.Email;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UsuarioTest {
+class UsuarioWebTest {
 
     @Test
     void crearusuDebeGenerarIdYAsignarDatos() {
@@ -22,30 +22,30 @@ class UsuarioTest {
                 Rol.crearrol("Admin", new java.util.HashSet<>())
         );
 
-        ContraHash hash = ContraHash.hasheandocB("123456");
+        ContraHash hash = ContraHash.deHash("123456");
 
-        Usuario usuario = Usuario.crearusu("juan123", hash, emp);
+        UsuarioWeb usuarioWeb = com.Clinica1.myApp.SharedKernel.UsuarioWeb.crearusu("juan123", hash, emp);
 
-        assertNotNull(usuario.getId_usu(), "El ID debe generarse automáticamente");
-        assertEquals("juan123", usuario.getUsername());
-        assertEquals(hash, usuario.getPasshash());
-        assertEquals(emp, usuario.getEmp());
+        assertNotNull(usuarioWeb.getId_usu(), "El ID debe generarse automáticamente");
+        assertEquals("juan123", usuarioWeb.getUsername());
+        assertEquals(hash, usuarioWeb.getPasshash());
+        assertEquals(emp, usuarioWeb.getEmp());
     }
 
     @Test
     void equalsDebeSerTrueCuandoLosIdsSonIguales() {
         IDEntidad id = IDEntidad.generar();
 
-        Usuario u1 = new Usuario(id, "user1", ContraHash.hasheandocB("abc"), null);
-        Usuario u2 = new Usuario(id, "user2", ContraHash.hasheandocB("xyz"), null);
+        UsuarioWeb u1 = new UsuarioWeb(id, "user1", ContraHash.deHash("abc"), null);
+        UsuarioWeb u2 = new UsuarioWeb(id, "user2", ContraHash.deHash("xyz"), null);
 
         assertEquals(u1, u2, "Usuarios con el mismo ID deben ser iguales");
     }
 
     @Test
     void equalsDebeSerFalseCuandoLosIdsSonDistintos() {
-        Usuario u1 = Usuario.crearusu("userA", ContraHash.hasheandocB("111"), null);
-        Usuario u2 = Usuario.crearusu("userA", ContraHash.hasheandocB("111"), null);
+        UsuarioWeb u1 = com.Clinica1.myApp.SharedKernel.UsuarioWeb.crearusu("userA", ContraHash.deHash("111"), null);
+        UsuarioWeb u2 = com.Clinica1.myApp.SharedKernel.UsuarioWeb.crearusu("userA", ContraHash.deHash("111"), null);
 
         assertNotEquals(u1, u2, "Usuarios con IDs diferentes no deben ser iguales");
     }
@@ -54,8 +54,8 @@ class UsuarioTest {
     void hashCodeDebeSerIgualCuandoIdsSonIguales() {
         IDEntidad id = IDEntidad.generar();
 
-        Usuario u1 = new Usuario(id, "x1", ContraHash.hasheandocB("aaa"), null);
-        Usuario u2 = new Usuario(id, "x2", ContraHash.hasheandocB("bbb"), null);
+        UsuarioWeb u1 = new UsuarioWeb(id, "x1", ContraHash.deHash("aaa"), null);
+        UsuarioWeb u2 = new UsuarioWeb(id, "x2", ContraHash.deHash("bbb"), null);
 
         assertEquals(u1.hashCode(), u2.hashCode());
     }
@@ -70,11 +70,11 @@ class UsuarioTest {
                 Rol.crearrol("Recepcionista", new java.util.HashSet<>())
         );
 
-        Usuario usuario = Usuario.crearusu("maria01", ContraHash.hasheandocB("pass"), emp);
+        UsuarioWeb usuarioWeb = com.Clinica1.myApp.SharedKernel.UsuarioWeb.crearusu("maria01", ContraHash.deHash("pass"), emp);
 
-        assertNotNull(usuario.getEmp());
-        assertEquals("Maria", usuario.getEmp().getNombre());
-        assertEquals("Gomez", usuario.getEmp().getApellido());
+        assertNotNull(usuarioWeb.getId_emp());
+        assertEquals("Maria", usuarioWeb.getEmp().getNombre());
+        assertEquals("Gomez", usuarioWeb.getEmp().getApellido());
     }
 }
 

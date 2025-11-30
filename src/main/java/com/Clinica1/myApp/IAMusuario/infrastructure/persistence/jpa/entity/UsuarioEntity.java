@@ -4,7 +4,7 @@ import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Usuario")
+@Table(name = "UsuarioWeb")
 public class UsuarioEntity {
 
     @Id

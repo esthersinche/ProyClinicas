@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UsuarioEntityTest {
+class UsuarioWebEntityTest {
 
     private UsuarioEntity usuario;
     private EmpleadoEntity empleado;

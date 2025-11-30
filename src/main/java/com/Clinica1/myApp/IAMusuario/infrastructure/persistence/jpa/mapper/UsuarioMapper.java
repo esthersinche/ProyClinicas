@@ -5,11 +5,11 @@ import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.RolEn
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioEntity;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
-import com.Clinica1.myApp.SharedKernel.Usuario;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.ContraHash;
-import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
+import com.Clinica1.myApp.SharedKernel.Email;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -21,32 +21,32 @@ public class UsuarioMapper {
 
     /* ===================== USUARIO ===================== */
 
-    public UsuarioEntity toEntity(Usuario usuario) {
-        if (usuario == null)
+    public UsuarioEntity toEntity(UsuarioWeb usuarioWeb) {
+        if (usuarioWeb == null)
             return null;
 
         UsuarioEntity entity = new UsuarioEntity();
 
-        entity.setIdEmp(usuario.getId_usu().obtenerid());
-        entity.setUsername(usuario.getUsername());
-        entity.setPass(usuario.getPasshash().getValor_contra_hash());
+        entity.setIdEmp(usuarioWeb.getId_usu().obtenerid());
+        entity.setUsername(usuarioWeb.getUsername());
+        entity.setPass(usuarioWeb.getPasshash().getValor_contra_hash());
 
-        EmpleadoEntity empleadoEntity = toEmpleadoEntity(usuario.getEmp());
+        EmpleadoEntity empleadoEntity = toEmpleadoEntity(usuarioWeb.getEmp());
         entity.setEmpleado(empleadoEntity);
 
         return entity;
     }
 
-    public Usuario toDomain(UsuarioEntity entity) {
+    public UsuarioWeb toDomain(UsuarioEntity entity) {
         if (entity == null)
             return null;
 
         Empleado empleado = toEmpleadoDomain(entity.getEmpleado());
 
-        return new Usuario(
+        return new UsuarioWeb(
                 IDEntidad.astring(entity.getIdEmp()),
                 entity.getUsername(),
-                ContraHash.hasheandocB(entity.getPass()),
+                ContraHash.deHash(entity.getPass()),
                 empleado);
     }
 

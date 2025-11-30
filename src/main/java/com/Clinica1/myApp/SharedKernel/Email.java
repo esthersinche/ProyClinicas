@@ -1,6 +1,4 @@
-package com.Clinica1.myApp.IAMusuario.domain.model.valueobjects;
-
-import java.util.Objects;
+package com.Clinica1.myApp.SharedKernel;
 
 public record Email(String email_valor) {
     //para validacion
@@ -17,6 +15,11 @@ public record Email(String email_valor) {
     //public static Email el of es un metodo estatico q permite no usar el constructor luego
     public static Email of(String email_valor){
         return new Email(email_valor);
+    }
+
+    @Override
+    public String toString(){
+        return email_valor;
     }
 
     //vo siempre deben tener hashcode e equals pq se comparan por valor no identidad, record los tiene

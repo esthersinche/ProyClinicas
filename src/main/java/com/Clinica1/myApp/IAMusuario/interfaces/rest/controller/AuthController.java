@@ -5,8 +5,8 @@ import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.CrearUsuarioReq
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.LoginRequest;
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.response.TokenResponse;
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper.UsuarioRequestMapper;
-import com.Clinica1.myApp.SharedKernel.Usuario;
 import com.Clinica1.myApp.IAMusuario.domain.repository.UsuarioRepository;
+import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,10 +29,10 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<TokenResponse> register(@Valid @RequestBody CrearUsuarioRequest request) {
         // mapear request -> aggregate
-        Usuario usuarioNuevo = usuarioRequestMapper.toUsuario(request);
+        UsuarioWeb usuarioWebNuevo = usuarioRequestMapper.toUsuario(request);
 
         // guardar usando el repositorio de dominio (que internamente usa JPA)
-        Usuario guardado = usuarioRepository.insert(usuarioNuevo);
+        UsuarioWeb guardado = usuarioRepository.insert(usuarioWebNuevo);
 
         String rolNombre = guardado.getEmp().getRolemp().getNombrerol();
         String token = "REGISTERED_" + guardado.getId_usu().obtenerid(); // reemplazar dsp por JWT real
@@ -47,23 +47,23 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<TokenResponse> login(@Valid @RequestBody LoginRequest request) {
-        Usuario usuario = usuarioRepository.findbyUsername(request.getUsername());
+        UsuarioWeb usuarioWeb = usuarioRepository.findbyUsername(request.getUsername());
 
-        if (usuario == null) {
-            throw new CredencialesInvalidasException("Usuario o contraseña incorrectos");
+        if (usuarioWeb == null) {
+            throw new CredencialesInvalidasException("UsuarioWeb o contraseña incorrectos");
         }
 
-        String hashGuardado = usuario.getPasshash().getValor_contra_hash();
+        String hashGuardado = usuarioWeb.getPasshash().getValor_contra_hash();
         if (!hashGuardado.equals(request.getPassword())) {
-            throw new CredencialesInvalidasException("Usuario o contraseña incorrectos");
+            throw new CredencialesInvalidasException("UsuarioWeb o contraseña incorrectos");
         }
 
-        String rolNombre = usuario.getEmp().getRolemp().getNombrerol();
-        String token = "LOGIN_OK_" + usuario.getId_usu().obtenerid(); // reemplazar dsp por JWT real
+        String rolNombre = usuarioWeb.getEmp().getRolemp().getNombrerol();
+        String token = "LOGIN_OK_" + usuarioWeb.getId_usu().obtenerid(); // reemplazar dsp por JWT real
 
         TokenResponse response = new TokenResponse(
                 token,
-                usuario.getUsername(),
+                usuarioWeb.getUsername(),
                 rolNombre);
 
         return ResponseEntity.ok(response);

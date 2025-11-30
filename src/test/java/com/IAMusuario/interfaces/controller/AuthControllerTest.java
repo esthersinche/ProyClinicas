@@ -5,13 +5,13 @@ import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.CrearUsuarioReq
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper.UsuarioRequestMapper;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
-import com.Clinica1.myApp.SharedKernel.Usuario;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.ContraHash;
-import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
+import com.Clinica1.myApp.SharedKernel.Email;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
 import com.Clinica1.myApp.IAMusuario.domain.repository.UsuarioRepository;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
+import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
@@ -41,7 +41,7 @@ class AuthControllerTest {
     @MockBean
     private UsuarioRequestMapper usuarioRequestMapper;
 
-    private Usuario crearUsuarioPrueba() {
+    private UsuarioWeb crearUsuarioPrueba() {
         HashSet<Funcion> funciones = new HashSet<>();
         funciones.add(Funcion.of("GESTIONAR"));
 
@@ -60,10 +60,10 @@ class AuthControllerTest {
                 rol
         );
 
-        return new Usuario(
+        return new UsuarioWeb(
                 IDEntidad.astring("USR123"),
                 "usuarioTest",
-                ContraHash.hasheandocB("pass123"),
+                ContraHash.deHash("pass123"),
                 empleado
         );
     }
@@ -79,10 +79,10 @@ class AuthControllerTest {
         request.setTelefono("111222333");
         request.setRol("ADMIN");
 
-        Usuario mockUsuario = crearUsuarioPrueba();
+        UsuarioWeb mockUsuarioWeb = crearUsuarioPrueba();
 
-        when(usuarioRequestMapper.toUsuario(any())).thenReturn(mockUsuario);
-        when(usuarioRepository.insert(any())).thenReturn(mockUsuario);
+        when(usuarioRequestMapper.toUsuario(any())).thenReturn(mockUsuarioWeb);
+        when(usuarioRepository.insert(any())).thenReturn(mockUsuarioWeb);
 
         mockMvc.perform(post("/api/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -105,9 +105,9 @@ class AuthControllerTest {
 
     @Test
     void testLoginExitoso() throws Exception {
-        Usuario usuario = crearUsuarioPrueba();
+        UsuarioWeb usuarioWeb = crearUsuarioPrueba();
 
-        when(usuarioRepository.findbyUsername("usuarioTest")).thenReturn(usuario);
+        when(usuarioRepository.findbyUsername("usuarioTest")).thenReturn(usuarioWeb);
 
         mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -141,9 +141,9 @@ class AuthControllerTest {
 
     @Test
     void testLoginPasswordIncorrecta() throws Exception {
-        Usuario usuario = crearUsuarioPrueba();
+        UsuarioWeb usuarioWeb = crearUsuarioPrueba();
 
-        when(usuarioRepository.findbyUsername("usuarioTest")).thenReturn(usuario);
+        when(usuarioRepository.findbyUsername("usuarioTest")).thenReturn(usuarioWeb);
 
         mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)

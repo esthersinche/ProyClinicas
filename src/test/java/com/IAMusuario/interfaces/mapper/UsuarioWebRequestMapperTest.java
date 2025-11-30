@@ -4,14 +4,14 @@ import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.CrearUsuarioReq
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper.UsuarioRequestMapper;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
-import com.Clinica1.myApp.SharedKernel.Usuario;
+import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UsuarioRequestMapperTest {
+class UsuarioWebRequestMapperTest {
 
     @Test
     void testUsuarioRequestMapperCompleto() {
@@ -27,13 +27,13 @@ class UsuarioRequestMapperTest {
         request.setEmail("juan@mail.com");
         request.setRol("Doctor");
 
-        Usuario usuario = mapper.toUsuario(request);
+        UsuarioWeb usuarioWeb = mapper.toUsuario(request);
 
-        assertNotNull(usuario);
-        assertEquals("juan123", usuario.getUsername());
-        assertEquals("123456", usuario.getPasshash().getValor_contra_hash());
+        assertNotNull(usuarioWeb);
+        assertEquals("juan123", usuarioWeb.getUsername());
+        assertEquals("123456", usuarioWeb.getPasshash().getValor_contra_hash());
 
-        Empleado empleado = usuario.getEmp();
+        Empleado empleado = usuarioWeb.getEmp();
         assertNotNull(empleado);
         assertEquals("Juan", empleado.getNombre());
         assertEquals("López", empleado.getApellido());
@@ -56,8 +56,8 @@ class UsuarioRequestMapperTest {
         request2.setEmail("maria@mail.com");
         request2.setRol("Recepcionista");
 
-        Usuario usuario2 = mapper.toUsuario(request2);
-        Rol rol2 = usuario2.getEmp().getRolemp();
+        UsuarioWeb usuarioWeb2 = mapper.toUsuario(request2);
+        Rol rol2 = usuarioWeb2.getEmp().getRolemp();
 
         assertEquals("Recepcionista", rol2.getNombrerol());
         assertEquals(new HashSet<>(), rol2.getFunciones()); // sin funciones por defecto

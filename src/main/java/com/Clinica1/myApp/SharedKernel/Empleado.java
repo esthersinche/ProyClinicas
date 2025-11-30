@@ -1,7 +1,6 @@
 package com.Clinica1.myApp.SharedKernel;
 
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
-import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Email;
 
 import java.util.Objects;
 
@@ -11,14 +10,14 @@ public class Empleado {
     private String apellido;
     private String telefono;
     private Email email;//cambios?
-    private Rol rolemp; //(admin, doctor, recepcionista)
+    private Roles rolemp; //(admin, doctor, recepcionista)
 
     //referenciar a doctor del bc gestordecitas
     public Empleado() {//jpa
     }
 
     //este tendra el id ya creado
-    public Empleado(IDEntidad id_emp, String nombre, String apellido, String telefono, Email email, Rol rolemp) {
+    public Empleado(IDEntidad id_emp, String nombre, String apellido, String telefono, Email email, Roles rolemp) {
         this.id_emp = id_emp;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -28,7 +27,7 @@ public class Empleado {
     }
 
     //metodo factory, genera un id valido al crear un empleado y asi no hay null en id c:
-    public static Empleado crearemp(String nombre, String apellido, String telefono, Email email, Rol rolemp){
+    public static Empleado crearemp(String nombre, String apellido, String telefono, Email email, Roles rolemp){
         return new Empleado(IDEntidad.generar(), nombre, apellido, telefono, email, rolemp);
     }
 
@@ -52,7 +51,7 @@ public class Empleado {
         return email;
     }
 
-    public Rol getRolemp() {
+    public Roles getRolemp() {
         return rolemp;
     }
 

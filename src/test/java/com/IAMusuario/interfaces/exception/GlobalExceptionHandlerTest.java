@@ -47,7 +47,7 @@ class GlobalExceptionHandlerTest {
         assertEquals("La contraseña es obligatoria", errors.get("password"));
 
         CredencialesInvalidasException credEx =
-                new CredencialesInvalidasException("Usuario o contraseña incorrectos");
+                new CredencialesInvalidasException("UsuarioWeb o contraseña incorrectos");
 
         ResponseEntity<Map<String, Object>> response2 =
                 handler.handleCredencialesInvalidas(credEx);
@@ -57,7 +57,7 @@ class GlobalExceptionHandlerTest {
 
         assertNotNull(body2);
         assertEquals(401, body2.get("status"));
-        assertEquals("Usuario o contraseña incorrectos", body2.get("message"));
+        assertEquals("UsuarioWeb o contraseña incorrectos", body2.get("message"));
 
         Exception genericEx = new Exception("Error X");
 

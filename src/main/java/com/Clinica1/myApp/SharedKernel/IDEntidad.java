@@ -2,8 +2,13 @@ package com.Clinica1.myApp.SharedKernel;
 
 import java.util.UUID;
 
+<<<<<<< Updated upstream
 public final class IDEntidad {
     private final IDEntidad idmostlyall;
+=======
+public class IDEntidad {
+    private final String idmostlyall;
+>>>>>>> Stashed changes
 
     private IDEntidad(IDEntidad idmostlyall) {
 
