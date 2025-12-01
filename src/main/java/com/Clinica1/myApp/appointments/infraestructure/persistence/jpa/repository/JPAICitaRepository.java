@@ -27,6 +27,6 @@ public interface JPAICitaRepository extends JpaRepository<CitaEntity, String> {
     List<CitaEntity> findByNombreDoctorYEspecialidad(@Param("name") String name, @Param("esp")String esp);
 
     //ns si falte aca el de busqueda de especialidades despues de doctor o si el de arriba ya lo hacexd
-
+    List<CitaEntity> findByDoctorId(String docId);
 
 }

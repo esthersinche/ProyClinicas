@@ -10,51 +10,61 @@ import static org.junit.jupiter.api.Assertions.*;
 class ModificarCitaCommandTest {
 
     @Test
-    void deberiaCrearCommandConTodosLosDatos() {
-        IDEntidad citaId = IDEntidad.astring("CITA001");
-        IDEntidad doctorId = IDEntidad.astring("DOC123");
-
+    void deberiaCrearModificarCitaCommandCorrectamente() {
+        IDEntidad citaId = IDEntidad.generar();
+        IDEntidad doctorId = IDEntidad.generar();
+        String motivo = "Cambio de horario";
         LocalDateTime inicio = LocalDateTime.now();
         LocalDateTime fin = inicio.plusHours(1);
 
-        ModificarCitaCommand cmd = new ModificarCitaCommand(
+        ModificarCitaCommand command = new ModificarCitaCommand(
                 citaId,
-                "Control",
+                motivo,
                 inicio,
                 fin,
-                doctorId,
-                "Cardiología"
-        );
+                doctorId);
 
-        assertEquals("CITA001", cmd.getCitaId().obtenerid());
-        assertEquals("Control", cmd.getMotivo());
-        assertEquals(inicio, cmd.getInicio());
-        assertEquals(fin, cmd.getFin());
-        assertEquals("DOC123", cmd.getDoctorId().obtenerid());
-        assertEquals("Cardiología", cmd.getEspecialidad());
+        assertNotNull(command, "✔ El comando no debe ser nulo");
+        assertEquals(citaId, command.getCitaId(), "✔ El ID de la cita debe coincidir");
+        assertEquals(motivo, command.getMotivo(), "✔ El motivo debe coincidir");
+        assertEquals(inicio, command.getInicio(), "✔ La fecha/hora de inicio debe coincidir");
+        assertEquals(fin, command.getFin(), "✔ La fecha/hora de fin debe coincidir");
+        assertEquals(doctorId, command.getDoctorId(), "✔ El ID del doctor debe coincidir");
     }
 
     @Test
-    void constructorIncompletoNoDeberiaAsignarCampos() {
-        IDEntidad citaId = IDEntidad.astring("CITA002");
+    void deberiaPermitirDoctorIdNull() {
+        IDEntidad citaId = IDEntidad.generar();
+        String motivo = "Reprogramación sin cambio de doctor";
         LocalDateTime inicio = LocalDateTime.now();
         LocalDateTime fin = inicio.plusHours(2);
 
-        // este constructor no asigna nada en la clase lmao
-        ModificarCitaCommand cmd = new ModificarCitaCommand(
+        ModificarCitaCommand command = new ModificarCitaCommand(
                 citaId,
-                "MotivoTemporal",
+                motivo,
                 inicio,
-                fin
-        );
+                fin,
+                null);
 
-        // Todos deben quedar en null porque la implementación está vacía
-        assertNull(cmd.getCitaId());
-        assertNull(cmd.getMotivo());
-        assertNull(cmd.getInicio());
-        assertNull(cmd.getFin());
-        assertNull(cmd.getDoctorId());
-        assertNull(cmd.getEspecialidad());
+        assertNotNull(command, "✔ El comando no debe ser nulo");
+        assertEquals(citaId, command.getCitaId(), "✔ El ID de la cita debe coincidir");
+        assertNull(command.getDoctorId(), "✔ El ID del doctor debe ser null");
+    }
+
+    @Test
+    void deberiaPermitirMotivoNull() {
+        IDEntidad citaId = IDEntidad.generar();
+        LocalDateTime inicio = LocalDateTime.now();
+        LocalDateTime fin = inicio.plusHours(1);
+
+        ModificarCitaCommand command = new ModificarCitaCommand(
+                citaId,
+                null,
+                inicio,
+                fin,
+                null);
+
+        assertNotNull(command, "✔ El comando no debe ser nulo");
+        assertNull(command.getMotivo(), "✔ El motivo debe ser null");
     }
 }
-
