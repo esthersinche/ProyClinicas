@@ -1,6 +1,7 @@
 package com.Clinica1.myApp.appointments.infraestructure.persistence.jpa.adapter;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.appointments.application.exception.CitaNoEncontradaException;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Cita;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Estado;
 import com.Clinica1.myApp.appointments.domain.repository.CitaRepository;
@@ -30,27 +31,42 @@ public class CitaRepositoryAdapter implements CitaRepository {
     @Override
     public List<Cita> findbyNombrepac(String nombre_pac_cita){
         return citadao.findByPacienteName(nombre_pac_cita)
-                .stream().map(cit_map::ToDomain).collect(Collectors.toList());
+                .stream()
+                .map(cit_map::ToDomain)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Cita> findbyDoctor(String nom_doc_cita){
         return citadao.findByNombreDoctor(nom_doc_cita)
-                .stream().map(cit_map::ToDomain).collect(Collectors.toList());
+                .stream()
+                .map(cit_map::ToDomain)
+                .collect(Collectors.toList());
     }
 
     //especialidad
     @Override
     public List<Cita> findbyEspecialidad(String nom_espe){
         return citadao.findByEspecialidad(nom_espe)
-                .stream().map(cit_map::ToDomain).collect(Collectors.toList());
+                .stream()
+                .map(cit_map::ToDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Cita> findByDoctorId(IDEntidad doctorId) {
+        return citadao.findByDoctorId(doctorId.obtenerid())
+                .stream()
+                .map(cit_map::ToDomain)
+                .collect(Collectors.toList());
     }
 
     //crud
     @Override
     public Cita findById(IDEntidad cita_id){
-        return citadao.findById(cita_id.obtenerid()).map(cit_map::ToDomain)
-                .orElseThrow(() -> new RuntimeException("Not found"));
+        return citadao.findById(cita_id.obtenerid())
+                .map(cit_map::ToDomain)
+                .orElseThrow(() -> new CitaNoEncontradaException("No existe la cita con ID: " + cita_id));
     }
 
     @Override
@@ -70,12 +86,15 @@ public class CitaRepositoryAdapter implements CitaRepository {
 
     @Override
     public List<Cita> findall(){
-        return List.of();
+        return citadao.findAll()
+                .stream()
+                .map(cit_map::ToDomain)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void delete(IDEntidad identidad){
-
+        citadao.deleteById(identidad.obtenerid());
     }
 
 
