@@ -61,10 +61,8 @@ class ModificarCitaCommandHandlerTest {
 
         ModificarCitaCommand cmd = new ModificarCitaCommand(
                 citaId,
-                "Nuevo motivo",
                 inicioNuevo,
-                finNuevo,
-                null);
+                finNuevo);
 
         Cita citaActualizada = mock(Cita.class);
         when(citaRepository.update(any())).thenReturn(citaActualizada);

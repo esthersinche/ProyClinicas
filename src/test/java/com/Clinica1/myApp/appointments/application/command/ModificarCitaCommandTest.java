@@ -12,24 +12,18 @@ class ModificarCitaCommandTest {
     @Test
     void deberiaCrearModificarCitaCommandCorrectamente() {
         IDEntidad citaId = IDEntidad.generar();
-        IDEntidad doctorId = IDEntidad.generar();
-        String motivo = "Cambio de horario";
         LocalDateTime inicio = LocalDateTime.now();
         LocalDateTime fin = inicio.plusHours(1);
 
         ModificarCitaCommand command = new ModificarCitaCommand(
                 citaId,
-                motivo,
                 inicio,
-                fin,
-                doctorId);
+                fin);
 
         assertNotNull(command, "✔ El comando no debe ser nulo");
         assertEquals(citaId, command.getCitaId(), "✔ El ID de la cita debe coincidir");
-        assertEquals(motivo, command.getMotivo(), "✔ El motivo debe coincidir");
         assertEquals(inicio, command.getInicio(), "✔ La fecha/hora de inicio debe coincidir");
         assertEquals(fin, command.getFin(), "✔ La fecha/hora de fin debe coincidir");
-        assertEquals(doctorId, command.getDoctorId(), "✔ El ID del doctor debe coincidir");
     }
 
     @Test
@@ -41,14 +35,11 @@ class ModificarCitaCommandTest {
 
         ModificarCitaCommand command = new ModificarCitaCommand(
                 citaId,
-                motivo,
                 inicio,
-                fin,
-                null);
+                fin);
 
         assertNotNull(command, "✔ El comando no debe ser nulo");
         assertEquals(citaId, command.getCitaId(), "✔ El ID de la cita debe coincidir");
-        assertNull(command.getDoctorId(), "✔ El ID del doctor debe ser null");
     }
 
     @Test
@@ -59,12 +50,9 @@ class ModificarCitaCommandTest {
 
         ModificarCitaCommand command = new ModificarCitaCommand(
                 citaId,
-                null,
                 inicio,
-                fin,
-                null);
+                fin);
 
         assertNotNull(command, "✔ El comando no debe ser nulo");
-        assertNull(command.getMotivo(), "✔ El motivo debe ser null");
     }
 }

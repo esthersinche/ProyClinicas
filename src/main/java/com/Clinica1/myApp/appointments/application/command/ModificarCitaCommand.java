@@ -8,31 +8,22 @@ import java.util.UUID;
 public class ModificarCitaCommand {
 
     private final IDEntidad citaId;
-    private final String motivo;
     private final LocalDateTime inicio;
     private final LocalDateTime fin;
-    private final IDEntidad doctorId;  // opcional
+   // opcional
 
     public ModificarCitaCommand(
             IDEntidad citaId,
-            String motivo,
             LocalDateTime inicio,
-            LocalDateTime fin,
-            IDEntidad doctorId
+            LocalDateTime fin
     ) {
         this.citaId = citaId;
-        this.motivo = motivo;
         this.inicio = inicio;
         this.fin = fin;
-        this.doctorId = doctorId;
     }
 
     public IDEntidad getCitaId() {
         return citaId;
-    }
-
-    public String getMotivo() {
-        return motivo;
     }
 
     public LocalDateTime getInicio() {
@@ -43,7 +34,4 @@ public class ModificarCitaCommand {
         return fin;
     }
 
-    public IDEntidad getDoctorId() {
-        return doctorId;
-    }
 }

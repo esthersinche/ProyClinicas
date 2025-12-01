@@ -61,10 +61,8 @@ public class CitaController {
                                            @RequestBody ModificarCitaRequest req) {
         var command = new ModificarCitaCommand(
                 IDEntidad.astring(id),
-                req.getMotivo(),
                 req.getInicio(),
-                req.getFin(),
-                req.getDoctorId() != null ? IDEntidad.astring(req.getDoctorId()) : null
+                req.getFin()
         );
 
         var dto = modificarHandler.handle(command);

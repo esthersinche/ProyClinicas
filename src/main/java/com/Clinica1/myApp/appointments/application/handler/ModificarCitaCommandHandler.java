@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ModificarCitaCommandHandler {
-    
+
     private final CitaRepository citaRepository;
     private final DoctorRepository doctorRepository;
     private final CitaAssembler citaAssembler;
@@ -37,49 +37,27 @@ public class ModificarCitaCommandHandler {
         IDEntidad citaId = command.getCitaId();
 
         Cita cita = citaRepository.findById(citaId);
+
         if (cita == null) {
             throw new CitaNoEncontradaException("No existe la cita con ID: " + command.getCitaId());
         }
 
         validarFechas(command.getInicio(), command.getFin());
 
-        // Doctor actual (usamos el ID guardado en la cita)
-        Doctor doctorAsignadoActual = doctorRepository.findById(cita.getDoc_id());
+        // Obtener doctor asignado actual
+        Doctor doctorAsignado = doctorRepository.findById(cita.getDoc_id());
 
-        Doctor nuevoDoctor = doctorAsignadoActual;
+        // Verificar disponibilidad del doctor actual
+        verificarDisponibilidadDoctor(
+                doctorAsignado,
+                command.getInicio(),
+                command.getFin(),
+                citaId
+        );
 
-        // Si viene un doctor nuevo
-        if (command.getDoctorId() != null) {
-
-            nuevoDoctor = doctorRepository.findById(command.getDoctorId());
-
-            if (nuevoDoctor == null) {
-                throw new DoctorNoDisponibleException("El doctor no existe: " + command.getDoctorId());
-            }
-
-            verificarDisponibilidadDoctor(
-                    nuevoDoctor,
-                    command.getInicio(),
-                    command.getFin(),
-                    citaId
-            );
-
-            // ENTIDAD CITA CREA SU PROPIO DOC_INFO_CITA
-            cita.setInst_doctor(nuevoDoctor);
-
-        } else {
-            // Verificar disponibilidad del ACTUAL
-            verificarDisponibilidadDoctor(
-                    doctorAsignadoActual,
-                    command.getInicio(),
-                    command.getFin(),
-                    citaId
-            );
-        }
-
-        // Aplicar cambios
+        // Aplicar cambios (solo fecha y hora)
         cita.modificar(
-                command.getMotivo(),
+                cita.getMotivo_cita(),   // NO cambia motivo
                 command.getInicio(),
                 command.getFin()
         );
