@@ -4,36 +4,42 @@ import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 class CancelarCitaCommandTest {
 
     @Test
     void deberiaCrearCancelarCitaCommandCorrectamente() {
-        IDEntidad citaId = IDEntidad.astring("CITA123");
-        String motivo = "Paciente no asistió";
+        IDEntidad id = IDEntidad.generar();
+        String motivo = "Paciente no puede asistir";
 
-        CancelarCitaCommand cmd = new CancelarCitaCommand(citaId, motivo);
+        CancelarCitaCommand command = new CancelarCitaCommand(id, motivo);
 
-        assertEquals("CITA123", cmd.getCitaId().obtenerid());
-        assertEquals("Paciente no asistió", cmd.getMotivoCancelacion());
+        assertNotNull(command, "✔ El comando no debe ser nulo");
+        assertEquals(id, command.getCitaId(), "✔ El ID debe coincidir");
+        assertEquals(motivo, command.getMotivoCancelacion(), "✔ El motivo debe coincidir");
     }
 
     @Test
-    void deberiaAceptarMotivoCancelacionVacio() {
-        IDEntidad citaId = IDEntidad.astring("CITA999");
+    void deberiaAceptarMotivoVacio() {
+        IDEntidad id = IDEntidad.generar();
+        String motivo = "";
 
-        CancelarCitaCommand cmd = new CancelarCitaCommand(citaId, "");
+        CancelarCitaCommand command = new CancelarCitaCommand(id, motivo);
 
-        assertEquals("CITA999", cmd.getCitaId().obtenerid());
-        assertEquals("", cmd.getMotivoCancelacion());
+        assertNotNull(command, "✔ El comando no debe ser nulo");
+        assertEquals(id, command.getCitaId(), "✔ El ID debe coincidir");
+        assertEquals("", command.getMotivoCancelacion(), "✔ El motivo vacío debe mantenerse");
     }
 
     @Test
-    void deberiaAceptarMotivoCancelacionNull() {
-        IDEntidad citaId = IDEntidad.astring("CITA777");
+    void deberiaAceptarMotivoNull() {
+        IDEntidad id = IDEntidad.generar();
+        String motivo = null;
 
-        CancelarCitaCommand cmd = new CancelarCitaCommand(citaId, null);
+        CancelarCitaCommand command = new CancelarCitaCommand(id, motivo);
 
-        assertEquals("CITA777", cmd.getCitaId().obtenerid());
-        assertNull(cmd.getMotivoCancelacion());
+        assertNotNull(command, "✔ El comando no debe ser nulo");
+        assertEquals(id, command.getCitaId(), "✔ El ID debe coincidir");
+        assertNull(command.getMotivoCancelacion(), "✔ El motivo null debe mantenerse null");
     }
 }

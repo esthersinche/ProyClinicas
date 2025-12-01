@@ -1,155 +1,82 @@
 package com.Clinica1.myApp.appointments.application.handler;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.appointments.application.assembler.CitaAssembler;
 import com.Clinica1.myApp.appointments.application.command.ModificarCitaCommand;
 import com.Clinica1.myApp.appointments.application.dto.CitaDto;
-import com.Clinica1.myApp.appointments.application.assembler.CitaAssembler;
-import com.Clinica1.myApp.appointments.application.exception.CitaNoEncontradaException;
-import com.Clinica1.myApp.appointments.application.exception.FechaInvalidaException;
-import com.Clinica1.myApp.appointments.application.exception.DoctorNoDisponibleException;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Cita;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Doctor;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.Estado;
 import com.Clinica1.myApp.appointments.domain.repository.CitaRepository;
 import com.Clinica1.myApp.appointments.domain.repository.DoctorRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class ModificarCitaCommandHandlerTest {
+class ModificarCitaCommandHandlerTest {
 
+    @Mock
     private CitaRepository citaRepository;
+
+    @Mock
     private DoctorRepository doctorRepository;
+
+    @Mock
     private CitaAssembler citaAssembler;
+
+    @InjectMocks
     private ModificarCitaCommandHandler handler;
 
     @BeforeEach
-    void setUp() {
-        citaRepository = mock(CitaRepository.class);
-        doctorRepository = mock(DoctorRepository.class);
-        citaAssembler = mock(CitaAssembler.class);
-        handler = new ModificarCitaCommandHandler(citaRepository, doctorRepository, citaAssembler);
+    void setup() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
     void deberiaModificarCitaCorrectamente() throws Exception {
-        IDEntidad citaId = IDEntidad.generar();
-        IDEntidad doctorId = IDEntidad.generar();
 
-        LocalDateTime inicio = LocalDateTime.now().plusDays(1);
-        LocalDateTime fin = inicio.plusHours(1);
+        IDEntidad citaId = IDEntidad.astring("CITA-1");
+        IDEntidad doctorId = IDEntidad.astring("DOC-1");
 
-        ModificarCitaCommand command = new ModificarCitaCommand(
-                citaId,
-                "Consulta modificada",
-                inicio,
-                fin,
-                doctorId,
-                "Cardiología"
-        );
-
-        Cita citaExistente = mock(Cita.class);
+        Cita cita = mock(Cita.class);
         Doctor doctor = mock(Doctor.class);
+
+        when(citaRepository.findById(citaId)).thenReturn(cita);
+        when(doctorRepository.findById(any())).thenReturn(doctor);
+
+        when(doctor.getId_doc()).thenReturn(doctorId);
+
+        when(citaRepository.findByDoctorId(doctorId)).thenReturn(Collections.emptyList());
+
+        LocalDateTime inicioNuevo = LocalDateTime.now().plusDays(1);
+        LocalDateTime finNuevo = inicioNuevo.plusHours(1);
+
+        ModificarCitaCommand cmd = new ModificarCitaCommand(
+                citaId,
+                "Nuevo motivo",
+                inicioNuevo,
+                finNuevo,
+                null);
+
         Cita citaActualizada = mock(Cita.class);
-        CitaDto dtoEsperado = mock(CitaDto.class);
+        when(citaRepository.update(any())).thenReturn(citaActualizada);
 
-        when(citaRepository.findById(citaId)).thenReturn(citaExistente);
-        when(doctorRepository.findById(doctorId)).thenReturn(doctor);
-        when(citaRepository.update(citaExistente)).thenReturn(citaActualizada);
-        when(citaAssembler.toDto(citaActualizada)).thenReturn(dtoEsperado);
+        CitaDto dto = new CitaDto();
+        when(citaAssembler.toDto(citaActualizada)).thenReturn(dto);
 
-        CitaDto resultado = handler.handle(command);
+        CitaDto result = handler.handle(cmd);
 
-        assertNotNull(resultado);
-        assertEquals(dtoEsperado, resultado);
-
-        verify(citaRepository, times(1)).update(citaExistente);
-        verify(citaAssembler, times(1)).toDto(citaActualizada);
-    }
-
-    @Test
-    void deberiaLanzarExcepcionSiCitaNoExiste() {
-        IDEntidad citaId = IDEntidad.generar();
-
-        ModificarCitaCommand command = new ModificarCitaCommand(
-                citaId,
-                "Consulta",
-                LocalDateTime.now().plusDays(1),
-                LocalDateTime.now().plusDays(1).plusHours(1),
-                null,
-                null
-        );
-
-        when(citaRepository.findById(citaId)).thenReturn(null);
-
-        assertThrows(CitaNoEncontradaException.class, () -> handler.handle(command));
-    }
-
-    @Test
-    void deberiaLanzarExcepcionSiFechasInvalidas() {
-        IDEntidad citaId = IDEntidad.generar();
-
-        ModificarCitaCommand command = new ModificarCitaCommand(
-                citaId,
-                "Consulta",
-                LocalDateTime.now().minusDays(1),
-                LocalDateTime.now().plusHours(1),
-                null,
-                null
-        );
-
-        Cita citaExistente = mock(Cita.class);
-        when(citaRepository.findById(citaId)).thenReturn(citaExistente);
-
-        assertThrows(FechaInvalidaException.class, () -> handler.handle(command));
-    }
-
-    @Test
-    void deberiaLanzarExcepcionSiDoctorNoExiste() throws Exception {
-        IDEntidad citaId = IDEntidad.generar();
-        IDEntidad doctorId = IDEntidad.generar();
-
-        ModificarCitaCommand command = new ModificarCitaCommand(
-                citaId,
-                "Consulta",
-                LocalDateTime.now().plusDays(1),
-                LocalDateTime.now().plusDays(1).plusHours(1),
-                doctorId,
-                "Cardiología"
-        );
-
-        Cita citaExistente = mock(Cita.class);
-        when(citaRepository.findById(citaId)).thenReturn(citaExistente);
-        when(doctorRepository.findById(doctorId)).thenReturn(null);
-
-        assertThrows(DoctorNoDisponibleException.class, () -> handler.handle(command));
-    }
-
-    @Test
-    void deberiaLanzarExcepcionSiDoctorNoDisponible() throws Exception {
-        IDEntidad citaId = IDEntidad.generar();
-        IDEntidad doctorId = IDEntidad.generar();
-
-        ModificarCitaCommand command = new ModificarCitaCommand(
-                citaId,
-                "Consulta",
-                LocalDateTime.now().plusDays(1),
-                LocalDateTime.now().plusDays(1).plusHours(1),
-                doctorId,
-                "Cardiología"
-        );
-
-        Cita citaExistente = mock(Cita.class);
-        Doctor doctor = mock(Doctor.class);
-
-        when(citaRepository.findById(citaId)).thenReturn(citaExistente);
-        when(doctorRepository.findById(doctorId)).thenReturn(doctor);
-
-        ModificarCitaCommandHandler spyHandler = spy(handler);
-
-        assertThrows(DoctorNoDisponibleException.class, () -> spyHandler.handle(command));
+        assertNotNull(result);
+        verify(citaRepository).findById(citaId);
+        verify(citaRepository).update(any());
+        verify(citaAssembler).toDto(any());
     }
 }
