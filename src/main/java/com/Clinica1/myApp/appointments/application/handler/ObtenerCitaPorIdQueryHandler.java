@@ -20,8 +20,8 @@ public class ObtenerCitaPorIdQueryHandler {
 
     public CitaDto handle(ObtenerCitaPorIdQuery query) throws CitaNoEncontradaException {
 
-        IDEntidad id = IDEntidad.astring(query.getCitaId());
-
+        // IDEntidad id = IDEntidad.astring(query.getCitaId());
+        IDEntidad id = IDEntidad.astring(query.getCitaId().obtenerid());
         Cita cita = citaRepository.findById(id);
 
         if (cita == null) {
