@@ -8,10 +8,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class ObtenerCitaPorIdQueryTest {
 
     @Test
-    void constructorYGetter() {
-        IDEntidad citaId = "12345";
-        ObtenerCitaPorIdQuery query = new ObtenerCitaPorIdQuery(citaId);
+    void deberiaCrearQueryCorrectamente() {
+        IDEntidad id = IDEntidad.astring("CITA-001");
 
-        assertEquals(citaId, query.getCitaId(), "El getter debe devolver el ID de la cita");
+        ObtenerCitaPorIdQuery query = new ObtenerCitaPorIdQuery(id);
+
+        assertNotNull(query);
+        assertEquals(id, query.getCitaId());
+    }
+
+    @Test
+    void deberiaRetornarElMismoIdQueSeAsigno() {
+        IDEntidad id = IDEntidad.astring("ABC-123");
+
+        ObtenerCitaPorIdQuery query = new ObtenerCitaPorIdQuery(id);
+
+        assertEquals("ABC-123", query.getCitaId().obtenerid());
     }
 }

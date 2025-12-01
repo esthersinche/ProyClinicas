@@ -1,6 +1,8 @@
 package com.Clinica1.myApp.appointments.application.dto;
 
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,71 +10,66 @@ import static org.junit.jupiter.api.Assertions.*;
 class CitaDtoTest {
 
     @Test
-    void deberiaCrearCitaDtoVacio() {
-        CitaDto dto = new CitaDto();
-        assertNotNull(dto);
-    }
-
-    @Test
-    void deberiaCrearCitaDtoConDatos() {
-
+    void deberiaCrearCitaDtoConConstructorCorrectamente() {
+        IDEntidad id = IDEntidad.generar();
+        String motivo = "Dolor de cabeza";
+        String estado = "Pendiente";
+        String canal = "Presencial";
         LocalDateTime inicio = LocalDateTime.now();
-        LocalDateTime fin = inicio.plusHours(1);
+        LocalDateTime fin = inicio.plusMinutes(30);
 
-        PacienteInfoDto paciente = new PacienteInfoDto(
-                "Juan Pérez",
-                "12345678"
-        );
-
-        DoctorInfoDto doctor = new DoctorInfoDto(
-                "Dr. López",
-                "Cardiología",
-                "Consultorio 101"
-        );
+        PacienteInfoDto paciente = new PacienteInfoDto("Luis Ramos", "12345678");
+        DoctorInfoDto doctor = new DoctorInfoDto("Dr. Pérez", "Cardiología", "Consultorio 3");
+        String clinica = "Clinica Internacional";
+        String especialidad = "Cardiología";
 
         CitaDto dto = new CitaDto(
-                "CITA123",
-                "Consulta",
-                "Pendiente",
-                "Presencial",
+                id,
+                motivo,
+                estado,
+                canal,
                 inicio,
                 fin,
                 paciente,
                 doctor,
-                "Clínica Central",
-                "Cardiología"
-        );
+                clinica,
+                especialidad);
 
-        assertEquals("CITA123", dto.getId());
-        assertEquals("Consulta", dto.getMotivo());
-        assertEquals("Pendiente", dto.getEstado());
-        assertEquals("Presencial", dto.getCanal());
-        assertEquals(inicio, dto.getInicio());
-        assertEquals(fin, dto.getFin());
-
-        assertNotNull(dto.getPaciente());
-        assertEquals("Juan Pérez", dto.getPaciente().getNombre());
-        assertEquals("12345678", dto.getPaciente().getDni());
-
-        assertNotNull(dto.getDoctor());
-        assertEquals("Dr. López", dto.getDoctor().getNombre());
-        assertEquals("Cardiología", dto.getDoctor().getEspecialidad());
-        assertEquals("Consultorio 101", dto.getDoctor().getConsultorio());
-
-        assertEquals("Clínica Central", dto.getClinica());
-        assertEquals("Cardiología", dto.getEspecialidad());
+        assertNotNull(dto, "✔ El DTO no debe ser nulo");
+        assertEquals(id, dto.getId(), "✔ El ID debe coincidir");
+        assertEquals(motivo, dto.getMotivo(), "✔ El motivo debe coincidir");
+        assertEquals(estado, dto.getEstado(), "✔ El estado debe coincidir");
+        assertEquals(canal, dto.getCanal(), "✔ El canal debe coincidir");
+        assertEquals(inicio, dto.getInicio(), "✔ El inicio debe coincidir");
+        assertEquals(fin, dto.getFin(), "✔ El fin debe coincidir");
+        assertEquals(paciente, dto.getPaciente(), "✔ El paciente debe coincidir");
+        assertEquals(doctor, dto.getDoctor(), "✔ El doctor debe coincidir");
+        assertEquals(clinica, dto.getClinica(), "✔ La clínica debe coincidir");
+        assertEquals(especialidad, dto.getEspecialidad(), "✔ La especialidad debe coincidir");
     }
 
     @Test
-    void deberiaPermitirModificarDatos() {
-        CitaDto dto = new CitaDto();
+    void deberiaCrearCitaDtoConBuilderCorrectamente() {
+        IDEntidad id = IDEntidad.generar();
+        LocalDateTime inicio = LocalDateTime.now();
+        LocalDateTime fin = inicio.plusHours(1);
 
-        dto.setId("ABC123");
-        dto.setMotivo("Consulta general");
-        dto.setEstado("Confirmada");
+        CitaDto dto = CitaDto.builder()
+                .id(id)
+                .motivo("Consulta general")
+                .estado("Pendiente")
+                .canal("Virtual")
+                .inicio(inicio)
+                .fin(fin)
+                .paciente(new PacienteInfoDto("Ana López", "87654321"))
+                .doctor(new DoctorInfoDto("Dr. Ramírez", "Dermatología", "Consultorio 5"))
+                .clinica("San Pablo")
+                .especialidad("Dermatología")
+                .build();
 
-        assertEquals("ABC123", dto.getId());
-        assertEquals("Consulta general", dto.getMotivo());
-        assertEquals("Confirmada", dto.getEstado());
+        assertNotNull(dto, "✔ El DTO no debe ser nulo");
+        assertEquals("Consulta general", dto.getMotivo(), "✔ El motivo debe coincidir");
+        assertEquals("Virtual", dto.getCanal(), "✔ El canal debe coincidir");
+        assertEquals("Dermatología", dto.getEspecialidad(), "✔ La especialidad debe coincidir");
     }
 }
