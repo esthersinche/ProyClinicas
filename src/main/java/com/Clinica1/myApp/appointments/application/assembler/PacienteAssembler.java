@@ -11,21 +11,20 @@ public class PacienteAssembler {
 
     public PacienteDto toDto(Paciente paciente) {
         return new PacienteDto(
-                paciente.getId_pac().obtenerid(),
+                paciente.getId_pac(),
                 paciente.getNombre_com_pac(),
                 paciente.getNacionalidad_pac(),
                 paciente.getDni_pac(),
                 paciente.getTel_pac(),
                 paciente.getEmail_pac().email_valor(),
                 paciente.getFec_nac_pac(),
-                paciente.getSexo_pac()
-        );
+                paciente.getSexo_pac());
     }
 
     public Paciente toEntity(PacienteDto dto) {
         return new Paciente(
                 dto.getId() != null
-                        ? IDEntidad.astring(dto.getId())
+                        ? dto.getId()
                         : IDEntidad.generar(),
                 dto.getNombre(),
                 dto.getNacionalidad(),
@@ -33,7 +32,6 @@ public class PacienteAssembler {
                 dto.getTel(),
                 Email.of(dto.getEmail()),
                 dto.getFec_nac(),
-                dto.getSexo()
-        );
+                dto.getSexo());
     }
 }
