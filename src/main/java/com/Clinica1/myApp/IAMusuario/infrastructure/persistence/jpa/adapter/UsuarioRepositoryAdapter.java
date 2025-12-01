@@ -1,6 +1,6 @@
 package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.adapter;
 
-import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioEntity;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioWebEntity;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper.UsuarioMapper;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.repository.JPAUsuarioEntityRepository;
 import com.Clinica1.myApp.IAMusuario.domain.repository.UsuarioRepository;
@@ -32,29 +32,42 @@ public class UsuarioRepositoryAdapter implements UsuarioRepository {
 
     @Override
     public UsuarioWeb insert(UsuarioWeb usuarioWeb) {
-        UsuarioEntity entity = usuarioMapper.toEntity(usuarioWeb);
-        UsuarioEntity saved = jpaUsuarioRepository.save(entity);
-        return usuarioMapper.toDomain(saved);
+
+        UsuarioWebEntity usuweb_ent= usuarioMapper.ToEntity(usuarioWeb);
+        UsuarioWebEntity usuweb_saved= jpaUsuarioRepository.save(usuweb_ent);
+        return usuarioMapper.ToDomain(usuweb_saved);
+
     }
 
     @Override
     public UsuarioWeb update(UsuarioWeb usuarioWeb) {
-        UsuarioEntity entity = usuarioMapper.toEntity(usuarioWeb);
-        UsuarioEntity saved = jpaUsuarioRepository.save(entity);
-        return usuarioMapper.toDomain(saved);
+
+        UsuarioWebEntity usuweb_ent2= usuarioMapper.ToEntity(usuarioWeb);
+        UsuarioWebEntity usuweb_saved2= jpaUsuarioRepository.save(usuweb_ent2);
+        return usuarioMapper.ToDomain(usuweb_saved2);
+
     }
 
     @Override
-    public Optional<UsuarioWeb> FindById(UUID id) {
-        return jpaUsuarioRepository.findById(id.toString())
-                .map(usuarioMapper::toDomain);
+    public Optional<UsuarioWeb> FindById(IDEntidad id) {
+        /*return jpaUsuarioRepository.findById(id.toString())
+                .map(usuarioMapper::toDomain);*/
+        return jpaUsuarioRepository.findById(id.obtenerid())
+                .map(usuarioMapper::ToDomain);
+
+
     }
 
     @Override
     public List<UsuarioWeb> getall() {
+        /*
         return jpaUsuarioRepository.findAll()
                 .stream()
                 .map(usuarioMapper::toDomain)
+                .collect(Collectors.toList());*/
+        return jpaUsuarioRepository.findAll()
+                .stream()
+                .map(usuarioMapper::ToDomain)
                 .collect(Collectors.toList());
     }
 
@@ -67,13 +80,19 @@ public class UsuarioRepositoryAdapter implements UsuarioRepository {
 
     @Override
     public Optional<UsuarioWeb> findbyUsername(String usu_username) {
+        /*
         return jpaUsuarioRepository.findByUsername(usu_username)
-                .map(usuarioMapper::toDomain);
+                .map(usuarioMapper::toDomain);*/
+        return jpaUsuarioRepository.findByUsername(usu_username)
+                .map(usuarioMapper::ToDomain);
     }
 
     @Override
     public Optional<UsuarioWeb> findByEmail(Email usuweb_email){
-        return jpaUsuarioRepository.findByEmail(usuweb_email.toString());
+        /*return jpaUsuarioRepository.findByEmail(usuweb_email.toString());*/
+        return jpaUsuarioRepository.findByEmail(usuweb_email.email_valor())
+                .map(usuarioMapper::ToDomain);
+
 
     }
 
