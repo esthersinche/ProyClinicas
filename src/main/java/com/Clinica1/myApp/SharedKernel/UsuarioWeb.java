@@ -8,7 +8,7 @@ public class UsuarioWeb {
     //usuario que hace la compra, solo habra uno por clinica, los empleados no entraran por aca
     private IDEntidad id_usu;
     private Email correo;
-    private ContraHash passhash;
+    private String passhash;//luego vuelvo ya q hay contrahash en IAM
     private IDEntidad id_emp;//referencia a empleado ya q sera admin automaticamente
     private IDEntidad id_cli; //referencia a la clinica a la q esta afiliado
     //tanto id_emp e id_usu srean rellenados automaticamente, id_cli saldra de la creacion de la clinica dsps
@@ -18,7 +18,7 @@ public class UsuarioWeb {
     public UsuarioWeb() {
     }
 
-    public UsuarioWeb(IDEntidad id_usu, Email correo, ContraHash passhash, IDEntidad id_emp, IDEntidad id_cli) {
+    public UsuarioWeb(IDEntidad id_usu, Email correo, String passhash, IDEntidad id_emp, IDEntidad id_cli) {
         this.id_usu = id_usu;
         this.correo = correo;
         this.passhash = passhash;
@@ -27,7 +27,7 @@ public class UsuarioWeb {
     }
 
     //metodo factory
-    public static UsuarioWeb crearusu(Email correo, ContraHash passhash, IDEntidad id_emp, IDEntidad id_cli){
+    public static UsuarioWeb crearusu(Email correo, String passhash, IDEntidad id_emp, IDEntidad id_cli){
         return new UsuarioWeb(IDEntidad.generar(), correo, passhash, id_emp, id_cli);
     }
 
@@ -39,7 +39,7 @@ public class UsuarioWeb {
         return correo;
     }
 
-    public ContraHash getPasshash() {
+    public String getPasshash() {
         return passhash;
     }
 

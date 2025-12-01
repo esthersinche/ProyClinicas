@@ -16,6 +16,8 @@ public class AuthService {
 
     private final UsuarioRepository usuarioRepository;
     private final ContraService con_serv;
+    private final TokenProvider tok_prov;
+    private final
 
     //inyeccion
 

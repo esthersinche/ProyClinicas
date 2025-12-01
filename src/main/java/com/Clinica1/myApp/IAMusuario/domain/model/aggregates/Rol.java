@@ -2,26 +2,27 @@ package com.Clinica1.myApp.IAMusuario.domain.model.aggregates;
 
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.SharedKernel.Roles;
 
 import java.util.HashSet;
 import java.util.Objects;
 
 public final class Rol {
     private IDEntidad id_rol;
-    private String nombrerol;
+    private Roles nombrerol;
     private HashSet<Funcion> funciones;//evita los duplicados y es mas facil de hacer operaciones
     //debido al hash
 
     public Rol() {
     }
 
-    public Rol(IDEntidad id_rol, String nombrerol, HashSet<Funcion> funciones) {
+    public Rol(IDEntidad id_rol, Roles nombrerol, HashSet<Funcion> funciones) {
         this.id_rol = id_rol;
         this.nombrerol = nombrerol;
-        this.funciones = new HashSet<>(funciones);
+        this.funciones = funciones;
     }
 
-    public static Rol crearrol(String nombrerol, HashSet<Funcion> funciones){
+    public static Rol crearrol(Roles nombrerol, HashSet<Funcion> funciones){
         return new Rol(IDEntidad.generar(), nombrerol, funciones);
     }
     //para dcotor solamente, borrar dsps
@@ -32,7 +33,7 @@ public final class Rol {
         funciones.add(Funcion.of("Atender_paciente"));
         funciones.add(Funcion.of("buscar_paciente"));
 
-        return new Rol(IDEntidad.generar(), "Doctor", funciones);
+        return new Rol(IDEntidad.generar(), Roles.Rol_Doctor, funciones);
     }
 
     public boolean estapermitido(Funcion funcion){
@@ -51,7 +52,7 @@ public final class Rol {
         return id_rol;
     }
 
-    public String getNombrerol() {
+    public Roles getNombrerol() {
         return nombrerol;
     }
 

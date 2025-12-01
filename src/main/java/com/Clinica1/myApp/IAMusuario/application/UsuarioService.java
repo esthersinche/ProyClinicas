@@ -36,7 +36,7 @@ public class UsuarioService {
         );
 
 
-        return usuarioRepository.guardar(usuarioWeb);
+        return usuarioRepository.insert(usuarioWeb);
     }
 
 

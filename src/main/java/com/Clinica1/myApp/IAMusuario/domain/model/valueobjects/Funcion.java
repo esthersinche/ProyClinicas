@@ -35,6 +35,6 @@ public class Funcion {
 
     @Override
     public String toString(){
-        return "Funcion: "+nombre_fun;
+        return nombre_fun;
     }
 }

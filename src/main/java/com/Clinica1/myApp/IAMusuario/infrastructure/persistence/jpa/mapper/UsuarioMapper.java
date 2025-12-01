@@ -1,8 +1,7 @@
 package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper;
 
-import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.EmpleadoEntity;
-import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.RolEntity;
-import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioEntity;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.*;
+import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioWebEntity;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.ContraHash;
@@ -18,101 +17,60 @@ import java.util.stream.Collectors;
 
 @Component
 public class UsuarioMapper {
+    private EmailMapper ema_map_iam;
 
-    /* ===================== USUARIO ===================== */
-
-    public UsuarioEntity toEntity(UsuarioWeb usuarioWeb) {
-        if (usuarioWeb == null)
-            return null;
-
-        UsuarioEntity entity = new UsuarioEntity();
-
-        entity.setIdEmp(usuarioWeb.getId_usu().obtenerid());
-        entity.setUsername(usuarioWeb.getUsername());
-        entity.setPass(usuarioWeb.getPasshash().getValor_contra_hash());
-
-        EmpleadoEntity empleadoEntity = toEmpleadoEntity(usuarioWeb.getEmp());
-        entity.setEmpleado(empleadoEntity);
-
-        return entity;
+    public UsuarioMapper(EmailMapper ema_map_iam) {
+        this.ema_map_iam = ema_map_iam;
     }
 
-    public UsuarioWeb toDomain(UsuarioEntity entity) {
-        if (entity == null)
-            return null;
+    /* ===================== USUARIO =====================
 
-        Empleado empleado = toEmpleadoDomain(entity.getEmpleado());
+        public UsuarioWebEntity toEntity(UsuarioWeb usuarioWeb) {
+            if (usuarioWeb == null)
+                return null;
 
-        return new UsuarioWeb(
-                IDEntidad.astring(entity.getIdEmp()),
-                entity.getUsername(),
-                ContraHash.deHash(entity.getPass()),
-                empleado);
+            UsuarioWebEntity entity = new UsuarioWebEntity();
+
+            //entity.setIdEmp(usuarioWeb.getId_usu().obtenerid());
+            entity.setIdEmp(usuarioWeb.getId_emp());
+            //entity.setUsername(usuarioWeb.getUsername());
+            entity
+            entity.setPass(usuarioWeb.getPasshash().getValor_contra_hash());
+
+            EmpleadoEntity empleadoEntity = toEmpleadoEntity(usuarioWeb.getEmp());
+            entity.setEmpleado(empleadoEntity);
+
+            return entity;
+        }
+
+        public UsuarioWeb toDomain(UsuarioWebEntity entity) {
+            if (entity == null)
+                return null;
+
+            Empleado empleado = toEmpleadoDomain(entity.getEmpleado());
+
+            return new UsuarioWeb(
+                    IDEntidad.astring(entity.getIdEmp()),
+                    entity.getUsername(),
+                    ContraHash.deHash(entity.getPass()),
+                    empleado);
+        }*/
+    public UsuarioWeb ToDomain(UsuarioWebEntity usu_ent){
+        Email usuweb_email= ema_map_iam.ToDomain(usu_ent.getCorreo_usuweb());
+        return new UsuarioWeb(IDEntidad.astring(usu_ent.getId_usuweb()), usuweb_email, usu_ent.getPasshash(),
+                IDEntidad.astring(usu_ent.getId_emp()), IDEntidad.astring(usu_ent.getId_cli()));
+
     }
 
-    /* ===================== EMPLEADO ===================== */
-
-    private EmpleadoEntity toEmpleadoEntity(Empleado empleado) {
-        if (empleado == null)
-            return null;
-
-        EmpleadoEntity entity = new EmpleadoEntity();
-        entity.setIdEmp(empleado.getId_emp().obtenerid());
-        entity.setNombresEmp(empleado.getNombre());
-        entity.setApellidosEmp(empleado.getApellido());
-        entity.setTelefonoEmp(empleado.getTelefono());
-        entity.setEmailEmp(empleado.getEmail().email_valor());
-        entity.setRol(toRolEntity(empleado.getRolemp()));
-
-        return entity;
+    public UsuarioWebEntity ToEntity(UsuarioWeb usu_web){
+        EmailEmbeddable usuwebwnt_emaemb= ema_map_iam.ToEmbeddable(usu_web.getCorreo());
+        return UsuarioWebEntity.builder().id_usuweb(usu_web.getId_usu().obtenerid())
+                .correo_usuweb(usuwebwnt_emaemb)
+                .passhash(usu_web.getPasshash())
+                .id_emp(usu_web.getId_emp().obtenerid())
+                .id_cli(usu_web.getId_cli().obtenerid())
+                .build();
     }
 
-    private Empleado toEmpleadoDomain(EmpleadoEntity entity) {
-        if (entity == null)
-            return null;
 
-        Rol rol = toRolDomain(entity.getRol());
-
-        return new Empleado(
-                IDEntidad.astring(entity.getIdEmp()),
-                entity.getNombresEmp(),
-                entity.getApellidosEmp(),
-                entity.getTelefonoEmp(),
-                Email.of(entity.getEmailEmp()),
-                rol);
-    }
-
-    /* ===================== ROL ===================== */
-
-    private RolEntity toRolEntity(Rol rol) {
-        if (rol == null)
-            return null;
-
-        RolEntity entity = new RolEntity();
-        entity.setId(rol.getId_rol().obtenerid());
-        entity.setNombreRol(rol.getNombrerol());
-
-        Set<String> funciones = rol.getFunciones()
-                .stream()
-                .map(Funcion::getNombre_fun)
-                .collect(Collectors.toSet());
-
-        entity.setFunciones(funciones);
-        return entity;
-    }
-
-    private Rol toRolDomain(RolEntity entity) {
-        if (entity == null)
-            return null;
-
-        HashSet<Funcion> funciones = entity.getFunciones()
-                .stream()
-                .map(Funcion::of)
-                .collect(Collectors.toCollection(HashSet::new));
-
-        return new Rol(
-                IDEntidad.astring(entity.getId()),
-                entity.getNombreRol(),
-                funciones);
-    }
 }

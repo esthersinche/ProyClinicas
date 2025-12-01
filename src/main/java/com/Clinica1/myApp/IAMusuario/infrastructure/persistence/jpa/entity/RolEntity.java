@@ -2,16 +2,26 @@ package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Rol") // luego en la BD hacer
+@Table(name = "Rol")
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+// luego en la BD hacer
 public class RolEntity {
 
     @Id
     @Column(name = "id_rol", length = 36)
-    private IDEntidad id; // IDEntidad.obtenerid()
+    private String id; // IDEntidad.obtenerid()
 
     @Column(name = "nombre_rol", nullable = false, unique = true, length = 50)
     private String nombreRol;
@@ -20,46 +30,7 @@ public class RolEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "Rol_Funciones", joinColumns = @JoinColumn(name = "rol_id"))
     @Column(name = "funcion", nullable = false, length = 80)
-    private Set<String> funciones = new HashSet<>();
+    private Set<FuncionEmbeddable> funciones = new HashSet<>();
 
-    public RolEntity() {
-    }
 
-    public IDEntidad getId() {
-        return id;
-    }
-
-    public void setId(IDEntidad id) {
-        this.id = id;
-    }
-
-    public String getNombreRol() {
-        return nombreRol;
-    }
-
-    public void setNombreRol(String nombreRol) {
-        this.nombreRol = nombreRol;
-    }
-
-    public Set<String> getFunciones() {
-        return funciones;
-    }
-
-    public void setFunciones(Set<String> funciones) {
-        this.funciones = funciones;
-    }
-
-    public void setIdRol(String number) {
-    }
-
-    public void setNomRol(String admin) {
-    }
-
-    public String getIdRol() {
-        return "";
-    }
-
-    public String getNomRol() {
-        return "";
-    }
 }

@@ -1,15 +1,24 @@
 package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.SharedKernel.Roles;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Empleado")
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class EmpleadoEntity {
 
     @Id
     @Column(name = "id_emp", length = 36)
-    private IDEntidad idEmp;
+    private String id_Emp;
 
     @Column(name = "nombres_emp", nullable = false, length = 80)
     private String nombresEmp;
@@ -20,63 +29,15 @@ public class EmpleadoEntity {
     @Column(name = "telefono_emp", length = 20)
     private String telefonoEmp;
 
-    @Column(name = "email_emp", nullable = false, unique = true, length = 120)
-    private String emailEmp;
+    @Embedded
+    private EmailEmbeddable email_emp;
+/*@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "rol_id", nullable = false) // luego en BD crear esta FK*/
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rol_id", nullable = false) // luego en BD crear esta FK
-    private RolEntity rol;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rol_emp", nullable = false)
+    private Roles rol;//este es el enum, no cambiar, ya que se convalidara con el nombre de rol la clase aggregate de domain
 
-    public EmpleadoEntity() {
-    }
-
-    public IDEntidad getIdEmp() {
-        return idEmp;
-    }
-
-    public void setIdEmp(IDEntidad idEmp) {
-        this.idEmp = idEmp;
-    }
-
-    public String getNombresEmp() {
-        return nombresEmp;
-    }
-
-    public void setNombresEmp(String nombresEmp) {
-        this.nombresEmp = nombresEmp;
-    }
-
-    public String getApellidosEmp() {
-        return apellidosEmp;
-    }
-
-    public void setApellidosEmp(String apellidosEmp) {
-        this.apellidosEmp = apellidosEmp;
-    }
-
-    public String getTelefonoEmp() {
-        return telefonoEmp;
-    }
-
-    public void setTelefonoEmp(String telefonoEmp) {
-        this.telefonoEmp = telefonoEmp;
-    }
-
-    public String getEmailEmp() {
-        return emailEmp;
-    }
-
-    public void setEmailEmp(String emailEmp) {
-        this.emailEmp = emailEmp;
-    }
-
-    public RolEntity getRol() {
-        return rol;
-    }
-
-    public void setRol(RolEntity rol) {
-        this.rol = rol;
-    }
 
     public void setNombre(String luis) {
 

@@ -4,6 +4,8 @@ import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.Usuar
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper.UsuarioMapper;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.repository.JPAUsuarioEntityRepository;
 import com.Clinica1.myApp.IAMusuario.domain.repository.UsuarioRepository;
+import com.Clinica1.myApp.SharedKernel.Email;
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,7 +59,7 @@ public class UsuarioRepositoryAdapter implements UsuarioRepository {
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(IDEntidad id) {
         jpaUsuarioRepository.deleteById(id.toString());
     }
 
@@ -68,4 +70,12 @@ public class UsuarioRepositoryAdapter implements UsuarioRepository {
         return jpaUsuarioRepository.findByUsername(usu_username)
                 .map(usuarioMapper::toDomain);
     }
+
+    @Override
+    public Optional<UsuarioWeb> findByEmail(Email usuweb_email){
+        return jpaUsuarioRepository.findByEmail(usuweb_email.toString());
+
+    }
+
+
 }
