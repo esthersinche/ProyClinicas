@@ -17,7 +17,7 @@ public class CitaAssembler {
         if (cita == null) return null;
 
         return new CitaDto(
-                cita.getId_cita() != null ? cita.getId_cita().obtenerid() : null,
+                cita.getId_cita() != null ? cita.getId_cita() : null,
                 cita.getMotivo_cita(),
                 cita.getEstado_cita() != null ? cita.getEstado_cita().name() : null,
                 cita.getCanal_cita() != null ? cita.getCanal_cita().name() : null,

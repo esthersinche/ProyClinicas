@@ -13,11 +13,13 @@ import com.Clinica1.myApp.appointments.domain.model.aggregates.Paciente;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Clinica;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Canal;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Especialidad;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.Estado;
 import com.Clinica1.myApp.appointments.domain.repository.CitaRepository;
 import com.Clinica1.myApp.appointments.domain.repository.DoctorRepository;
 import com.Clinica1.myApp.appointments.domain.repository.PacienteRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 public class CrearCitaCommandHandler {
@@ -52,10 +54,19 @@ public class CrearCitaCommandHandler {
         // 3. Verificar disponibilidad del doctor
         verificarDisponibilidadDoctor(doctor, command.getInicio(), command.getFin());
 
-        // 4. Crear cita usando el FACTORY exacto que tú definiste
+
+        // 4. Crear cita usando el FACTORY
+        Canal canal;
+        try {
+            canal = Canal.valueOf(command.getCanal());
+        } catch (IllegalArgumentException e) {
+            throw new FechaInvalidaException("Canal inválido: " + command.getCanal());
+        }
+
+
         Cita cita = Cita.crearcita(
                 command.getMotivo(),
-                Canal.valueOf(command.getCanal()),
+                canal,
                 command.getInicio(),
                 command.getFin(),
                 paciente,
@@ -85,7 +96,29 @@ public class CrearCitaCommandHandler {
     private void verificarDisponibilidadDoctor(Doctor doctor, LocalDateTime inicio, LocalDateTime fin)
             throws DoctorNoDisponibleException {
 
-        // Aún no implementado — placeholder tuyo
-        throw new UnsupportedOperationException("Verificación de disponibilidad pendiente");
+        // 1. Obtener todas las citas del doctor
+        List<Cita> citasDelDoctor = citaRepository.findByDoctorId(doctor.getId_doc());
+
+        // 2. Recorrer y buscar solapamiento
+        for (Cita c : citasDelDoctor) {
+            //Si la cita está cancelada, NO debe bloquear horarios
+             if (c.getEstado_cita() == Estado.Desercion)
+            continue;
+            LocalDateTime inicioExistente = c.getInicio_cita();
+            LocalDateTime finExistente = c.getFin_cita();
+
+            boolean seSolapan =
+                    inicio.isBefore(finExistente) &&   // inicia antes de que termine la otra
+                            fin.isAfter(inicioExistente);      // termina después de que empieza la otra
+
+            if (seSolapan) {
+                throw new DoctorNoDisponibleException(
+                        "El doctor NO está disponible entre "
+                                + inicio + " y " + fin
+                                + ". Tiene otra cita entre "
+                                + inicioExistente + " y " + finExistente
+                );
+            }
+        }
     }
 }

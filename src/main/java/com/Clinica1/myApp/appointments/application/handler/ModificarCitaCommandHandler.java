@@ -9,10 +9,13 @@ import com.Clinica1.myApp.appointments.application.exception.DoctorNoDisponibleE
 import com.Clinica1.myApp.appointments.application.assembler.CitaAssembler;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Cita;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Doctor;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.Doc_info_cita;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.Estado;
 import com.Clinica1.myApp.appointments.domain.repository.CitaRepository;
 import com.Clinica1.myApp.appointments.domain.repository.DoctorRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ModificarCitaCommandHandler {
     
@@ -40,20 +43,41 @@ public class ModificarCitaCommandHandler {
 
         validarFechas(command.getInicio(), command.getFin());
 
-        // Cambio de doctor
+        // Doctor actual (usamos el ID guardado en la cita)
+        Doctor doctorAsignadoActual = doctorRepository.findById(cita.getDoc_id());
+
+        Doctor nuevoDoctor = doctorAsignadoActual;
+
+        // Si viene un doctor nuevo
         if (command.getDoctorId() != null) {
 
-            IDEntidad doctorId = command.getDoctorId();
-            Doctor doctor = doctorRepository.findById(doctorId);
+            nuevoDoctor = doctorRepository.findById(command.getDoctorId());
 
-            if (doctor == null) {
+            if (nuevoDoctor == null) {
                 throw new DoctorNoDisponibleException("El doctor no existe: " + command.getDoctorId());
             }
 
-            verificarDisponibilidadDoctor(doctor, command.getInicio(), command.getFin());
-            cita.setInst_doctor(doctor);
+            verificarDisponibilidadDoctor(
+                    nuevoDoctor,
+                    command.getInicio(),
+                    command.getFin(),
+                    citaId
+            );
+
+            // ENTIDAD CITA CREA SU PROPIO DOC_INFO_CITA
+            cita.setInst_doctor(nuevoDoctor);
+
+        } else {
+            // Verificar disponibilidad del ACTUAL
+            verificarDisponibilidadDoctor(
+                    doctorAsignadoActual,
+                    command.getInicio(),
+                    command.getFin(),
+                    citaId
+            );
         }
 
+        // Aplicar cambios
         cita.modificar(
                 command.getMotivo(),
                 command.getInicio(),
@@ -78,9 +102,41 @@ public class ModificarCitaCommandHandler {
             throw new FechaInvalidaException("La fecha de fin debe ser posterior a la fecha de inicio");
         }
     }
-    
-    private void verificarDisponibilidadDoctor(Doctor doctor, LocalDateTime inicio, LocalDateTime fin) 
-            throws DoctorNoDisponibleException {
-        throw new UnsupportedOperationException("Verificación de disponibilidad pendiente");
+
+    private void verificarDisponibilidadDoctor(
+            Doctor doctor,
+            LocalDateTime inicio,
+            LocalDateTime fin,
+            IDEntidad citaIdActual
+    ) throws DoctorNoDisponibleException {
+
+        List<Cita> citasDelDoctor = citaRepository.findByDoctorId(doctor.getId_doc());
+
+        for (Cita c : citasDelDoctor) {
+
+            // 1. Ignorar cita actual
+            if (c.getId_cita().equals(citaIdActual))
+                continue;
+
+            // 2. Ignorar canceladas
+            if (c.getEstado_cita() == Estado.Desercion)
+                continue;
+
+            LocalDateTime inicioExistente = c.getInicio_cita();
+            LocalDateTime finExistente = c.getFin_cita();
+
+            boolean seSolapan =
+                    inicio.isBefore(finExistente) &&
+                            fin.isAfter(inicioExistente);
+
+            if (seSolapan) {
+                throw new DoctorNoDisponibleException(
+                        "El doctor NO está disponible entre "
+                                + inicio + " y " + fin
+                                + ". Tiene otra cita entre "
+                                + inicioExistente + " y " + finExistente
+                );
+            }
+        }
     }
 }

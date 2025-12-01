@@ -43,18 +43,49 @@ public class Cita {
     }
 
     //factory pq builder m da miedo
-    public static Cita crearcita(String motivo_cita, Canal canal_cita, LocalDateTime inicio_cita,
-                                 LocalDateTime fin_cita, Paciente pac_cita, Doctor doc_cita, Especialidad espe_cita){
-        /*
-        return new Cita(IDEntidad.generar(), motivo_cita, Estado.Pendiente, canal_cita, inicio_cita, fin_cita,
-                inst_pac, inst_doctor, espe_cita, inst_clin, dir_clin_cita);*/
-        Pac_info_cita pacinfo= new Pac_info_cita(pac_cita.getNombre_com_pac(), pac_cita.getDni_pac());
-        Doc_info_cita docinfo= new Doc_info_cita(doc_cita.getNom_com_doc().completar(),
-                doc_cita.getEspecialidades().get(0).nom_espe(), doc_cita.getConsultorio_doc());
+    public static Cita crearcita(
+            String motivo_cita,
+            Canal canal_cita,
+            LocalDateTime inicio_cita,
+            LocalDateTime fin_cita,
+            Paciente pac_cita,
+            Doctor doc_cita,
+            Especialidad espe_cita
+    ) {
 
-        return new Cita(IDEntidad.generar(), motivo_cita, Estado.Pendiente, canal_cita, inicio_cita, fin_cita, pac_cita.getId_pac(),
-                doc_cita.getId_doc(), pacinfo, docinfo, espe_cita);
+        // 1. Construir VO del paciente
+        Pac_info_cita pacInfo = new Pac_info_cita(
+                pac_cita.getNombre_com_pac(),
+                pac_cita.getDni_pac()
+        );
 
+        // 2. Obtener la especialidad principal del doctor
+        String especialidadDoctor = doc_cita.getEspecialidades() != null
+                && !doc_cita.getEspecialidades().isEmpty()
+                ? doc_cita.getEspecialidades().get(0).nom_espe()
+                : "Sin especialidad";
+
+        // 3. Construir VO del doctor
+        Doc_info_cita docInfo = Doc_info_cita.of(
+                doc_cita.getNom_com_doc().completar(),
+                especialidadDoctor,
+                doc_cita.getConsultorio_doc()
+        );
+
+        // 4. Crear entidad cita final
+        return new Cita(
+                IDEntidad.generar(),
+                motivo_cita,
+                Estado.Pendiente,
+                canal_cita,
+                inicio_cita,
+                fin_cita,
+                pac_cita.getId_pac(),
+                doc_cita.getId_doc(),
+                pacInfo,
+                docInfo,
+                espe_cita
+        );
     }
 
     public IDEntidad getId_cita() {
@@ -115,9 +146,15 @@ public class Cita {
 
     public void setInst_doctor(Doctor doctor) {
         this.doc_id = doctor.getId_doc();
-        this.inst_doctor = new Doc_info_cita(
+
+        String especialidad = doctor.getEspecialidades() != null &&
+                !doctor.getEspecialidades().isEmpty()
+                ? doctor.getEspecialidades().get(0).nom_espe()
+                : "Sin especialidad";
+
+        this.inst_doctor = Doc_info_cita.of(
                 doctor.getNom_com_doc().completar(),
-                doctor.getEspecialidades().get(0).nom_espe(),
+                especialidad,
                 doctor.getConsultorio_doc()
         );
     }

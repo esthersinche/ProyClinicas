@@ -11,7 +11,7 @@ public class PacienteAssembler {
 
     public PacienteDto toDto(Paciente paciente) {
         return new PacienteDto(
-                paciente.getId_pac().obtenerid(),
+                paciente.getId_pac(),
                 paciente.getNombre_com_pac(),
                 paciente.getNacionalidad_pac(),
                 paciente.getDni_pac(),
@@ -24,9 +24,7 @@ public class PacienteAssembler {
 
     public Paciente toEntity(PacienteDto dto) {
         return new Paciente(
-                dto.getId() != null
-                        ? IDEntidad.astring(dto.getId())
-                        : IDEntidad.generar(),
+                dto.getId(),
                 dto.getNombre(),
                 dto.getNacionalidad(),
                 dto.getDni(),

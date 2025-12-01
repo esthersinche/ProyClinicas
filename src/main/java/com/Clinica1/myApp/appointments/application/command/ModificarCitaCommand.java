@@ -6,24 +6,25 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class ModificarCitaCommand {
-    private IDEntidad citaId;
-    private String motivo;
-    private LocalDateTime inicio;
-    private LocalDateTime fin;
-    private IDEntidad doctorId;
-    private String especialidad;
 
-    public ModificarCitaCommand(IDEntidad citaId, String motivo, LocalDateTime inicio,
-                               LocalDateTime fin, IDEntidad doctorId, String especialidad) {
+    private final IDEntidad citaId;
+    private final String motivo;
+    private final LocalDateTime inicio;
+    private final LocalDateTime fin;
+    private final IDEntidad doctorId;  // opcional
+
+    public ModificarCitaCommand(
+            IDEntidad citaId,
+            String motivo,
+            LocalDateTime inicio,
+            LocalDateTime fin,
+            IDEntidad doctorId
+    ) {
         this.citaId = citaId;
         this.motivo = motivo;
         this.inicio = inicio;
         this.fin = fin;
         this.doctorId = doctorId;
-        this.especialidad = especialidad;
-    }
-
-    public ModificarCitaCommand(IDEntidad citaId, Object motivo, LocalDateTime inicio, LocalDateTime fin) {
     }
 
     public IDEntidad getCitaId() {
@@ -44,9 +45,5 @@ public class ModificarCitaCommand {
 
     public IDEntidad getDoctorId() {
         return doctorId;
-    }
-
-    public String getEspecialidad() {
-        return especialidad;
     }
 }
