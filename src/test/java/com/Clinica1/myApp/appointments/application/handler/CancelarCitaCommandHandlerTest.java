@@ -34,7 +34,7 @@ class CancelarCitaCommandHandlerTest {
         when(cita.getEstado_cita()).thenReturn(Estado.Pendiente);
         when(citaRepository.findById(citaId)).thenReturn(cita);
 
-        CancelarCitaCommand command = new CancelarCitaCommand(citaId, "Paciente canceló");
+        CancelarCitaCommand command = new CancelarCitaCommand(citaId);
 
         handler.handle(command);
 
@@ -48,7 +48,7 @@ class CancelarCitaCommandHandlerTest {
 
         when(citaRepository.findById(citaId)).thenReturn(null);
 
-        CancelarCitaCommand command = new CancelarCitaCommand(citaId, "Paciente canceló");
+        CancelarCitaCommand command = new CancelarCitaCommand(citaId);
 
         assertThrows(CitaNoEncontradaException.class, () -> handler.handle(command));
     }
@@ -61,7 +61,7 @@ class CancelarCitaCommandHandlerTest {
         when(cita.getEstado_cita()).thenReturn(Estado.Desercion);
         when(citaRepository.findById(citaId)).thenReturn(cita);
 
-        CancelarCitaCommand command = new CancelarCitaCommand(citaId, "Paciente canceló");
+        CancelarCitaCommand command = new CancelarCitaCommand(citaId);
 
         assertThrows(CitaNoEncontradaException.class, () -> handler.handle(command));
     }

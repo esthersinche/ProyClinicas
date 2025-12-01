@@ -24,10 +24,6 @@ public class ObtenerCitaPorIdQueryHandler {
 
         Cita cita = citaRepository.findById(id);
 
-        if (cita == null) {
-            throw new CitaNoEncontradaException(query.getCitaId());
-        }
-
         return citaAssembler.toDto(cita);
     }
 }

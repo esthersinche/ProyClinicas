@@ -2,7 +2,7 @@ package com.Clinica1.myApp.appointments.application.exception;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
-public class DoctorNoDisponibleException extends Exception {
+public class DoctorNoDisponibleException extends RuntimeException {
     
     public DoctorNoDisponibleException(String mensaje) {
         super(mensaje);

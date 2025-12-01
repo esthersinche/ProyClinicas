@@ -1,55 +1,85 @@
 package com.Clinica1.myApp.appointments.interfaces.rest.controller;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.appointments.application.command.CancelarCitaCommand;
 import com.Clinica1.myApp.appointments.application.command.CrearCitaCommand;
+import com.Clinica1.myApp.appointments.application.command.ModificarCitaCommand;
 import com.Clinica1.myApp.appointments.application.dto.CitaDto;
-import com.Clinica1.myApp.appointments.application.handler.CrearCitaCommandHandler;
+import com.Clinica1.myApp.appointments.application.exception.CitaNoEncontradaException;
+import com.Clinica1.myApp.appointments.application.handler.*;
+import com.Clinica1.myApp.appointments.application.query.ListarCitasPorDoctorQuery;
+import com.Clinica1.myApp.appointments.application.query.ObtenerCitaPorIdQuery;
 import com.Clinica1.myApp.appointments.interfaces.rest.dto.request.CrearCitaRequest;
+import com.Clinica1.myApp.appointments.interfaces.rest.dto.request.ModificarCitaRequest;
 import com.Clinica1.myApp.appointments.interfaces.rest.dto.response.CrearCitaResponse;
 import com.Clinica1.myApp.appointments.interfaces.rest.mapper.CitaRequestMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/Cita")
+@RequestMapping("/api/v1/cita")
 @RequiredArgsConstructor
 @Validated
 //controladores q exponen endpoints
 public class CitaController {
-    private final CrearCitaCommandHandler crearCitaHandler;
-    private final CitaRequestMapper citaReqMapper;
+    private final CrearCitaCommandHandler crearHandler;
+    private final ObtenerCitaPorIdQueryHandler getHandler;
+    private final ListarCitasPorDoctorQueryHandler listarPorDoctorHandler;
+    private final ModificarCitaCommandHandler modificarHandler;
+    private final CancelarCitaCommandHandler cancelarHandler;
+    private final CitaRequestMapper mapper;
 
     @PostMapping
     public ResponseEntity<CrearCitaResponse> crearCita(@Valid @RequestBody CrearCitaRequest request) {
+        var command = mapper.ToCommand(request);
+        var dto = crearHandler.handle(command);
+
+        return ResponseEntity.ok(
+                new CrearCitaResponse(dto.getId().obtenerid(), "Cita creada exitosamente")
+        );
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CitaDto> obtenerCita(@PathVariable String id) {
+        var query = new ObtenerCitaPorIdQuery(IDEntidad.astring(id));
+        var dto = getHandler.handle(query);
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/doctor/{idDoctor}")
+    public ResponseEntity<?> listarPorDoctor(@PathVariable String idDoctor) {
+        var query = new ListarCitasPorDoctorQuery(idDoctor);
+        return ResponseEntity.ok(listarPorDoctorHandler.handle(query));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> modificarCita(@PathVariable String id,
+                                           @RequestBody ModificarCitaRequest req) {
+        var command = new ModificarCitaCommand(
+                IDEntidad.astring(id),
+                req.getMotivo(),
+                req.getInicio(),
+                req.getFin(),
+                req.getDoctorId() != null ? IDEntidad.astring(req.getDoctorId()) : null
+        );
+
+        var dto = modificarHandler.handle(command);
+
+        return ResponseEntity.ok(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> cancelar(@PathVariable String id) {
+        var command = new CancelarCitaCommand(IDEntidad.astring(id));
         try {
-            //Mapear request a command
-            CrearCitaCommand command = citaReqMapper.ToCommand(request);
-
-            //Llamar al handler
-            CitaDto citaDto = crearCitaHandler.handle(command);
-
-            //Mapear CitaDto a response
-            CrearCitaResponse response = CrearCitaResponse.builder()
-                    .cita_id(citaDto.getId())
-                    .message_cita("Cita creada exitosamente")
-                    .build();
-
-            return ResponseEntity.ok(response);
-
-        } catch (Exception e) {
-            //Respuesta de error
-            CrearCitaResponse errorResponse = CrearCitaResponse.builder()
-                    .cita_id(null)
-                    .message_cita("Error: " + e.getMessage())
-                    .build();
-
-            return ResponseEntity.badRequest().body(errorResponse);
+            cancelarHandler.handle(command);
+            return ResponseEntity.ok("Cita cancelada");
+        } catch (CitaNoEncontradaException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }

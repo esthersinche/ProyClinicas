@@ -7,7 +7,6 @@ import com.Clinica1.myApp.appointments.domain.model.aggregates.Cita;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Estado;
 import com.Clinica1.myApp.appointments.domain.repository.CitaRepository;
 
-import java.util.UUID;
 
 public class CancelarCitaCommandHandler {
 

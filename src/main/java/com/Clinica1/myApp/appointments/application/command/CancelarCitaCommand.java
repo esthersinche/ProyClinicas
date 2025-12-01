@@ -6,16 +6,13 @@ public class CancelarCitaCommand {
     private IDEntidad citaId;
     private String motivoCancelacion;
 
-    public CancelarCitaCommand(IDEntidad citaId, String motivoCancelacion) {
+    public CancelarCitaCommand(IDEntidad citaId) {
         this.citaId = citaId;
-        this.motivoCancelacion = motivoCancelacion;
+
     }
 
     public IDEntidad getCitaId() {
         return citaId;
     }
 
-    public String getMotivoCancelacion() {
-        return motivoCancelacion;
-    }
 }
