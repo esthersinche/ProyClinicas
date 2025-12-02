@@ -5,7 +5,7 @@ import com.Clinica1.myApp.appointments.application.dto.PacienteDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PacienteMapper {
+public class PacienteRestMapper {
     // DTO → Command
     public CrearPacienteCommand toCommand(PacienteDto dto) {
         return CrearPacienteCommand.builder()

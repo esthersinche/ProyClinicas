@@ -1,0 +1,9 @@
+package com.Clinica1.myApp.mantenimiento.application.query;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class ListarDoctorPorNombreQuery {
+    private String nombre;
+}

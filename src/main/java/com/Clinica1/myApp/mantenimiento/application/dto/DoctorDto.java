@@ -1,14 +1,19 @@
 package com.Clinica1.myApp.mantenimiento.application.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.List;
 
-public record DoctorDto(
-        String id,
-        String nombre,
-        String apellido,
-        String telefono,
-        String email,
-        String cmp,
-        String consultorio,
-        List<String> especialidades
-) {}
+@Data
+@AllArgsConstructor
+public class DoctorDto {
+    private String id;
+    private String nombre;
+    private String apellido;
+    private String telefono;
+    private String email;
+    private String cmp;
+    private String consultorio;
+    private List<String> especialidades;
+}
