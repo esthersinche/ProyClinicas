@@ -1,4 +1,4 @@
-package com.Clinica1.myApp.mantenimiento.domain.valueobjects;
+package com.Clinica1.myApp.mantenimiento.domain.model.valueobjects;
 
 public record Nombrecompleto(String nombre, String apellido) {
     public Nombrecompleto{
