@@ -9,12 +9,14 @@ import com.Clinica1.myApp.IAMusuario.domain.repository.UsuarioRepository;
 import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
+@Validated
 public class AuthController {
 
     private final UsuarioRepository usuarioRepository;

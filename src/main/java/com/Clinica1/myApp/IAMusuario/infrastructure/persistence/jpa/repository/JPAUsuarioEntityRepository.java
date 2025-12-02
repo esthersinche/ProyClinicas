@@ -1,6 +1,6 @@
 package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.repository;
 
-import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioEntity;
+
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioWebEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
