@@ -1,4 +1,4 @@
-package com.Clinica1.myApp.IAMusuario.interfaces.request;
+package com.Clinica1.myApp.IAMusuario.interfaces.rest.request;
 
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.LoginRequest;
 import jakarta.validation.Validation;

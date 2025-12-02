@@ -12,17 +12,21 @@ import com.Clinica1.myApp.appointments.application.query.ObtenerCitaPorIdQuery;
 import com.Clinica1.myApp.appointments.interfaces.rest.dto.request.CrearCitaRequest;
 import com.Clinica1.myApp.appointments.interfaces.rest.dto.request.ModificarCitaRequest;
 import com.Clinica1.myApp.appointments.interfaces.rest.mapper.CitaRequestMapper;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.context.annotation.TestConfiguration;
+
+import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,13 +34,17 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import com.gestor.clinicas.ClinicasApplication;
 
-@WebMvcTest(CitaController.class)
+@WebMvcTest(controllers = CitaController.class)
 @AutoConfigureMockMvc(addFilters = false)
-@ContextConfiguration(classes = ClinicasApplication.class)
-@ComponentScan(basePackages = "com.Clinica1.myApp")
+@Import(CitaRequestMapper.class)
+@ContextConfiguration(classes = CitaControllerTest.Config.class)
 class CitaControllerTest {
+
+    @TestConfiguration
+    static class Config {
+        // Configuración mínima para WebMvcTest
+    }
 
     @Autowired
     private MockMvc mockMvc;
@@ -44,7 +52,7 @@ class CitaControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    // NECESARIO: todos los beans del controller
+    // Mocks de los handlers
     @MockBean
     private CrearCitaCommandHandler crearHandler;
     @MockBean
@@ -55,14 +63,17 @@ class CitaControllerTest {
     private ModificarCitaCommandHandler modificarHandler;
     @MockBean
     private CancelarCitaCommandHandler cancelarHandler;
+
+    // Mock del mapper
     @MockBean
     private CitaRequestMapper mapper;
 
     // ----------------------------------------------------------
-    // 🔥 TEST CREAR
+    // TEST CREAR
     // ----------------------------------------------------------
     @Test
     void crearCita_ok() throws Exception {
+
         CrearCitaRequest req = new CrearCitaRequest();
         req.setMotivo_cita("Migraña");
         req.setCanal_cita("Online");
@@ -81,18 +92,18 @@ class CitaControllerTest {
 
         CitaDto dto = new CitaDto();
         dto.setId(IDEntidad.astring("CITA123"));
+
         when(crearHandler.handle(any())).thenReturn(dto);
 
-        mockMvc.perform(
-                post("/api/v1/cita")
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(req)))
+        mockMvc.perform(post("/api/v1/cita")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(req)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.cita_id").value("CITA123"));
     }
 
     // ----------------------------------------------------------
-    // 🔥 TEST GET BY ID
+    // TEST GET BY ID
     // ----------------------------------------------------------
     @Test
     void obtenerCita_ok() throws Exception {
@@ -109,12 +120,12 @@ class CitaControllerTest {
     }
 
     // ----------------------------------------------------------
-    // 🔥 TEST LISTAR POR DOCTOR
+    // TEST LISTAR POR DOCTOR
     // ----------------------------------------------------------
     @Test
     void listarPorDoctor_ok() throws Exception {
 
-        when(listarPorDoctorHandler.handle(any()))
+        when(listarPorDoctorHandler.handle(any(ListarCitasPorDoctorQuery.class)))
                 .thenReturn(List.of());
 
         mockMvc.perform(get("/api/v1/cita/doctor/D001"))
@@ -122,7 +133,7 @@ class CitaControllerTest {
     }
 
     // ----------------------------------------------------------
-    // 🔥 TEST MODIFICAR
+    // TEST MODIFICAR
     // ----------------------------------------------------------
     @Test
     void modificarCita_ok() throws Exception {
@@ -137,15 +148,14 @@ class CitaControllerTest {
         when(modificarHandler.handle(any(ModificarCitaCommand.class)))
                 .thenReturn(dto);
 
-        mockMvc.perform(
-                put("/api/v1/cita/MOD111")
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(req)))
+        mockMvc.perform(put("/api/v1/cita/MOD111")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(req)))
                 .andExpect(status().isOk());
     }
 
     // ----------------------------------------------------------
-    // 🔥 TEST CANCELAR OK
+    // TEST CANCELAR OK
     // ----------------------------------------------------------
     @Test
     void cancelar_ok() throws Exception {
@@ -158,7 +168,7 @@ class CitaControllerTest {
     }
 
     // ----------------------------------------------------------
-    // 🔥 TEST CANCELAR NOT FOUND
+    // TEST CANCELAR NOT FOUND
     // ----------------------------------------------------------
     @Test
     void cancelar_notFound() throws Exception {

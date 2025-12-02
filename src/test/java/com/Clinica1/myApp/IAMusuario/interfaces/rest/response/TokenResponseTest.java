@@ -1,4 +1,4 @@
-package com.Clinica1.myApp.IAMusuario.interfaces.response;
+package com.Clinica1.myApp.IAMusuario.interfaces.rest.response;
 
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.response.TokenResponse;
 import org.junit.jupiter.api.Test;

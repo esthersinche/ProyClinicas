@@ -1,4 +1,4 @@
-package com.Clinica1.myApp.IAMusuario.interfaces.mapper;
+package com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper;
 
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.CrearUsuarioRequest;
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper.UsuarioRequestMapper;

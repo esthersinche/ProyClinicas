@@ -1,4 +1,4 @@
-package com.Clinica1.myApp.IAMusuario.interfaces.exception;
+package com.Clinica1.myApp.IAMusuario.interfaces.rest.exception;
 
 import com.Clinica1.myApp.IAMusuario.domain.exception.CredencialesInvalidasException;
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.exception.GlobalExceptionHandler;
