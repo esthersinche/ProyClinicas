@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LogoutRequest {
     private String id_ses;
-    private String refreshtoken;
     //mapear a command en appli LogoutCommand
     //responde con 204/401
 }

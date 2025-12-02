@@ -1,5 +1,6 @@
 package com.Clinica1.myApp.IAMusuario.application.command;
 
+import com.Clinica1.myApp.SharedKernel.Email;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Builder
 public class LoginCommand {
-    private final String email_emp;
-    private final String contra;
+    private String email_emp;
+    private String contra;
+
+
 }

@@ -47,14 +47,13 @@ public class CitaRequestMapper {
                 .especialidad(crear_cita_req.getEspe_cita())
                 .build();*/
         return CrearCitaCommand.builder()
-                .motivo(request.getMotivo_cita())
-                .canal(request.getCanal_cita())
-                .inicio(request.getInicio_cita())
-                .fin(request.getFin_cita())
-                .pacienteId(IDEntidad.astring(request.getId_pac()))   // conversion de String a IDEntidad
-                .doctorId(IDEntidad.astring(request.getId_doc()))
-                .clinicaId(null)                                       // clinica aún no usada
-                .especialidad(request.getEspe_cita())
+                .motivo(request.getMotivo())
+                .canal(request.getCanal())
+                .inicio(request.getInicio())
+                .fin(request.getFin())
+                .pacienteId(IDEntidad.astring(request.getPacienteId()))   // conversion de String a IDEntidad
+                .doctorId(IDEntidad.astring(request.getDoctorId()))// clinica aún no usada
+                .especialidad(request.getEspecialidad())
                 .build();
     }
 
