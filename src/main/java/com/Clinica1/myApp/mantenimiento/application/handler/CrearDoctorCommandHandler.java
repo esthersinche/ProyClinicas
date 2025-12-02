@@ -1,12 +1,16 @@
 package com.Clinica1.myApp.mantenimiento.application.handler;
 
 import com.Clinica1.myApp.SharedKernel.Email;
+import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.SharedKernel.Roles;
 import com.Clinica1.myApp.mantenimiento.application.assembler.DoctorAssembler;
 import com.Clinica1.myApp.mantenimiento.application.command.CrearDoctorCommand;
 import com.Clinica1.myApp.mantenimiento.application.exception.DomainException;
 import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Doctor;
 import com.Clinica1.myApp.mantenimiento.domain.model.valueobjects.Especialidad;
 import com.Clinica1.myApp.mantenimiento.domain.repository.DoctorRepository;
+import com.Clinica1.myApp.mantenimiento.domain.repository.EmpleadoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +22,11 @@ import java.util.stream.Collectors;
 public class CrearDoctorCommandHandler {
 
     private final DoctorRepository doctorRepository;
+    private final EmpleadoRepository empleadoRepository;
 
     public String handle(CrearDoctorCommand command) {
-        // ----- VALIDACIONES PREVIAS -----
 
+        // ----- VALIDACIONES -----
         if (command.getNombre() == null || command.getNombre().isBlank())
             throw new DomainException("El nombre no puede estar vacío");
 
@@ -34,13 +39,12 @@ public class CrearDoctorCommandHandler {
         if (command.getCmp() == null || command.getCmp().isBlank())
             throw new DomainException("El CMP es obligatorio");
 
-        // Validar duplicado por CMP
-        Doctor existente = doctorRepository.findbyCMP(command.getCmp());
-        if (existente != null)
+        // CMP duplicado
+        Doctor repetido = doctorRepository.findByCmp(command.getCmp());
+        if (repetido != null)
             throw new DomainException("Ya existe un doctor con el CMP " + command.getCmp());
 
-
-        // ----- CREAR EMAIL (PUEDE FALLAR) -----
+        // ----- CREAR EMAIL -----
         Email email;
         try {
             email = Email.of(command.getEmail());
@@ -48,13 +52,28 @@ public class CrearDoctorCommandHandler {
             throw new DomainException("Email inválido: " + e.getMessage());
         }
 
-        // ----- CREAR DOCTOR -----
-        Doctor doctor = Doctor.crear(
+        // ------------------------------------------------------------------
+        // PASO 1: CREAR EMPLEADO (usa tu método factory tal cual está)
+        // ------------------------------------------------------------------
+        Empleado empleado = Empleado.crearemp(
                 command.getNombre(),
                 command.getApellido(),
                 command.getTelefono(),
-                Email.of(command.getEmail()),
-                command.getPassword(),
+                email,
+                command.getPassword(),   // luego harás hashing
+                Roles.Rol_Doctor            // El doctor SIEMPRE es ROl DOCTOR
+        );
+
+        empleadoRepository.insert(empleado);
+
+        // ------------------------------------------------------------------
+        // PASO 2: CREAR DOCTOR usando el id_emp recién generado
+        // ------------------------------------------------------------------
+
+        Doctor doctor = Doctor.crear(
+                empleado.getId_emp(),                 // ← idEmpleado
+                command.getNombre(),
+                command.getApellido(),
                 command.getCmp(),
                 command.getConsultorio(),
                 command.getEspecialidades().stream()
@@ -62,13 +81,8 @@ public class CrearDoctorCommandHandler {
                         .collect(Collectors.toList())
         );
 
-        // ----- INSERTAR -----
-        try {
-            doctorRepository.insert(doctor);
-        } catch (Exception e) {
-            throw new DomainException("Error al guardar el doctor: " + e.getMessage());
-        }
+        doctorRepository.insert(doctor);
 
-        return doctor.getIdDoctor().obtenerid();
+        return doctor.getIdDoctor().obtenerid();  // retorna el UUID del doctor
     }
 }

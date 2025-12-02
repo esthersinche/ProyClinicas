@@ -1,4 +1,5 @@
 package com.Clinica1.myApp.mantenimiento.application.handler;
+import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.mantenimiento.application.command.ActualizarDoctorCommand;
 import com.Clinica1.myApp.mantenimiento.application.exception.DomainException;
@@ -41,7 +42,7 @@ public class ActualizarDoctorCommandHandler {
             throw new DomainException("Debe registrar al menos una especialidad");
 
         // --- Evitar duplicado de CMP al actualizar ---
-        Doctor existente = doctorRepository.findbyCMP(command.getCmp());
+        Doctor existente = doctorRepository.findByCmp(command.getCmp());
         if (existente != null && !existente.getIdDoctor().equals(command.getIdDoctor())) {
             throw new DomainException("Ya existe un doctor con el CMP " + command.getCmp());
         }
@@ -52,7 +53,8 @@ public class ActualizarDoctorCommandHandler {
                 command.getConsultorio(),
                 command.getEspecialidades().stream()
                         .map(Especialidad::new)
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()),
+                new Empleado(command.id()) // <-- AÑADIDO
         );
 
         // --- Actualizar contraseña si se proporciona ---

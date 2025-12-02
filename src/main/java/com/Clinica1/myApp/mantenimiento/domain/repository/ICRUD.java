@@ -10,6 +10,4 @@ public interface ICRUD<T>{
     T findById(IDEntidad id_all);
     List<T> findall();
     void delete(IDEntidad id_someone);
-
-
 }

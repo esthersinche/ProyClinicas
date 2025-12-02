@@ -31,8 +31,12 @@ public class Empleado {
     }
 
     //metodo factory, genera un id valido al crear un empleado y asi no hay null en id c:
-    public static Empleado crearemp(String nombre, String apellido, String telefono, Email email, String passhash_emp, Roles rolemp){
-        return new Empleado(IDEntidad.generar(), nombre, apellido, telefono, email, passhash_emp, rolemp);
+    public static Empleado crearemp(String nombre, String apellido,
+                                    String telefono, Email email,
+                                    String passhash_emp, Roles rolemp){
+        return new Empleado(IDEntidad.generar(), nombre,
+                apellido, telefono, email,
+                passhash_emp, rolemp);
     }
 
     public IDEntidad getId_emp() {
