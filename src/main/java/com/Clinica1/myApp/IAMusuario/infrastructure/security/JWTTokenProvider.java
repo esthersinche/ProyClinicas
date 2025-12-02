@@ -1,7 +1,9 @@
 package com.Clinica1.myApp.IAMusuario.infrastructure.security;
 
 
+import com.Clinica1.myApp.IAMusuario.application.dto.TokenDto;
 import com.Clinica1.myApp.IAMusuario.application.exception.JWTInvalidException;
+import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
 import io.jsonwebtoken.*;
@@ -13,9 +15,7 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.time.Instant;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 @Component
@@ -32,29 +32,40 @@ public class JWTTokenProvider implements TokenProvider {
     }
 
     @Override
-    public String generartokendeacceso(UsuarioWeb usu_web){
+    public TokenDto generartokendeacceso(Empleado emp){
         Instant ahora= Instant.now();
         Date inicio= Date.from(ahora);
         Date expiracion= Date.from(ahora.plusSeconds(accesstokensc));
 
         //claims adicionales
-        Map<String, Object> claimsadds= new HashMap<>();
-        if (usu_web.getId_emp() != null){
-            claimsadds.put("id_emp", usu_web.getId_emp().obtenerid());
+        List<String> roles= new ArrayList<>();
+        if (emp.getRolemp() != null){
+            roles.add(emp.getRolemp().name());
         }
+        Map<String, Object> claimsadds= new HashMap<>();
+        claimsadds.put("roles", roles);
 
-        if(usu_web.getId_cli() != null){
-            claimsadds.put("id_cli", usu_web.getId_cli().obtenerid());
+        //para email
+        try{
+            if (emp.getEmail() != null){
+                claimsadds.put("email", emp.getEmail().email_valor());
+            }
+        } catch (Exception ignore){
+
         }
 
         //constructor del jwt
         JwtBuilder blackbullet= Jwts.builder().setId(IDEntidad.generar().obtenerid())
-                .setSubject(usu_web.getId_usu().obtenerid())
+                .setSubject(emp.getId_emp().obtenerid())
                 .setIssuedAt(inicio)
                 .setExpiration(expiracion)
                 .addClaims(claimsadds);
 
-        return blackbullet.signWith(sec_key, SignatureAlgorithm.HS256).compact();
+        String kishi= blackbullet.signWith(sec_key, SignatureAlgorithm.HS256).compact();
+        return new TokenDto(kishi, this.accesstokensc);
+
+        //construccion del tokendto, quiero dormir
+
     }
 
     @Override

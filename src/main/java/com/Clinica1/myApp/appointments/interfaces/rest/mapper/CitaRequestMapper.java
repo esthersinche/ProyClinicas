@@ -52,7 +52,7 @@ public class CitaRequestMapper {
                 .inicio(request.getInicio())
                 .fin(request.getFin())
                 .pacienteId(IDEntidad.astring(request.getPacienteId()))   // conversion de String a IDEntidad
-                .doctorId(IDEntidad.astring(request.getDoctorId()))                 // clinica aún no usada
+                .doctorId(IDEntidad.astring(request.getDoctorId()))// clinica aún no usada
                 .especialidad(request.getEspecialidad())
                 .build();
     }
