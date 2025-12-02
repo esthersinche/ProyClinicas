@@ -34,6 +34,9 @@ public class EmpleadoEntity {
 /*@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rol_id", nullable = false) // luego en BD crear esta FK*/
 
+    @Column(name = "passhash_emp", nullable = false)
+    private String passhash_emp;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "rol_emp", nullable = false)
     private Roles rol;//este es el enum, no cambiar, ya que se convalidara con el nombre de rol la clase aggregate de domain
