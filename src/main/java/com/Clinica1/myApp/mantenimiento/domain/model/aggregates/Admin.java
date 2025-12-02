@@ -1,11 +1,7 @@
-package com.Clinica1.myApp.mantenimiento.domain.aggregates;
+package com.Clinica1.myApp.mantenimiento.domain.model.aggregates;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import com.Clinica1.myApp.appointments.domain.model.aggregates.Doctor;
-import com.Clinica1.myApp.appointments.domain.model.valueobjects.Especialidad;
-import com.Clinica1.myApp.appointments.domain.model.valueobjects.NombreCompleto;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Admin {

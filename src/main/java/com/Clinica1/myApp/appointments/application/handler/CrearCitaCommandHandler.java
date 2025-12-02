@@ -10,7 +10,6 @@ import com.Clinica1.myApp.appointments.application.assembler.CitaAssembler;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Cita;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Doctor;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Paciente;
-import com.Clinica1.myApp.appointments.domain.model.aggregates.Clinica;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Canal;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Especialidad;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Estado;
