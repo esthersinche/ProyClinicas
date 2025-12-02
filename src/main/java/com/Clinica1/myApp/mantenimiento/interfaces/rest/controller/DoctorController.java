@@ -5,10 +5,9 @@ import com.Clinica1.myApp.mantenimiento.application.command.ActualizarDoctorComm
 import com.Clinica1.myApp.mantenimiento.application.command.CrearDoctorCommand;
 import com.Clinica1.myApp.mantenimiento.application.command.EliminarDoctorCommand;
 import com.Clinica1.myApp.mantenimiento.application.dto.DoctorDto;
-import com.Clinica1.myApp.mantenimiento.application.handler.ActualizarDoctorCommandHandler;
-import com.Clinica1.myApp.mantenimiento.application.handler.CrearDoctorCommandHandler;
-import com.Clinica1.myApp.mantenimiento.application.handler.EliminarDoctorCommandHandler;
-import com.Clinica1.myApp.mantenimiento.application.handler.ListarDoctoresQueryHandler;
+import com.Clinica1.myApp.mantenimiento.application.handler.*;
+import com.Clinica1.myApp.mantenimiento.application.query.BuscarDoctorPorCMPQuery;
+import com.Clinica1.myApp.mantenimiento.application.query.BuscarDoctorPorNombreQuery;
 import com.Clinica1.myApp.mantenimiento.application.query.ListarDoctoresQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +24,9 @@ public class DoctorController {
     private final ActualizarDoctorCommandHandler actualizarDoctorCommandHandler;
     private final EliminarDoctorCommandHandler eliminarDoctorCommandHandler;
     private final ListarDoctoresQueryHandler listarDoctoresQueryHandler;
+    private final BuscarDoctorPorCMPQueryHandler cmpHandler;
+    private final BuscarDoctorPorNombreQueryHandler nombreHandler;
+
 
     @PostMapping
     public ResponseEntity<String> crear(@RequestBody CrearDoctorCommand command) {
@@ -53,5 +55,15 @@ public class DoctorController {
         return ResponseEntity.ok(
                 listarDoctoresQueryHandler.handle(new ListarDoctoresQuery())
         );
+    }
+
+    @GetMapping("/cmp/{cmp}")
+    public DoctorDto buscarPorCMP(@PathVariable String cmp) {
+        return cmpHandler.handle(new BuscarDoctorPorCMPQuery(cmp));
+    }
+
+    @GetMapping("/buscar")
+    public List<DoctorDto> buscarPorNombre(@RequestParam String nombre) {
+        return nombreHandler.handle(new BuscarDoctorPorNombreQuery(nombre));
     }
 }

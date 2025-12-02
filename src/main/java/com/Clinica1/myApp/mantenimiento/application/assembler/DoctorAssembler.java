@@ -16,6 +16,7 @@ public class DoctorAssembler {
                 doctor.getEmpleado().getApellido(),
                 doctor.getEmpleado().getTelefono(),
                 doctor.getEmpleado().getEmail().email_valor(),
+                doctor.getEmpleado().getPasshash_emp(),
                 doctor.getCmp(),
                 doctor.getConsultorio(),
                 doctor.getEspecialidades().stream()

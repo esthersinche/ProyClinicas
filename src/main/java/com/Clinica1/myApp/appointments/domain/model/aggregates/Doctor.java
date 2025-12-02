@@ -33,14 +33,6 @@ public class Doctor {// se quita la herencia para q no compartan persistencia
      * }
      */
 
-    // metodo factory q devuelve instancia valida
-    public static Doctor creardoc(IDEntidad id_empleado_doc, NombreCompleto nom_com_doc, String cmp_doc,
-            String consultorio_doc,
-            List<Especialidad> especialidades) {
-        return new Doctor(id_empleado_doc, IDEntidad.generar(), nom_com_doc, cmp_doc, consultorio_doc, especialidades);
-
-    }
-
     public IDEntidad getId_empleado_doc() {
         return id_empleado_doc;
     }

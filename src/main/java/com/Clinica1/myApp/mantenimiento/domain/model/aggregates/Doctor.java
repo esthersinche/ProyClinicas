@@ -16,7 +16,6 @@ import java.util.Objects;
 public class Doctor {
     private IDEntidad idDoctor;
     private Empleado empleado;
-    private Nombrecompleto nom_doc;
     private String cmp;
     private String consultorio;
     private List<Especialidad> especialidades;
@@ -42,6 +41,7 @@ public class Doctor {
             String apellido,
             String telefono,
             Email email,
+            String password,
             String cmp,
             String consultorio,
             List<Especialidad> especialidades
@@ -52,6 +52,7 @@ public class Doctor {
                 apellido,
                 telefono,
                 email,
+                password,
                 Roles.Rol_Doctor
         );
 
@@ -65,10 +66,13 @@ public class Doctor {
     }
 
     // ----- COMPORTAMIENTO -----
-    public void actualizarDatos(String cmp, String consultorio, List<Especialidad> especialidades) {
+    public void actualizarDatos( String cmp, String consultorio, List<Especialidad> especialidades) {
         this.cmp = cmp;
         this.consultorio = consultorio;
         this.especialidades = especialidades;
+    }
+    public void actualizarCredenciales(String nuevaContrasena) {
+        this.empleado.asignarCredenciales(nuevaContrasena);
     }
 
     // Igualdad por idDoctor

@@ -63,6 +63,14 @@ public class Empleado {
         return rolemp;
     }
 
+    public void asignarCredenciales(String password) {
+        this.passhash_emp = password;  // por ahora sin hash
+    }
+
+    public void asignarRol(Roles rol) {
+        this.rolemp = rol;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -75,7 +83,4 @@ public class Empleado {
         return Objects.hashCode(getId_emp());
     }
 
-    public Empleado orElseThrow(Object empleadoNoEncontrado) {
-        return null;
-    }
 }

@@ -10,5 +10,6 @@ public interface DoctorRepository extends ICRUD<Doctor> {
     //codigo de colegiatura
     Doctor findbyCMP(String cmp_doc);
     List<Doctor> findbyEspecialidad(String nom_espe);
+    List<Doctor> findByNombre(String nom_doc);
 
 }

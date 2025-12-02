@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class ActualizarDoctorCommandHandler {
     private final DoctorRepository doctorRepository;
 
+    @Transactional
     public Doctor handle(ActualizarDoctorCommand command) {
 
         // --- Validar ID ---
@@ -39,7 +40,6 @@ public class ActualizarDoctorCommandHandler {
         if (command.getEspecialidades() == null || command.getEspecialidades().isEmpty())
             throw new DomainException("Debe registrar al menos una especialidad");
 
-
         // --- Evitar duplicado de CMP al actualizar ---
         Doctor existente = doctorRepository.findbyCMP(command.getCmp());
         if (existente != null && !existente.getIdDoctor().equals(command.getIdDoctor())) {
@@ -54,6 +54,11 @@ public class ActualizarDoctorCommandHandler {
                         .map(Especialidad::new)
                         .collect(Collectors.toList())
         );
+
+        // --- Actualizar contraseña si se proporciona ---
+        if (command.getPassword() != null && !command.getPassword().isBlank()) {
+            doctor.actualizarCredenciales(command.getPassword());
+        }
 
         try {
             return doctorRepository.update(doctor);

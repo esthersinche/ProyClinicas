@@ -54,6 +54,7 @@ public class CrearDoctorCommandHandler {
                 command.getApellido(),
                 command.getTelefono(),
                 Email.of(command.getEmail()),
+                command.getPassword(),
                 command.getCmp(),
                 command.getConsultorio(),
                 command.getEspecialidades().stream()
