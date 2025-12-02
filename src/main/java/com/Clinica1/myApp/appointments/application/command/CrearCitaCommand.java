@@ -6,25 +6,24 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 @Builder
 public class CrearCitaCommand {
+    private IDEntidad pacienteId;
+    private IDEntidad doctorId;
     private String motivo;
+    private String especialidad;
     private String canal;
     private LocalDateTime inicio;
     private LocalDateTime fin;
-    private IDEntidad pacienteId;
-    private IDEntidad doctorId;
-    private IDEntidad clinicaId;
-    private String especialidad;
 
-    public CrearCitaCommand(String motivo, String canal, LocalDateTime inicio, LocalDateTime fin,
-                            IDEntidad pacienteId, IDEntidad doctorId, IDEntidad clinicaId, String especialidad) {
+    public CrearCitaCommand(IDEntidad pacienteId, IDEntidad doctorId, String motivo,
+                            String especialidad, String canal,
+                            LocalDateTime inicio, LocalDateTime fin) {
+        this.pacienteId = pacienteId;
+        this.doctorId = doctorId;
         this.motivo = motivo;
+        this.especialidad = especialidad;
         this.canal = canal;
         this.inicio = inicio;
         this.fin = fin;
-        this.pacienteId = pacienteId;
-        this.doctorId = doctorId;
-        this.clinicaId = clinicaId;
-        this.especialidad = especialidad;
     }
 
     public String getMotivo() {
@@ -49,10 +48,6 @@ public class CrearCitaCommand {
 
     public IDEntidad getDoctorId() {
         return doctorId;
-    }
-
-    public IDEntidad getClinicaId() {
-        return clinicaId;
     }
 
     public String getEspecialidad() {

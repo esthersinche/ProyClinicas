@@ -144,20 +144,6 @@ public class Cita {
         return Objects.hashCode(getId_cita());
     }
 
-    public void setInst_doctor(Doctor doctor) {
-        this.doc_id = doctor.getId_doc();
-
-        String especialidad = doctor.getEspecialidades() != null &&
-                !doctor.getEspecialidades().isEmpty()
-                ? doctor.getEspecialidades().get(0).nom_espe()
-                : "Sin especialidad";
-
-        this.inst_doctor = Doc_info_cita.of(
-                doctor.getNom_com_doc().completar(),
-                especialidad,
-                doctor.getConsultorio_doc()
-        );
-    }
 
     public void modificar(String motivo_cita, LocalDateTime inicio_cita, LocalDateTime fin_cita) {
         this.motivo_cita = motivo_cita;

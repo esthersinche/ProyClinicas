@@ -15,39 +15,25 @@ import java.time.LocalDateTime;
 //dto q llegan en cuerpo de peticiones
 public class CrearCitaRequest {
 
-    @NotBlank(message = "DNI is required")
-    private String dni_pac;
-
     @NotBlank(message = "Motivo is required")
-    private String motivo_cita;
+    private String motivo;
 
     @NotBlank(message = "Especialidad is required")
-    private String espe_cita;
-
-    @NotBlank(message = "Estado is required")
-    private String estado_cita;
+    private String especialidad;
 
     @NotBlank(message = "Canal is required")
-    private String canal_cita;
+    private String canal;
 
     @NotNull(message = "Fecha y hora de inicio is required")
-    private LocalDateTime inicio_cita;
+    private LocalDateTime inicio;
 
     @NotNull(message = "Fecha y hora de fin is required")
-    private LocalDateTime fin_cita;
+    private LocalDateTime fin;
 
-    //id de pac y doc
     @NotBlank(message = "ID paciente is required")
-    private String id_pac;
-    @NotBlank(message = "ID doctor is required")
-    private String id_doc;
+    private String pacienteId;
 
-    //porsiacaso yknow
-    @Valid
-    @NotNull(message = "Info de paciente is required")
-    private Pac_info_citaRequest pac_info_req;
-    @Valid
-    @NotNull(message = "Info de doctor is required")
-    private Doc_info_citaRequest doc_info_req;
+    @NotBlank(message = "ID doctor is required")
+    private String doctorId;
 
 }

@@ -41,9 +41,7 @@ public class DoctorEntity {
     //dar nombre a la tabla, columna relacionada
     private List<EspecialidadEmbeddable> especialidades;
 
-    /* @ManyToOne
-    @JoinColumn(name = "clin_id")
-    private ClinicaEntity clinica;*/
+
 
 
 }

@@ -59,7 +59,7 @@ public class CrearCitaCommandHandler {
         try {
             canal = Canal.valueOf(command.getCanal());
         } catch (IllegalArgumentException e) {
-            throw new FechaInvalidaException("Canal inválido: " + command.getCanal());
+            throw new IllegalArgumentException("Canal inválido: " + command.getCanal());
         }
 
 

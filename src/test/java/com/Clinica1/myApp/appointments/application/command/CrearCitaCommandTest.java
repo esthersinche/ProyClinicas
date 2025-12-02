@@ -19,13 +19,12 @@ class CrearCitaCommandTest {
         IDEntidad clinicaId = IDEntidad.astring("CLIN001");
 
         CrearCitaCommand cmd = new CrearCitaCommand(
-                "Dolor de cabeza",
-                "Presencial",
-                inicio,
-                fin,
                 pacienteId,
                 doctorId,
-                clinicaId,
+                "fiebre por varios dias",
+                ,
+                pacienteId,
+                doctorId,
                 "Neurología"
         );
 
