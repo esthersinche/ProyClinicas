@@ -1,14 +1,11 @@
-package com.Clinica1.myApp.IAMusuario.application;
+package com.Clinica1.myApp.IAMusuario.application.services;
 
 
+import com.Clinica1.myApp.IAMusuario.application.command.LoginCommand;
 import com.Clinica1.myApp.IAMusuario.application.dto.TokenDto;
-import com.Clinica1.myApp.IAMusuario.application.services.ContraService;
 import com.Clinica1.myApp.IAMusuario.domain.repository.EmpleadoRepository;
+import com.Clinica1.myApp.IAMusuario.domain.repository.SesionRepository;
 import com.Clinica1.myApp.IAMusuario.domain.repository.UsuarioRepository;
-import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.LoginRequest;
-import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.response.TokenResponse;
-import com.Clinica1.myApp.IAMusuario.domain.exception.CredencialesInvalidasException;
-import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
 import org.springframework.stereotype.Service;
 
 
@@ -16,19 +13,28 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final UsuarioRepository usuweb_repo;
+    private final UsuarioWebRepositoryService usuweb_repo_serv;
     private final EmpleadoRepository emp_repo;
     private final ContraService con_serv;
     private final TokenProvider tok_prov;
+    private final SesionRepository ses_repo;
+    private final SesionRepositoryService ses_repo_serv;
 
     //inyeccion
-    public AuthService(UsuarioRepository usuweb_repo, EmpleadoRepository emp_repo, ContraService con_serv, TokenProvider tok_prov) {
+
+
+    public AuthService(UsuarioRepository usuweb_repo, UsuarioWebRepositoryService usuweb_repo_serv, EmpleadoRepository emp_repo,
+                       ContraService con_serv, TokenProvider tok_prov, SesionRepository ses_repo, SesionRepositoryService ses_repo_serv) {
         this.usuweb_repo = usuweb_repo;
+        this.usuweb_repo_serv = usuweb_repo_serv;
         this.emp_repo = emp_repo;
         this.con_serv = con_serv;
         this.tok_prov = tok_prov;
+        this.ses_repo = ses_repo;
+        this.ses_repo_serv = ses_repo_serv;
     }
 
-    public TokenResponse loging(LoginRequest comm){
+    public TokenDto login(LoginCommand log_com){
 
     }
     /*public TokenResponse login(LoginRequest command) {

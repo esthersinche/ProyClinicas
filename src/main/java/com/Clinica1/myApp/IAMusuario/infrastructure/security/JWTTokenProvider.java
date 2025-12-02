@@ -8,11 +8,10 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
 
-import com.Clinica1.myApp.IAMusuario.application.TokenProvider;
+import com.Clinica1.myApp.IAMusuario.application.services.TokenProvider;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;

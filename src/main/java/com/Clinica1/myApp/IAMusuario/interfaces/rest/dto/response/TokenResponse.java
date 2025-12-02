@@ -1,41 +1,23 @@
 package com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TokenResponse {
-
-    private String token; // luego cambiarlo por un JWT real
+//para refreshtoken y validartoken
+    private String tokenacceso;
+    private String tipotoken;
+    private long sgparaexpiracion;
+    private String emp_id;
+    private String nomcom_emp;
+    //no quiero poner roles o success aun
+    private String message;
+    /*private String token; // luego cambiarlo por un JWT real
     private String username;
-    private String rol;
+    private String rol;*/
 
-    public TokenResponse() {
-    }
-
-    public TokenResponse(String token, String username, String rol) {
-        this.token = token;
-        this.username = username;
-        this.rol = rol;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
 }

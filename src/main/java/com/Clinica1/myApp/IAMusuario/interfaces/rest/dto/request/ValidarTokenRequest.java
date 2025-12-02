@@ -8,14 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
-
-    @NotBlank(message = "El email es obligatorio")
-    private String email;
-
-    @NotBlank(message = "La contraseña es obligatoria")
-    private String password;
-
-    //espera rpta de token y metadata (200 o 401)
-
+//opcional por si algo pide en el frontend validacion de token
+public class ValidarTokenRequest {
+    @NotBlank(message = "token is a must")
+    private String token;
 }
