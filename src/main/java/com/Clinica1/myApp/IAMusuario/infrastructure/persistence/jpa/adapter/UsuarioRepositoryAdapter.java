@@ -79,11 +79,14 @@ public class UsuarioRepositoryAdapter implements UsuarioRepository {
     /* ========== MÉTODO ESPECÍFICO ========== */
 
     @Override
-    public Optional<UsuarioWeb> findbyUsername(String usu_username) {
-        /*
-        return jpaUsuarioRepository.findByUsername(usu_username)
-                .map(usuarioMapper::toDomain);*/
-        return jpaUsuarioRepository.findByUsername(usu_username)
+    public Optional<UsuarioWeb> findById_Emp(IDEntidad id_usuweb_emp){
+        return jpaUsuarioRepository.findById_Emp(id_usuweb_emp.obtenerid())
+                .map(usuarioMapper::ToDomain);
+    }
+
+    @Override
+    public Optional<UsuarioWeb> findById_Cli(IDEntidad id_usuweb_cli){
+        return jpaUsuarioRepository.findById_Cli(id_usuweb_cli.obtenerid())
                 .map(usuarioMapper::ToDomain);
     }
 

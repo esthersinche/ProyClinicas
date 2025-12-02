@@ -14,7 +14,7 @@ public class PacienteRestMapper {
                 .nacionalidad(dto.getNacionalidad())
                 .dni(dto.getDni())
                 .tel(dto.getTel())
-                .email(dto.getEmail()) // ahora es String, correcto
+                .email(dto.getEmail())  // ahora es String, correcto
                 .fec_nac(dto.getFec_nac())
                 .sexo(dto.getSexo())
                 .build();

@@ -1,6 +1,6 @@
 package com.Clinica1.myApp.IAMusuario.infrastructure.configuration;
 
-import com.Clinica1.myApp.IAMusuario.application.TokenProvider;
+import com.Clinica1.myApp.IAMusuario.application.services.TokenProvider;
 import com.Clinica1.myApp.IAMusuario.infrastructure.security.JWTTokenProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

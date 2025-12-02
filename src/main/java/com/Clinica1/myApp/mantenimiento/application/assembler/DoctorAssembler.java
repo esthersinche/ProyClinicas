@@ -10,19 +10,17 @@ import java.util.stream.Collectors;
 @Component
 public class DoctorAssembler {
     public DoctorDto toDto(Doctor doctor) {
-
         return new DoctorDto(
                 doctor.getIdDoctor().obtenerid(),
                 doctor.getEmpleado().getNombre(),
                 doctor.getEmpleado().getApellido(),
                 doctor.getEmpleado().getTelefono(),
-                doctor.getEmpleado().getEmail().email_valor(), // según tu Email
+                doctor.getEmpleado().getEmail().email_valor(),
                 doctor.getCmp(),
                 doctor.getConsultorio(),
-                doctor.getEspecialidades()
-                        .stream()
-                        .map(e -> e.nom_espe()) // si tu VO es record Especialidad(String valor)
-                        .collect(Collectors.toList())
+                doctor.getEspecialidades().stream()
+                        .map(e -> e.nom_espe())
+                        .toList()
         );
     }
 }
