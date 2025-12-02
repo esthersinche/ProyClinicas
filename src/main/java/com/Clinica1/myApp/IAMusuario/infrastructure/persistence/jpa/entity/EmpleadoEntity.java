@@ -29,18 +29,25 @@ public class EmpleadoEntity {
     @Column(name = "telefono_emp", length = 20)
     private String telefonoEmp;
 
+    // =========================================
+    // EMAIL EMBEBIDO — SOLO SE AGREGA OVERRIDE
+    // =========================================
     @Embedded
+    @AttributeOverride(name = "email_valor", column = @Column(name = "email_emp"))
     private EmailEmbeddable email_emp;
-/*@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rol_id", nullable = false) // luego en BD crear esta FK*/
+    /*
+     * @ManyToOne(fetch = FetchType.EAGER)
+     * 
+     * @JoinColumn(name = "rol_id", nullable = false) // luego en BD crear esta FK
+     */
 
     @Column(name = "passhash_emp", nullable = false)
     private String passhash_emp;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "rol_emp", nullable = false)
-    private Roles rol;//este es el enum, no cambiar, ya que se convalidara con el nombre de rol la clase aggregate de domain
-
+    private Roles rol;// este es el enum, no cambiar, ya que se convalidara con el nombre de rol la
+                      // clase aggregate de domain
 
     public void setNombre(String luis) {
 

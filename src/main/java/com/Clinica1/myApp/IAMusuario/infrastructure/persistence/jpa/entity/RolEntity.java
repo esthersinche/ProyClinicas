@@ -27,10 +27,14 @@ public class RolEntity {
     private String nombreRol;
 
     // Guardamos Funciones como strings en una tabla aparte
+    // @ElementCollection(fetch = FetchType.EAGER)
+    // @CollectionTable(name = "Rol_Funciones", joinColumns = @JoinColumn(name =
+    // "rol_id"))
+    // @Column(name = "funcion", nullable = false, length = 80)
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "Rol_Funciones", joinColumns = @JoinColumn(name = "rol_id"))
-    @Column(name = "funcion", nullable = false, length = 80)
+    @CollectionTable(name = "Rol_Funciones", joinColumns = @JoinColumn(name = "id_rol") // corregido
+    )
+    @AttributeOverride(name = "nombre_fun", column = @Column(name = "funcion", nullable = false, length = 80))
     private Set<FuncionEmbeddable> funciones = new HashSet<>();
-
 
 }

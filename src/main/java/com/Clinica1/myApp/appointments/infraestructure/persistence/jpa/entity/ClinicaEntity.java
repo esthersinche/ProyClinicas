@@ -20,12 +20,19 @@ import java.util.List;
 @Builder
 public class ClinicaEntity {
     @Id
+    @Column(name = "id_cli")
     private String id_cli;
 
     @Column(name = "nom_clie", nullable = false, length = 40)
     private String nom_clin;
 
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "avenida", column = @Column(name = "dir_av")),
+            @AttributeOverride(name = "distrito", column = @Column(name = "distrito")),
+            @AttributeOverride(name = "departamento", column = @Column(name = "departamento")),
+            @AttributeOverride(name = "provincia", column = @Column(name = "provincia"))
+    })
     private DireccionEmbeddable dir_clin;
 
     @OneToMany(mappedBy = "clinica")
