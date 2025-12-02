@@ -1,0 +1,173 @@
+package com.Clinica1.myApp.appointments.interfaces.rest.controller;
+
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.appointments.application.command.CancelarCitaCommand;
+import com.Clinica1.myApp.appointments.application.command.CrearCitaCommand;
+import com.Clinica1.myApp.appointments.application.command.ModificarCitaCommand;
+import com.Clinica1.myApp.appointments.application.dto.CitaDto;
+import com.Clinica1.myApp.appointments.application.exception.CitaNoEncontradaException;
+import com.Clinica1.myApp.appointments.application.handler.*;
+import com.Clinica1.myApp.appointments.application.query.ListarCitasPorDoctorQuery;
+import com.Clinica1.myApp.appointments.application.query.ObtenerCitaPorIdQuery;
+import com.Clinica1.myApp.appointments.interfaces.rest.dto.request.CrearCitaRequest;
+import com.Clinica1.myApp.appointments.interfaces.rest.dto.request.ModificarCitaRequest;
+import com.Clinica1.myApp.appointments.interfaces.rest.mapper.CitaRequestMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.gestor.clinicas.ClinicasApplication;
+
+@WebMvcTest(CitaController.class)
+@AutoConfigureMockMvc(addFilters = false)
+@ContextConfiguration(classes = ClinicasApplication.class)
+@ComponentScan(basePackages = "com.Clinica1.myApp")
+class CitaControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    // NECESARIO: todos los beans del controller
+    @MockBean
+    private CrearCitaCommandHandler crearHandler;
+    @MockBean
+    private ObtenerCitaPorIdQueryHandler getHandler;
+    @MockBean
+    private ListarCitasPorDoctorQueryHandler listarPorDoctorHandler;
+    @MockBean
+    private ModificarCitaCommandHandler modificarHandler;
+    @MockBean
+    private CancelarCitaCommandHandler cancelarHandler;
+    @MockBean
+    private CitaRequestMapper mapper;
+
+    // ----------------------------------------------------------
+    // 🔥 TEST CREAR
+    // ----------------------------------------------------------
+    @Test
+    void crearCita_ok() throws Exception {
+        CrearCitaRequest req = new CrearCitaRequest();
+        req.setMotivo_cita("Migraña");
+        req.setCanal_cita("Online");
+        req.setDni_pac("12345678");
+        req.setEspe_cita("Cardiología");
+        req.setEstado_cita("Activa");
+        req.setInicio_cita(LocalDateTime.now().plusHours(1));
+        req.setFin_cita(LocalDateTime.now().plusHours(2));
+        req.setId_pac("P001");
+        req.setId_doc("D001");
+        req.setPac_info_req(null);
+        req.setDoc_info_req(null);
+
+        CrearCitaCommand commandMock = mock(CrearCitaCommand.class);
+        when(mapper.ToCommand(any())).thenReturn(commandMock);
+
+        CitaDto dto = new CitaDto();
+        dto.setId(IDEntidad.astring("CITA123"));
+        when(crearHandler.handle(any())).thenReturn(dto);
+
+        mockMvc.perform(
+                post("/api/v1/cita")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(req)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.cita_id").value("CITA123"));
+    }
+
+    // ----------------------------------------------------------
+    // 🔥 TEST GET BY ID
+    // ----------------------------------------------------------
+    @Test
+    void obtenerCita_ok() throws Exception {
+
+        CitaDto dto = new CitaDto();
+        dto.setId(IDEntidad.astring("ABC123"));
+
+        when(getHandler.handle(any(ObtenerCitaPorIdQuery.class)))
+                .thenReturn(dto);
+
+        mockMvc.perform(get("/api/v1/cita/ABC123"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id.obtenerid").value("ABC123"));
+    }
+
+    // ----------------------------------------------------------
+    // 🔥 TEST LISTAR POR DOCTOR
+    // ----------------------------------------------------------
+    @Test
+    void listarPorDoctor_ok() throws Exception {
+
+        when(listarPorDoctorHandler.handle(any()))
+                .thenReturn(List.of());
+
+        mockMvc.perform(get("/api/v1/cita/doctor/D001"))
+                .andExpect(status().isOk());
+    }
+
+    // ----------------------------------------------------------
+    // 🔥 TEST MODIFICAR
+    // ----------------------------------------------------------
+    @Test
+    void modificarCita_ok() throws Exception {
+
+        ModificarCitaRequest req = new ModificarCitaRequest(
+                LocalDateTime.now().plusHours(2),
+                LocalDateTime.now().plusHours(3));
+
+        CitaDto dto = new CitaDto();
+        dto.setId(IDEntidad.astring("MOD111"));
+
+        when(modificarHandler.handle(any(ModificarCitaCommand.class)))
+                .thenReturn(dto);
+
+        mockMvc.perform(
+                put("/api/v1/cita/MOD111")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(req)))
+                .andExpect(status().isOk());
+    }
+
+    // ----------------------------------------------------------
+    // 🔥 TEST CANCELAR OK
+    // ----------------------------------------------------------
+    @Test
+    void cancelar_ok() throws Exception {
+
+        doNothing().when(cancelarHandler).handle(any(CancelarCitaCommand.class));
+
+        mockMvc.perform(delete("/api/v1/cita/XYZ111"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Cita cancelada"));
+    }
+
+    // ----------------------------------------------------------
+    // 🔥 TEST CANCELAR NOT FOUND
+    // ----------------------------------------------------------
+    @Test
+    void cancelar_notFound() throws Exception {
+
+        doThrow(new CitaNoEncontradaException("No existe"))
+                .when(cancelarHandler).handle(any());
+
+        mockMvc.perform(delete("/api/v1/cita/XYZ111"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("No existe"));
+    }
+}
