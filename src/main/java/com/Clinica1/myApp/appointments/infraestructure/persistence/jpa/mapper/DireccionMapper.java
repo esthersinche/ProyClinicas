@@ -9,25 +9,26 @@ import org.springframework.stereotype.Component;
 public class DireccionMapper {
     // VO → Embeddable
     public static DireccionEmbeddable toEmbeddable(Direccion direccion) {
-        if (direccion == null) return null;
+        if (direccion == null)
+            return null;
 
         return DireccionEmbeddable.builder()
                 .avenida(direccion.avenida())
-                .calle(direccion.calle())
                 .distrito(direccion.distrito())
-                .pais(direccion.pais())
+                .departamento(direccion.departamento())
+                .provincia(direccion.provincia())
                 .build();
     }
 
     // Embeddable → VO
     public static Direccion toDomain(DireccionEmbeddable embeddable) {
-        if (embeddable == null) return null;
+        if (embeddable == null)
+            return null;
 
         return Direccion.of(
                 embeddable.getAvenida(),
-                embeddable.getCalle(),
                 embeddable.getDistrito(),
-                embeddable.getPais()
-        );
+                embeddable.getDepartamento(),
+                embeddable.getProvincia());
     }
 }
