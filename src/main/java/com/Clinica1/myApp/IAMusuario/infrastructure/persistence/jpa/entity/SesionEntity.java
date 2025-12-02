@@ -19,7 +19,7 @@ import java.time.Instant;
 @Builder
 public class SesionEntity {
     @Id
-
+    @Column(name = "token_id")
     private String token_id;
 
     @Column(name = "usuweb_id", nullable = false)
