@@ -32,6 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-###secret###
+### secre t###
 /application-secrets.properties
 /.env
