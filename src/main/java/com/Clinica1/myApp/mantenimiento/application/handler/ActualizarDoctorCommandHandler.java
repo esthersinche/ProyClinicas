@@ -54,7 +54,7 @@ public class ActualizarDoctorCommandHandler {
                 command.getEspecialidades().stream()
                         .map(Especialidad::new)
                         .collect(Collectors.toList()),
-                new Empleado(command.id()) // <-- AÑADIDO
+                new Empleado(command.getIdDoctor()) // <-- AÑADIDO
         );
 
         // --- Actualizar contraseña si se proporciona ---

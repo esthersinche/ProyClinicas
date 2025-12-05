@@ -1,6 +1,7 @@
 package com.Clinica1.myApp.IAMusuario.domain.repository;
 
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Sesion;
+import com.Clinica1.myApp.SharedKernel.ICRUD;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
 import java.util.List;

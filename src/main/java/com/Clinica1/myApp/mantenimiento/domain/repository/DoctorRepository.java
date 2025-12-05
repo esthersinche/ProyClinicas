@@ -1,7 +1,6 @@
 package com.Clinica1.myApp.mantenimiento.domain.repository;
 
 import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Doctor;
-import com.Clinica1.myApp.appointments.domain.repository.ICRUD;
 
 import java.util.List;
 

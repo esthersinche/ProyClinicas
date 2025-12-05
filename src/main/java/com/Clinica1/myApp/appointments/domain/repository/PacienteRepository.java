@@ -1,6 +1,7 @@
 package com.Clinica1.myApp.appointments.domain.repository;
 
 import com.Clinica1.myApp.SharedKernel.Email;
+import com.Clinica1.myApp.SharedKernel.ICRUD;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Paciente;
 
 public interface PacienteRepository extends ICRUD<Paciente> {
