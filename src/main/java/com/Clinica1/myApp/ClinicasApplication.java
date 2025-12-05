@@ -1,4 +1,4 @@
-package com.gestor.clinicas;
+package com.Clinica1.myApp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
