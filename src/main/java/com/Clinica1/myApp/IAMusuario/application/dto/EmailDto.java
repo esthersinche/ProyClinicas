@@ -5,17 +5,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TokenDto {
-    private String accesstoken;
-    private String id_emp;
-    private long expiracion;
-    private List<String> funciones;
-
+public class EmailDto {
+    private String email_emp;
 
 }

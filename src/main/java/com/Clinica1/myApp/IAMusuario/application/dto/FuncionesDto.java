@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -13,4 +14,6 @@ import java.util.HashSet;
 @Builder
 public class FuncionesDto {
     private String nom_funcion;
+
+
 }

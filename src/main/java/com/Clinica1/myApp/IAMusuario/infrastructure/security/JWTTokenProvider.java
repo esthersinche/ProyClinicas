@@ -5,7 +5,7 @@ import com.Clinica1.myApp.IAMusuario.application.dto.TokenDto;
 import com.Clinica1.myApp.IAMusuario.application.exception.JWTInvalidException;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
+import com.Clinica1.myApp.SharedKernel.Roles;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
@@ -62,7 +62,8 @@ public class JWTTokenProvider implements TokenProvider {
                 .addClaims(claimsadds);
 
         String kishi= blackbullet.signWith(sec_key, SignatureAlgorithm.HS256).compact();
-        return new TokenDto(kishi, this.accesstokensc);
+        //funciones empty pq aqui no se asignan cosos
+        return new TokenDto(kishi, emp.getId_emp().obtenerid(), this.accesstokensc, Collections.emptyList());
 
         //construccion del tokendto, quiero dormir
 

@@ -5,17 +5,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TokenDto {
-    private String accesstoken;
+public class EmpleadoDto {
     private String id_emp;
-    private long expiracion;
-    private List<String> funciones;
-
-
+    private String nom_emp;
+    private String ape_emp;
+    private String tel_emp;
+    private EmailDto email_emp;
+    private String passhash_emp;
+    private String rol_emp;
 }

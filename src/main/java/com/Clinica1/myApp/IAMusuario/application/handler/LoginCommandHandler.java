@@ -5,6 +5,7 @@ import com.Clinica1.myApp.IAMusuario.application.dto.SesionDto;
 import com.Clinica1.myApp.IAMusuario.application.dto.TokenDto;
 import com.Clinica1.myApp.IAMusuario.application.exception.InvalidCredentialsException;
 import com.Clinica1.myApp.IAMusuario.application.services.*;
+import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
@@ -14,15 +15,17 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class LoginCommandHandler implements LoginService {
+public class LoginCommandHandler{
     private final UsuarioWebRepositoryService usuweb_repo_serv;
     private final EmpleadoRepositoryService emp_repo_serv;
     private final ContraService con_serv;
     private final TokenProvider tok_prov;
     private final SesionRepositoryService ses_repo_serv;
+    private final RolRepositoryService rol_repo_serv;
 
     //validaciones
     private void validar(LoginCommand log_com_val){
@@ -35,9 +38,8 @@ public class LoginCommandHandler implements LoginService {
         }
 
     }
-    @Override
     @Transactional
-    public TokenDto login(LoginCommand log_com){
+    public TokenDto handle(LoginCommand log_com){
         validar(log_com);
 
         //buscar usuarioweb(1)/empleado por email
@@ -71,6 +73,20 @@ public class LoginCommandHandler implements LoginService {
         //obtener token
         TokenDto token_dto= tok_prov.generartokendeacceso(emp);
 
+        //funciones
+        Set<Funcion> funciones= rol_repo_serv.findFuncionesByNombreRol(emp.getRolemp().name());
+        List<String> funcioneslistaemp= funciones.stream().map(Funcion::getNombre_fun)
+                .collect(Collectors.toList());
+
+        //set
+        TokenDto tok_dto_zoetrope= TokenDto.builder()
+                .accesstoken(token_dto.getAccesstoken())
+                .id_emp(token_dto.getId_emp())
+                .expiracion(token_dto.getExpiracion())
+                .funciones(funcioneslistaemp)
+                .build();
+
+
         //persistencia my beloathed
         if (ses_repo_serv != null){
             Instant ahoracausa= Instant.now();
@@ -78,7 +94,9 @@ public class LoginCommandHandler implements LoginService {
             SesionDto ses_dto= new SesionDto(IDEntidad.generar().obtenerid(), emp.getId_emp().obtenerid(),
                     ahoracausa, expirarcausa);
         }
+        //final dto
 
-        return token_dto;
+
+        return tok_dto_zoetrope;
     }
 }
