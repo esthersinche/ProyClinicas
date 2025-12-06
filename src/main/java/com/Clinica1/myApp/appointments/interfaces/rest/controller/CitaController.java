@@ -2,7 +2,6 @@ package com.Clinica1.myApp.appointments.interfaces.rest.controller;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.appointments.application.command.CancelarCitaCommand;
-import com.Clinica1.myApp.appointments.application.command.CrearCitaCommand;
 import com.Clinica1.myApp.appointments.application.command.ModificarCitaCommand;
 import com.Clinica1.myApp.appointments.application.dto.CitaDto;
 import com.Clinica1.myApp.appointments.application.exception.CitaNoEncontradaException;
@@ -27,10 +26,10 @@ import org.springframework.web.bind.annotation.*;
 //controladores q exponen endpoints
 public class CitaController {
     private final CrearCitaCommandHandler crearHandler;
-    private final ObtenerCitaPorIdQueryHandler getHandler;
     private final ListarCitasPorDoctorQueryHandler listarPorDoctorHandler;
     private final ModificarCitaCommandHandler modificarHandler;
     private final CancelarCitaCommandHandler cancelarHandler;
+    private final ObtenerCitaPorIdQueryHandler obtenerCitaHandler;
     private final CitaRequestMapper mapper;
 
     @PostMapping
@@ -38,22 +37,30 @@ public class CitaController {
         var command = mapper.ToCommand(request);
         var dto = crearHandler.handle(command);
 
-        return ResponseEntity.ok(
-                new CrearCitaResponse(dto.getId().obtenerid(), "Cita creada exitosamente")
-        );
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new CrearCitaResponse(
+                        dto.getId().obtenerid(),
+                        "Cita creada exitosamente"
+                ));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CitaDto> obtenerCita(@PathVariable String id) {
-        var query = new ObtenerCitaPorIdQuery(IDEntidad.astring(id));
-        var dto = getHandler.handle(query);
+
+        var query = new ObtenerCitaPorIdQuery(
+                IDEntidad.astring(id)
+        );
+
+        var dto = obtenerCitaHandler.handle(query);
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/doctor/{idDoctor}")
     public ResponseEntity<?> listarPorDoctor(@PathVariable String idDoctor) {
         var query = new ListarCitasPorDoctorQuery(idDoctor);
-        return ResponseEntity.ok(listarPorDoctorHandler.handle(query));
+        return ResponseEntity.ok(
+                listarPorDoctorHandler.handle(query)
+        );
     }
 
     @PutMapping("/{id}")
@@ -66,7 +73,6 @@ public class CitaController {
         );
 
         var dto = modificarHandler.handle(command);
-
         return ResponseEntity.ok(dto);
     }
 

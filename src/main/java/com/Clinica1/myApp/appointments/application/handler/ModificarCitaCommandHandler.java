@@ -36,16 +36,22 @@ public class ModificarCitaCommandHandler {
 
         IDEntidad citaId = command.getCitaId();
 
-        Cita cita = citaRepository.findById(citaId);
-
-        if (cita == null) {
-            throw new CitaNoEncontradaException("No existe la cita con ID: " + command.getCitaId());
-        }
+        Cita cita = citaRepository.findById(citaId)
+                .orElseThrow(() ->
+                        new CitaNoEncontradaException(
+                                "No existe la cita con ID: " + citaId
+                        )
+                );
 
         validarFechas(command.getInicio(), command.getFin());
 
         // Obtener doctor asignado actual
-        Doctor doctorAsignado = doctorRepository.findById(cita.getDoc_id());
+        Doctor doctorAsignado = doctorRepository.findById(cita.getDoc_id())
+                .orElseThrow(() ->
+                        new CitaNoEncontradaException(
+                                "Doctor no encontrado con ID: " + cita.getDoc_id()
+                        )
+                );
 
         // Verificar disponibilidad del doctor actual
         verificarDisponibilidadDoctor(

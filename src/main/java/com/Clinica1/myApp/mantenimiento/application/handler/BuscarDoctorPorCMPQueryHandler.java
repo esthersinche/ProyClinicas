@@ -16,7 +16,7 @@ public class BuscarDoctorPorCMPQueryHandler {
     private final DoctorAssembler doctorAssembler;
 
     public DoctorDto handle(BuscarDoctorPorCMPQuery query) {
-        Doctor doctor = doctorRepository.findbyCMP(query.getCmp());
+        Doctor doctor = doctorRepository.findByCmp(query.getCmp());
 
         if (doctor == null) {
             throw new DomainException("El CMP no puede estar vacío");

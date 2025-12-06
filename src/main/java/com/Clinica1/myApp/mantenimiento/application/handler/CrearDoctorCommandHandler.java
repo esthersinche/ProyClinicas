@@ -51,7 +51,7 @@ public class CrearDoctorCommandHandler {
         }
 
         // ------------------------------------------------------------------
-        // PASO 1: CREAR EMPLEADO (usa tu método factory tal cual está)
+        // PASO 1: CREAR EMPLEADO
         // ------------------------------------------------------------------
         Empleado empleado = Empleado.crearemp(
                 command.getNombre(),

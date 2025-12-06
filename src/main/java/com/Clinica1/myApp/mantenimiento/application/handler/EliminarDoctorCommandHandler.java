@@ -1,8 +1,8 @@
 package com.Clinica1.myApp.mantenimiento.application.handler;
 
+import com.Clinica1.myApp.appointments.domain.model.aggregates.Doctor;
 import com.Clinica1.myApp.mantenimiento.application.command.EliminarDoctorCommand;
 import com.Clinica1.myApp.mantenimiento.application.exception.DomainException;
-import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Doctor;
 import com.Clinica1.myApp.mantenimiento.domain.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,10 +18,12 @@ public class EliminarDoctorCommandHandler {
         if (command.getIdDoctor() == null)
             throw new DomainException("El ID del doctor es obligatorio");
 
-        Doctor doctor = doctorRepository.findById(command.getIdDoctor());
-
-        if (doctor == null)
-            throw new DomainException("Doctor no encontrado");
+        doctorRepository.findById(command.getIdDoctor())
+                .orElseThrow(() ->
+                        new DomainException(
+                                "Doctor no encontrado: " + command.getIdDoctor().obtenerid()
+                        )
+                );
 
         try {
             doctorRepository.delete(command.getIdDoctor());

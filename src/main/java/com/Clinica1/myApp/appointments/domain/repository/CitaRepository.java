@@ -18,5 +18,4 @@ public interface CitaRepository extends ICRUD<Cita> {
     List<Cita> findbyDoctor(String nombre_doc_cita);
     List<Cita> findbyEspecialidad(String nom_espe);
     List<Cita> findByDoctorId(IDEntidad doctorId);
-    Cita findById(IDEntidad citaId);//cambiado pq nunca se uso long como cita_id
 }

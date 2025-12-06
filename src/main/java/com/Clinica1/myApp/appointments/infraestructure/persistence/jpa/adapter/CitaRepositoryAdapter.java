@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -63,10 +64,9 @@ public class CitaRepositoryAdapter implements CitaRepository {
 
     //crud
     @Override
-    public Cita findById(IDEntidad cita_id){
-        return citadao.findById(cita_id.obtenerid())
-                .map(cit_map::ToDomain)
-                .orElseThrow(() -> new CitaNoEncontradaException("No existe la cita con ID: " + cita_id));
+    public Optional<Cita> findById(IDEntidad citaId) {
+        return citadao.findById(citaId.obtenerid())
+                .map(cit_map::ToDomain);
     }
 
     @Override

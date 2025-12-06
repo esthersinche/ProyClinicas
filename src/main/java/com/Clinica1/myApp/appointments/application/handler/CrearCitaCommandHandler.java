@@ -41,15 +41,19 @@ public class CrearCitaCommandHandler {
 
         validarFechas(command.getInicio(), command.getFin());
     // 1. Buscar paciente
-        Paciente paciente = pacienteRepository.findById(command.getPacienteId());
-        if (paciente == null)
-            throw new CitaNoEncontradaException("Paciente no encontrado: " + command.getPacienteId());
-
+        Paciente paciente = pacienteRepository.findById(command.getPacienteId())
+                .orElseThrow(() ->
+                        new CitaNoEncontradaException(
+                                "Paciente no encontrado: " + command.getPacienteId()
+                        )
+                );
         // 2. Buscar doctor
-        Doctor doctor = doctorRepository.findById(command.getDoctorId());
-        if (doctor == null)
-            throw new CitaNoEncontradaException("Doctor no encontrado: " + command.getDoctorId());
-
+        Doctor doctor = doctorRepository.findById(command.getDoctorId())
+                .orElseThrow(() ->
+                        new CitaNoEncontradaException(
+                                "Doctor no encontrado: " + command.getDoctorId()
+                        )
+                );
         // 3. Verificar disponibilidad del doctor
         verificarDisponibilidadDoctor(doctor, command.getInicio(), command.getFin());
 

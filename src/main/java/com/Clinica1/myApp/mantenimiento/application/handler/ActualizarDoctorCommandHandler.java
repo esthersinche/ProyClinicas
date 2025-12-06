@@ -1,6 +1,7 @@
 package com.Clinica1.myApp.mantenimiento.application.handler;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.appointments.application.exception.CitaNoEncontradaException;
 import com.Clinica1.myApp.mantenimiento.application.command.ActualizarDoctorCommand;
 import com.Clinica1.myApp.mantenimiento.application.exception.DomainException;
 import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Doctor;
@@ -26,7 +27,12 @@ public class ActualizarDoctorCommandHandler {
         if (command.getIdDoctor() == null)
             throw new DomainException("El ID del doctor es obligatorio");
 
-        Doctor doctor = doctorRepository.findById(command.getIdDoctor());
+        Doctor doctor = doctorRepository.findById(command.getIdDoctor())
+                .orElseThrow(() ->
+                        new CitaNoEncontradaException(
+                                "Doctor no encontrado: " + command.getIdDoctor()
+                        )
+                );
 
         if (doctor == null)
             throw new DomainException("Doctor no encontrado");
