@@ -64,7 +64,7 @@ public class EmpleadoRepositoryAdapter implements EmpleadoRepository {
     }
 
     @Override
-    public Optional<Empleado> FindById(IDEntidad id) {
+    public Optional<Empleado> findById(IDEntidad id) {
         /*return jpaUsuarioRepository.findById(id.toString())
                 .map(usuarioMapper::toDomain);*/
         return emp_repo.findById(id.obtenerid())
@@ -74,7 +74,7 @@ public class EmpleadoRepositoryAdapter implements EmpleadoRepository {
     }
 
     @Override
-    public List<Empleado> getall() {
+    public List<Empleado> findall() {
         /*
         return jpaUsuarioRepository.findAll()
                 .stream()

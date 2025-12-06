@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Repository
@@ -49,7 +48,7 @@ public class UsuarioRepositoryAdapter implements UsuarioRepository {
     }
 
     @Override
-    public Optional<UsuarioWeb> FindById(IDEntidad id) {
+    public Optional<UsuarioWeb> findById(IDEntidad id) {
         /*return jpaUsuarioRepository.findById(id.toString())
                 .map(usuarioMapper::toDomain);*/
         return jpaUsuarioRepository.findById(id.obtenerid())
@@ -59,7 +58,7 @@ public class UsuarioRepositoryAdapter implements UsuarioRepository {
     }
 
     @Override
-    public List<UsuarioWeb> getall() {
+    public List<UsuarioWeb> findall() {
         /*
         return jpaUsuarioRepository.findAll()
                 .stream()

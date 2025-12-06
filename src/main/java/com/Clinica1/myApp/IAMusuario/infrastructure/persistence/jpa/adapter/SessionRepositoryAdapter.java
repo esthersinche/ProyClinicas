@@ -53,13 +53,13 @@ public class SessionRepositoryAdapter implements SesionRepository {
     }
 
     @Override
-    public Optional<Sesion> FindById(IDEntidad id){
+    public Optional<Sesion> findById(IDEntidad id){
         return ses_repo.findById(id.obtenerid())
                 .map(ses_map::ToDomain);
     }
 
     @Override
-    public List<Sesion> getall(){
+    public List<Sesion> findall(){
         return ses_repo.findAll()
                 .stream()
                 .map(ses_map::ToDomain)

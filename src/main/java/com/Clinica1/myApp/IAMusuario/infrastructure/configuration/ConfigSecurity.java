@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ConfigSecurity {
     @Bean
     public PasswordEncoder contraEncoder(){
-        int trabajo= 10;//no se si ponerlo mas alto seria maslento pero mas seguro yknow
+        int trabajo= 12;//no se si ponerlo mas alto seria maslento pero mas seguro yknow
         return new BCryptPasswordEncoder(trabajo);
     }
 }
