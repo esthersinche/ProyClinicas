@@ -12,10 +12,12 @@ public class ActualizarCredencialesEmpleadoHandler {
 
     public Empleado handle(ActualizarCredencialesEmpleadoCommand command) {
 
-        Empleado emp = empleadoRepository.findById(command.getIdEmpleado());
-
-        if (emp == null)
-            throw new DomainException("Empleado no encontrado");
+        Empleado emp = empleadoRepository.findById(command.getIdEmpleado())
+                .orElseThrow(() ->
+                        new DomainException(
+                                "Doctor no encontrado: " + command.getIdEmpleado().obtenerid()
+                        )
+                );
 
         emp.asignarCredenciales(command.getNuevaPassword());
         return empleadoRepository.update(emp);
