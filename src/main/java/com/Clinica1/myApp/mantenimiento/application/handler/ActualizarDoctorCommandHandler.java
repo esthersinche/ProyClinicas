@@ -53,14 +53,9 @@ public class ActualizarDoctorCommandHandler {
                 command.getConsultorio(),
                 command.getEspecialidades().stream()
                         .map(Especialidad::new)
-                        .collect(Collectors.toList()),
-                new Empleado(command.getIdDoctor()) // <-- AÑADIDO
+                        .collect(Collectors.toList())
         );
 
-        // --- Actualizar contraseña si se proporciona ---
-        if (command.getPassword() != null && !command.getPassword().isBlank()) {
-            doctor.actualizarCredenciales(command.getPassword());
-        }
 
         try {
             return doctorRepository.update(doctor);

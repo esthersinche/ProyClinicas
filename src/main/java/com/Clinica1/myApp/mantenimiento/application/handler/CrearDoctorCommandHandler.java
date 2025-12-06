@@ -2,15 +2,13 @@ package com.Clinica1.myApp.mantenimiento.application.handler;
 
 import com.Clinica1.myApp.SharedKernel.Email;
 import com.Clinica1.myApp.SharedKernel.Empleado;
-import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.SharedKernel.Roles;
-import com.Clinica1.myApp.mantenimiento.application.assembler.DoctorAssembler;
 import com.Clinica1.myApp.mantenimiento.application.command.CrearDoctorCommand;
 import com.Clinica1.myApp.mantenimiento.application.exception.DomainException;
 import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Doctor;
 import com.Clinica1.myApp.mantenimiento.domain.model.valueobjects.Especialidad;
 import com.Clinica1.myApp.mantenimiento.domain.repository.DoctorRepository;
-import com.Clinica1.myApp.mantenimiento.domain.repository.EmpleadoRepository;
+import com.Clinica1.myApp.SharedKernel.ActuPass.EmpleadoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

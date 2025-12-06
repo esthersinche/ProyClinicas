@@ -10,7 +10,6 @@ import java.util.List;
 @Builder
 public class ActualizarDoctorCommand {
     private IDEntidad idDoctor;
-    private String password;
     private String cmp;
     private String consultorio;
     private List<String> especialidades;

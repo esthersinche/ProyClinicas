@@ -1,4 +1,4 @@
-package com.Clinica1.myApp.mantenimiento.domain.repository;
+package com.Clinica1.myApp.SharedKernel.ActuPass;
 
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.SharedKernel.ICRUD;

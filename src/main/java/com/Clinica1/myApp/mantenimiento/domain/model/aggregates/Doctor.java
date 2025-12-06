@@ -77,14 +77,6 @@ public class Doctor {
         this.consultorio = consultorio;
         this.especialidades = especialidades;
     }
-    private Empleado empleado;
-    public void actualizarCredenciales(String nuevaPassword) {
-        if (this.empleado == null) {
-            throw new IllegalStateException("El empleado asociado no existe");
-        }
-        this.empleado.asignarCredenciales(nuevaPassword);
-    }
-
     public void actualizarNombre(String nombre, String apellido) {
         this.nombreCompleto = new Nombrecompleto(nombre, apellido);
     }

@@ -1,7 +1,14 @@
 package com.Clinica1.myApp.SharedKernel.ActuPass;
 
+import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.mantenimiento.application.exception.DomainException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
 public class ActualizarCredencialesEmpleadoHandler {
-    private final EmpleadoRepository empleadoRepository;
+    private EmpleadoRepository empleadoRepository;
 
     public Empleado handle(ActualizarCredencialesEmpleadoCommand command) {
 
@@ -11,7 +18,6 @@ public class ActualizarCredencialesEmpleadoHandler {
             throw new DomainException("Empleado no encontrado");
 
         emp.asignarCredenciales(command.getNuevaPassword());
-
         return empleadoRepository.update(emp);
     }
 }
