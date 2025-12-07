@@ -6,6 +6,7 @@ import com.Clinica1.myApp.appointments.application.assembler.CitaAssembler;
 import com.Clinica1.myApp.appointments.application.command.CrearCitaCommand;
 import com.Clinica1.myApp.appointments.application.dto.CitaDto;
 import com.Clinica1.myApp.appointments.application.dto.PacienteInfoDto;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.Canal;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Doc_info_cita;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Pac_info_cita;
 import com.Clinica1.myApp.appointments.interfaces.rest.dto.request.CrearCitaRequest;
@@ -48,7 +49,7 @@ public class CitaRequestMapper {
                 .build();*/
         return CrearCitaCommand.builder()
                 .motivo(request.getMotivo())
-                .canal(request.getCanal())
+                .canal(Canal.valueOf(request.getCanal()))
                 .inicio(request.getInicio())
                 .fin(request.getFin())
                 .pacienteId(IDEntidad.astring(request.getPacienteId()))   // conversion de String a IDEntidad

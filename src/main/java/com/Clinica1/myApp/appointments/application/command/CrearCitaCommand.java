@@ -6,6 +6,7 @@ import lombok.Builder;
 
 import java.time.LocalDateTime;
 
+@Builder
 public class CrearCitaCommand {
     private IDEntidad pacienteId;
     private IDEntidad doctorId;
