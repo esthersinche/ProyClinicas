@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Builder
 public class CitaDto {
-    private IDEntidad id;
+    private String id;
     public String motivo;
     public String estado;
     public String canal;
@@ -15,15 +15,14 @@ public class CitaDto {
     public LocalDateTime fin;
     public PacienteInfoDto  paciente;
     public DoctorInfoDto  doctor;
-    private String clinica;
     public String especialidad;
 
     public CitaDto() {
     }
 
-    public CitaDto(IDEntidad id, String motivo, String estado, String canal,
+    public CitaDto(String id, String motivo, String estado, String canal,
                    LocalDateTime inicio, LocalDateTime fin, PacienteInfoDto paciente,
-                   DoctorInfoDto  doctor, String clinica, String especialidad) {
+                   DoctorInfoDto  doctor, String especialidad) {
         this.id = id;
         this.motivo = motivo;
         this.estado = estado;
@@ -32,15 +31,14 @@ public class CitaDto {
         this.fin = fin;
         this.paciente = paciente;
         this.doctor = doctor;
-        this.clinica = clinica;
         this.especialidad = especialidad;
     }
 
-    public IDEntidad getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(IDEntidad id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -100,14 +98,6 @@ public class CitaDto {
         this.doctor = doctor;
     }
 
-    public String getClinica() {
-        return clinica;
-    }
-
-    public void setClinica(String clinica) {
-        this.clinica = clinica;
-    }
-
     public String getEspecialidad() {
         return especialidad;
     }
@@ -115,6 +105,5 @@ public class CitaDto {
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
     }
-
 
 }

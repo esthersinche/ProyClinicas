@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class Doc_infoRequestMapper {
 
     public Doc_info_cita toDomain(Doc_info_citaRequest docinfo_req){
-        return new Doc_info_cita(docinfo_req.getNom_com_doc(), docinfo_req.getEspe_doc(), docinfo_req.getConsult_doc());
+        return new Doc_info_cita(docinfo_req.getNom_com_doc(), docinfo_req.getEspe_doc(), docinfo_req.getConsult_doc(), docinfo_req.getCmp_doc());
 
     }
 }

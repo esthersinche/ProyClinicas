@@ -1,21 +1,22 @@
 package com.Clinica1.myApp.appointments.application.command;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.Canal;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
-@Builder
+
 public class CrearCitaCommand {
     private IDEntidad pacienteId;
     private IDEntidad doctorId;
     private String motivo;
     private String especialidad;
-    private String canal;
+    private Canal canal;
     private LocalDateTime inicio;
     private LocalDateTime fin;
 
     public CrearCitaCommand(IDEntidad pacienteId, IDEntidad doctorId, String motivo,
-                            String especialidad, String canal,
+                            String especialidad, Canal canal,
                             LocalDateTime inicio, LocalDateTime fin) {
         this.pacienteId = pacienteId;
         this.doctorId = doctorId;
@@ -26,11 +27,7 @@ public class CrearCitaCommand {
         this.fin = fin;
     }
 
-    public String getMotivo() {
-        return motivo;
-    }
-
-    public String getCanal() {
+    public Canal getCanal() {
         return canal;
     }
 
@@ -52,5 +49,9 @@ public class CrearCitaCommand {
 
     public String getEspecialidad() {
         return especialidad;
+    }
+
+    public String getMotivo() {
+        return motivo;
     }
 }

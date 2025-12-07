@@ -1,8 +1,6 @@
 package com.Clinica1.myApp.appointments.infraestructure.persistence.jpa.entity;
 
-import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import com.Clinica1.myApp.appointments.domain.model.valueobjects.Especialidad;
-import com.Clinica1.myApp.appointments.domain.model.valueobjects.NombreCompleto;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

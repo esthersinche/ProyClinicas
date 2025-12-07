@@ -59,17 +59,10 @@ public class CrearCitaCommandHandler {
 
 
         // 4. Crear cita usando el FACTORY
-        Canal canal;
-        try {
-            canal = Canal.valueOf(command.getCanal());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Canal inválido: " + command.getCanal());
-        }
-
 
         Cita cita = Cita.crearcita(
                 command.getMotivo(),
-                canal,
+                command.getCanal(),                      // ✅ ya es Canal
                 command.getInicio(),
                 command.getFin(),
                 paciente,

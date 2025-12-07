@@ -39,7 +39,7 @@ public class CitaController {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new CrearCitaResponse(
-                        dto.getId().obtenerid(),
+                        dto.getId(),
                         "Cita creada exitosamente"
                 ));
     }

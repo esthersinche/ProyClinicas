@@ -31,6 +31,7 @@ public class ModificarCitaCommandHandler {
         this.citaAssembler = citaAssembler;
     }
 
+
     public CitaDto handle(ModificarCitaCommand command)
             throws FechaInvalidaException, CitaNoEncontradaException, DoctorNoDisponibleException {
 
@@ -42,6 +43,9 @@ public class ModificarCitaCommandHandler {
                                 "No existe la cita con ID: " + citaId
                         )
                 );
+
+        if (cita.getEstado_cita() == Estado.Desercion)
+            throw new IllegalStateException("No se puede modificar una cita cancelada");
 
         validarFechas(command.getInicio(), command.getFin());
 

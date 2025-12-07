@@ -1,25 +1,36 @@
 package com.Clinica1.myApp.appointments.domain.model.valueobjects;
 
-public record Doc_info_cita(String nombre_doc, String espe_doc,String consult_doc) {
+public record Doc_info_cita(
+        String nombreCompleto,
+        String especialidad,
+        String consultorio,
+        String cmp
+) {
 
-    public Doc_info_cita{
-        if (nombre_doc == null || nombre_doc.trim().isBlank()){
-            throw new IllegalArgumentException("Name can't be empty");
+    public Doc_info_cita {
+        if (nombreCompleto == null || nombreCompleto.isBlank()) {
+            throw new IllegalArgumentException("El nombre del doctor no puede estar vacío");
         }
 
-        if (espe_doc == null || espe_doc.trim().isBlank()){
-            throw new IllegalArgumentException("Especialidad can't be empty");
+        if (especialidad == null || especialidad.isBlank()) {
+            throw new IllegalArgumentException("La especialidad no puede estar vacía");
         }
 
-        if (consult_doc == null || consult_doc.trim().isBlank()){
-            throw new IllegalArgumentException("Consultorio can't be empty");
+        if (consultorio == null || consultorio.isBlank()) {
+            throw new IllegalArgumentException("El consultorio no puede estar vacío");
         }
 
+        if (cmp == null || cmp.isBlank()) {
+            throw new IllegalArgumentException("El CMP no puede estar vacío");
+        }
     }
 
-    public static Doc_info_cita of(String nombre_doc, String espe_doc, String consult_doc){
-        return new Doc_info_cita(nombre_doc, espe_doc, consult_doc);
+    public static Doc_info_cita of(
+            String nombreCompleto,
+            String especialidad,
+            String consultorio,
+            String cmp
+    ) {
+        return new Doc_info_cita(nombreCompleto, especialidad, consultorio, cmp);
     }
-
-
 }

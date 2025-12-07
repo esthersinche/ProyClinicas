@@ -15,4 +15,6 @@ public class Doc_info_citaRequest {
     private String espe_doc;
     @NotBlank
     private String consult_doc;
+    @NotBlank
+    private String cmp_doc;
 }

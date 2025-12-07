@@ -69,7 +69,8 @@ public class Cita {
         Doc_info_cita docInfo = Doc_info_cita.of(
                 doc_cita.getNom_com_doc().completar(),
                 especialidadDoctor,
-                doc_cita.getConsultorio_doc()
+                doc_cita.getConsultorio_doc(),
+                doc_cita.getCmp_doc()
         );
 
         // 4. Crear entidad cita final
@@ -149,6 +150,11 @@ public class Cita {
         this.motivo_cita = motivo_cita;
         this.inicio_cita = inicio_cita;
         this.fin_cita = fin_cita;
+    }
+    public void cancelar() {
+        if (this.estado_cita == Estado.Desercion)
+            throw new IllegalStateException("La cita ya está cancelada");
+        this.estado_cita = Estado.Desercion;
     }
 
     public void setEspecialidad(Especialidad especialidad) {

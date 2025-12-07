@@ -63,7 +63,8 @@ public class CitaEntity {
     @AttributeOverrides({
             @AttributeOverride(name = "nombreCompleto", column = @Column(name = "nombre_doc")),
             @AttributeOverride(name = "especialidad", column = @Column(name = "espe_doc")),
-            @AttributeOverride(name = "consultorio", column = @Column(name = "consult_doc"))
+            @AttributeOverride(name = "consultorio", column = @Column(name = "consult_doc")),
+            @AttributeOverride(name = "cmp", column = @Column(name = "cmp_doc"))
     })
     private Doc_info_cita_embeddable doc_info;
     // private Paciente inst_pac; //nombres, dni

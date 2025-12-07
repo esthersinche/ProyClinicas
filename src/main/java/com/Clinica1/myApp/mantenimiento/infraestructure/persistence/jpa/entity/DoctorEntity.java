@@ -1,6 +1,7 @@
 package com.Clinica1.myApp.mantenimiento.infraestructure.persistence.jpa.entity;
 
-import com.Clinica1.myApp.mantenimiento.infraestructure.persistence.jpa.entity.NombreCompletoEmbeddable;
+import com.Clinica1.myApp.appointments.infraestructure.persistence.jpa.entity.EspecialidadEmbeddable;
+import com.Clinica1.myApp.appointments.infraestructure.persistence.jpa.entity.NombreCompletoEmbeddable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,23 +20,27 @@ public class DoctorEntity {
     @Column(name = "id_doctor", length = 36)
     private String idDoctor;
 
-    @Column(name = "id_empleado", nullable = false, unique = true)
+    @Column(name = "id_empleado_doc", nullable = false, unique = true)
     private String idEmpleado; // Solo FK, sin relación JPA
 
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "nombre", column = @Column(name = "nom_com_nombre")),
+            @AttributeOverride(name = "apellido", column = @Column(name = "nom_com_apellido"))
+    })
+    @Column(name = "nom_com_doc", nullable = false)
     private NombreCompletoEmbeddable nombreCompleto;
 
-    @Column(name = "cmp", nullable = false, unique = true, length = 20)
+    @Column(name = "cmp_doc", nullable = false, unique = true, length = 20)
     private String cmp;
 
-    @Column(name = "consultorio", nullable = false, length = 50)
+    @Column(name = "consultorio_doc", nullable = false, length = 50)
     private String consultorio;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
-            name = "doctor_especialidades",
-            joinColumns = @JoinColumn(name = "id_doctor")
+            name = "Doctor_Especialidad",
+            joinColumns = @JoinColumn(name = "id_doc")
     )
-    @Column(name = "especialidad")
-    private List<String> especialidades;
+    private List<EspecialidadEmbeddable> especialidades;
 }
