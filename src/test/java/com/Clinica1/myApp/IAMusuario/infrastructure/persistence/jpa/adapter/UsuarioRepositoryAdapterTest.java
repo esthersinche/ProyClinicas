@@ -1,9 +1,6 @@
 package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.adapter;
 
-import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.UsuarioWebEntity;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper.EmailMapper;
-import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper.UsuarioMapper;
-import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.repository.JPAUsuarioEntityRepository;
 import com.Clinica1.myApp.SharedKernel.Email;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.SharedKernel.UsuarioWeb;

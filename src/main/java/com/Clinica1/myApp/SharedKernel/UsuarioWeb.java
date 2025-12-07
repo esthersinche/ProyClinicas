@@ -1,10 +1,9 @@
 package com.Clinica1.myApp.SharedKernel;
 
-import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.ContraHash;
-
 import java.util.Objects;
 
 public class UsuarioWeb {
+    /**/
     //usuario que hace la compra, solo habra uno por clinica, los empleados no entraran por aca
     private IDEntidad id_usu;
     private Email correo;
