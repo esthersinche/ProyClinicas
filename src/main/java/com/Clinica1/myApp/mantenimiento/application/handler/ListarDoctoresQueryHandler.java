@@ -1,5 +1,7 @@
 package com.Clinica1.myApp.mantenimiento.application.handler;
 
+import com.Clinica1.myApp.SharedKernel.ActuPass.EmpleadoRepository;
+import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.mantenimiento.application.assembler.DoctorAssembler;
 import com.Clinica1.myApp.mantenimiento.application.dto.DoctorDto;
 import com.Clinica1.myApp.mantenimiento.application.query.ListarDoctoresQuery;
@@ -18,8 +20,7 @@ public class ListarDoctoresQueryHandler {
     private final DoctorAssembler assembler;
 
     public List<DoctorDto> handle(ListarDoctoresQuery query) {
-        return doctorRepository.findall()
-                .stream()
+        return doctorRepository.findall().stream()
                 .map(assembler::toDto)
                 .toList();
     }

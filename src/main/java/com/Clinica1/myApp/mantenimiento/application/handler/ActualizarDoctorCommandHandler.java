@@ -1,6 +1,4 @@
 package com.Clinica1.myApp.mantenimiento.application.handler;
-import com.Clinica1.myApp.SharedKernel.Empleado;
-import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.appointments.application.exception.CitaNoEncontradaException;
 import com.Clinica1.myApp.mantenimiento.application.command.ActualizarDoctorCommand;
 import com.Clinica1.myApp.mantenimiento.application.exception.DomainException;
@@ -12,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Component

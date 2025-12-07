@@ -12,15 +12,12 @@ public class DoctorAssembler {
     public DoctorDto toDto(Doctor doctor) {
         return new DoctorDto(
                 doctor.getIdDoctor().obtenerid(),
-                doctor.getEmpleado().getNombre(),
-                doctor.getEmpleado().getApellido(),
-                doctor.getEmpleado().getTelefono(),
-                doctor.getEmpleado().getEmail().email_valor(),
-                doctor.getEmpleado().getPasshash_emp(),
+                doctor.getNombreCompleto().nombre(),
+                doctor.getNombreCompleto().apellido(),
                 doctor.getCmp(),
                 doctor.getConsultorio(),
                 doctor.getEspecialidades().stream()
-                        .map(e -> e.nom_espe())
+                        .map(Especialidad::nom_espe)
                         .toList()
         );
     }

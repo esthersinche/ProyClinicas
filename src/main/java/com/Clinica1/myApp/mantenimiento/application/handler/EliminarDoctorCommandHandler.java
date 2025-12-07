@@ -1,6 +1,5 @@
 package com.Clinica1.myApp.mantenimiento.application.handler;
 
-import com.Clinica1.myApp.appointments.domain.model.aggregates.Doctor;
 import com.Clinica1.myApp.mantenimiento.application.command.EliminarDoctorCommand;
 import com.Clinica1.myApp.mantenimiento.application.exception.DomainException;
 import com.Clinica1.myApp.mantenimiento.domain.repository.DoctorRepository;
