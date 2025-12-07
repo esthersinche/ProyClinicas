@@ -16,11 +16,12 @@ public class LogoutCommandHandler {
     @Transactional
     public void handle(LogoutCommand logout_com){
         //ver si el id_ses esta presente para quitarlo
-        if (logout_com.getId_ses() != null){
-            ses_repo.delete(logout_com.getId_ses());
+        if (logout_com == null || logout_com.getId_ses() == null || logout_com.getId_ses().obtenerid().isBlank()){
+            throw new InvalidCredentialsException("Id_Ses has to exist in order to logout");
         }
 
-        throw new InvalidCredentialsException("Id_Ses has to exist in order to logout");
+
+        ses_repo.delete(logout_com.getId_ses());
 
     }
 }
