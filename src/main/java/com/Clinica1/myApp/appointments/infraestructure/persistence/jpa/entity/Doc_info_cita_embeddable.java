@@ -19,5 +19,7 @@ public class Doc_info_cita_embeddable {
     private String espe_doc;
     @Column(nullable = false)
     private String consult_doc;
+    @Column(nullable = false)
+    private String cmp_doc;
 
 }
