@@ -2,10 +2,11 @@ package com.Clinica1.myApp.IAMusuario.application.handler;
 
 import com.Clinica1.myApp.IAMusuario.application.command.PermisosEmpleadosCommand;
 import com.Clinica1.myApp.IAMusuario.application.exception.UserNotFoundException;
-import com.Clinica1.myApp.IAMusuario.application.services.EmpleadoRepositoryService;
-import com.Clinica1.myApp.IAMusuario.application.services.RolRepositoryService;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
+import com.Clinica1.myApp.IAMusuario.domain.repository.EmpleadoRepository;
+import com.Clinica1.myApp.IAMusuario.domain.repository.RolRepository;
 import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.SharedKernel.Roles;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +16,20 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class PermisosEmpleadosCommandHandler{
-    private final EmpleadoRepositoryService emp_repo_serv;
-    private final RolRepositoryService rol_repo_serv;
+    private final EmpleadoRepository emp_repo;
+    private final RolRepository rol_repo;
 
     public List<String> obtenerFunciones(PermisosEmpleadosCommand peremp_com){
 
         //busca al empleado por el id
-        Optional<Empleado> fantasmitaemp= emp_repo_serv.findById(peremp_com.getId_emp().obtenerid());
+        Optional<Empleado> fantasmitaemp= emp_repo.findById(peremp_com.getId_emp());
         Empleado emp= fantasmitaemp.orElseThrow(() ->
                 new UserNotFoundException("Empleado no encontrado"));
 
-        //obtiene roles desde el empleado en string
-        String rol_emp= emp.getRolemp().name();
+        //roles
+        Roles rol_emp= emp.getRolemp();
 
-        Set<Funcion> funcionesemp= rol_repo_serv.findFuncionesByNombreRol(rol_emp);
+        Set<Funcion> funcionesemp= rol_repo.findFuncionesByNombre(rol_emp);
 
         //mapear
         List<String> funcionesempstring= funcionesemp.stream()

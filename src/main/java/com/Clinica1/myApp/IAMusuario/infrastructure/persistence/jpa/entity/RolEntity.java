@@ -1,6 +1,7 @@
 package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.SharedKernel.Roles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,8 +24,9 @@ public class RolEntity {
     @Column(name = "id_rol", length = 36)
     private String id; // IDEntidad.obtenerid()
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "nombre_rol", nullable = false, unique = true, length = 50)
-    private String nombreRol;
+    private Roles nombreRol;
 
     // Guardamos Funciones como strings en una tabla aparte
     // @ElementCollection(fetch = FetchType.EAGER)

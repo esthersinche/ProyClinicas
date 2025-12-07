@@ -3,9 +3,9 @@ package com.Clinica1.myApp.IAMusuario.domain.model.valueobjects;
 import java.util.Objects;
 
 public class Funcion {
-    private final String nombre_fun;
+    private String nombre_fun;
 
-    private Funcion(String nombre_fun) {
+    public Funcion(String nombre_fun) {
         this.nombre_fun = nombre_fun;
     }
 

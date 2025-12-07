@@ -1,14 +1,20 @@
 package com.Clinica1.myApp.IAMusuario.application.handler;
 
+import com.Clinica1.myApp.IAMusuario.application.assembler.EmailAssembler;
+import com.Clinica1.myApp.IAMusuario.application.assembler.SesionAssembler;
 import com.Clinica1.myApp.IAMusuario.application.command.LoginCommand;
 import com.Clinica1.myApp.IAMusuario.application.dto.SesionDto;
 import com.Clinica1.myApp.IAMusuario.application.dto.TokenDto;
 import com.Clinica1.myApp.IAMusuario.application.exception.InvalidCredentialsException;
 import com.Clinica1.myApp.IAMusuario.application.services.*;
+import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Sesion;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
+import com.Clinica1.myApp.IAMusuario.domain.repository.EmpleadoRepository;
+import com.Clinica1.myApp.IAMusuario.domain.repository.RolRepository;
+import com.Clinica1.myApp.IAMusuario.domain.repository.SesionRepository;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
+import com.Clinica1.myApp.SharedKernel.Roles;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,16 +26,17 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class LoginCommandHandler{
-    private final UsuarioWebRepositoryService usuweb_repo_serv;
-    private final EmpleadoRepositoryService emp_repo_serv;
+    private final EmpleadoRepository emp_repo;
+    private final EmailAssembler em_assem;
     private final ContraService con_serv;
     private final TokenProvider tok_prov;
-    private final SesionRepositoryService ses_repo_serv;
-    private final RolRepositoryService rol_repo_serv;
+    private final SesionRepository ses_repo;
+    private final SesionAssembler ses_assem;
+    private final RolRepository rol_repo;
 
     //validaciones
     private void validar(LoginCommand log_com_val){
-        if (log_com_val.getEmail_emp() == null || log_com_val.getEmail_emp().isBlank()){
+        if (log_com_val.getEmail_emp() == null || log_com_val.getEmail_emp().getEmail_emp().isBlank()){
             throw new InvalidCredentialsException("Credenciales invalidas");
         }
 
@@ -42,8 +49,9 @@ public class LoginCommandHandler{
     public TokenDto handle(LoginCommand log_com){
         validar(log_com);
 
+
         //buscar usuarioweb(1)/empleado por email
-        Optional<Empleado> fantasmitaemp= emp_repo_serv.findbyEmail(log_com.getEmail_emp());
+        Optional<Empleado> fantasmitaemp= emp_repo.findbyEmail(em_assem.ToDomain(log_com.getEmail_emp()));
 
         Empleado emp= fantasmitaemp.orElseThrow(() ->
                 new InvalidCredentialsException("Credenciales invalidas"));
@@ -54,31 +62,19 @@ public class LoginCommandHandler{
             throw new InvalidCredentialsException("Credenciales invalidas");
         }
 
-        //roles
-        List<String> roles= new ArrayList<>();
-        if (emp.getRolemp() != null){
-            roles.add(emp.getRolemp().name());
-        }
+        //rol
+        Roles rolemp_ses= emp.getRolemp();
 
-        //ver si es usuarioweb yay or nay para claims
-        Map<String, Object> claims= new HashMap<>();
-        Optional<UsuarioWeb> usuweb= usuweb_repo_serv.findById_Emp(emp.getId_emp().obtenerid());
-        if (usuweb.isPresent()){
-            UsuarioWeb usuweb2= usuweb.get();
-            if (usuweb2.getId_cli() != null){
-                claims.put("id_cli", usuweb2.getId_cli().obtenerid());
-            }
-        }
 
         //obtener token
         TokenDto token_dto= tok_prov.generartokendeacceso(emp);
 
         //funciones
-        Set<Funcion> funciones= rol_repo_serv.findFuncionesByNombreRol(emp.getRolemp().name());
+        Set<Funcion> funciones= rol_repo.findFuncionesByNombre(rolemp_ses);
         List<String> funcioneslistaemp= funciones.stream().map(Funcion::getNombre_fun)
                 .collect(Collectors.toList());
 
-        //set
+        //builder
         TokenDto tok_dto_zoetrope= TokenDto.builder()
                 .accesstoken(token_dto.getAccesstoken())
                 .id_emp(token_dto.getId_emp())
@@ -87,13 +83,16 @@ public class LoginCommandHandler{
                 .build();
 
 
-        //persistencia my beloathed
-        if (ses_repo_serv != null){
+        //persistencia my beloathed, por si se necesita persistir en el futuro
+        if (ses_repo != null){
             Instant ahoracausa= Instant.now();
             Instant expirarcausa= ahoracausa.plusSeconds(token_dto.getExpiracion());
             SesionDto ses_dto= new SesionDto(IDEntidad.generar().obtenerid(), emp.getId_emp().obtenerid(),
                     ahoracausa, expirarcausa);
+            Sesion ses_saved= ses_assem.ToDomain(ses_dto);
+            ses_repo.insert(ses_saved);
         }
+
         //final dto
 
 

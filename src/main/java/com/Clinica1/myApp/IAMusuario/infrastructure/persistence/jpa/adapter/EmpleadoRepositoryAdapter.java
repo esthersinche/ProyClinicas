@@ -7,6 +7,7 @@ import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.repository.J
 import com.Clinica1.myApp.SharedKernel.Email;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.SharedKernel.Roles;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -37,8 +38,8 @@ public class EmpleadoRepositoryAdapter implements EmpleadoRepository {
     }
 
     @Override
-    public List<Empleado> findbyRol(IDEntidad id_rol_emp){
-        return emp_repo.findbyRol(id_rol_emp.obtenerid())
+    public List<Empleado> findbyRol(Roles nom_rol_emp){
+        return emp_repo.findbyRol(nom_rol_emp)
                 .stream()
                 .map(emp_map::ToDomain)
                 .collect(Collectors.toList());

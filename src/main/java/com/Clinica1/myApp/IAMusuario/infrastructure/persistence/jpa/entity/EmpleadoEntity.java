@@ -46,7 +46,7 @@ public class EmpleadoEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "rol_emp", nullable = false)
-    private Roles rol;// este es el enum, no cambiar, ya que se convalidara con el nombre de rol la
+    private Roles rol_emp;// este es el enum, no cambiar, ya que se convalidara con el nombre de rol la
                       // clase aggregate de domain
 
     public void setNombre(String luis) {

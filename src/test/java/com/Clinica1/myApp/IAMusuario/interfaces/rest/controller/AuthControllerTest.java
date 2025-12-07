@@ -1,7 +1,6 @@
 package com.Clinica1.myApp.IAMusuario.interfaces.controller;
 
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.controller.AuthController;
-import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.CrearUsuarioRequest;
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper.UsuarioRequestMapper;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;

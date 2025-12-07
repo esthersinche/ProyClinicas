@@ -5,30 +5,40 @@ import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.FuncionEmbeddable;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.RolEntity;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import com.Clinica1.myApp.SharedKernel.Roles;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class RolMapper {
+    private FuncionMapper fun_map;
+
+
 
     public Rol ToDomain(RolEntity rol_ent){
-        HashSet<Funcion> funciones = rol_ent.getFunciones()
+        /*HashSet<Funcion> funciones = rol_ent.getFunciones()
                 .stream()
-                .map(fe -> Funcion.of(fe.getNombre_fun()))
+                .map(fun_map::ToDomain)
                 .collect(Collectors.toCollection(HashSet::new));
-        return new Rol(IDEntidad.astring(rol_ent.getId()), Roles.valueOf(rol_ent.getNombreRol()), funciones);
+        return new Rol(IDEntidad.astring(rol_ent.getId()), rol_ent.getNombreRol(), funciones);*/
+        HashSet<Funcion> funciones= rol_ent.getFunciones()
+                .stream()
+                .map(fun_map::ToDomain)
+                .collect(Collectors.toCollection(HashSet::new));
+        return new Rol(IDEntidad.astring(rol_ent.getId()), rol_ent.getNombreRol(), funciones);
+
+
+
 
     }
 
     public RolEntity ToEntity(Rol rol){
         HashSet<FuncionEmbeddable> funcionesmeb= rol.getFunciones()
                 .stream()
-                .map(fe -> new FuncionEmbeddable(fe.getNombre_fun()))
+                .map(fun_map::ToEmbeddable)
                 .collect(Collectors.toCollection(HashSet::new));
         return RolEntity.builder().id(rol.getId_rol().obtenerid())
-                .nombreRol(rol.getNombrerol().toString())
+                .nombreRol(rol.getNombrerol())
                 .funciones(funcionesmeb)
                 .build();
 

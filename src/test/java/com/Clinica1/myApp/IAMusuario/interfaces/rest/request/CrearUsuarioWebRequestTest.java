@@ -1,6 +1,5 @@
 package com.Clinica1.myApp.IAMusuario.interfaces.rest.request;
 
-import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.CrearUsuarioRequest;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;

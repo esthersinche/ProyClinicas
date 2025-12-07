@@ -5,7 +5,6 @@ import com.Clinica1.myApp.IAMusuario.application.dto.TokenDto;
 import com.Clinica1.myApp.IAMusuario.application.exception.JWTInvalidException;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import com.Clinica1.myApp.SharedKernel.Roles;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 

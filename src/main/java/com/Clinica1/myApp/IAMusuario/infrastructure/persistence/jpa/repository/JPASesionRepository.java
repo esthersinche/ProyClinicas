@@ -1,14 +1,16 @@
 package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.repository;
 
-import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Sesion;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.SesionEntity;
-import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface JPASesionRepository extends JpaRepository<SesionEntity, String> {
 
-    List<SesionEntity> findByUserId(String usu_id);
+    @Query("SELECT s FROM SeseionEntity s WHERE s.usuweb_id = :usu_id")
+    List<SesionEntity> findByUserId(@Param("usu_id") String usu_id);
 }

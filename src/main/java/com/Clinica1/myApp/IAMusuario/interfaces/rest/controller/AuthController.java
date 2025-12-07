@@ -1,7 +1,6 @@
 package com.Clinica1.myApp.IAMusuario.interfaces.rest.controller;
 
 import com.Clinica1.myApp.IAMusuario.domain.exception.CredencialesInvalidasException;
-import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.CrearUsuarioRequest;
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.LoginRequest;
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.response.TokenResponse;
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper.UsuarioRequestMapper;

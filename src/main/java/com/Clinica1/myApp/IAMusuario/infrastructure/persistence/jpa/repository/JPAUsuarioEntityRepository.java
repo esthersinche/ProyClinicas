@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface JPAUsuarioEntityRepository extends JpaRepository<UsuarioWebEntity, String> {
 //no existe username en usuarioweb, solo email e ids
+    //nousar, ver si es necesaria luego
     //Optional<UsuarioWebEntity> findByUsername(String username);
     //id_emp
     Optional<UsuarioWebEntity> findById_Emp(String usuent_web_idemp);

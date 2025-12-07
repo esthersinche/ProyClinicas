@@ -51,7 +51,7 @@ public class EmpleadoMapper {
     public Empleado ToDomain(EmpleadoEntity emp_ent){
         Email empent_email= ema_map_iam.ToDomain(emp_ent.getEmail_emp());
         return new Empleado(IDEntidad.astring(emp_ent.getId_Emp()), emp_ent.getNombresEmp(), emp_ent.getApellidosEmp(),
-                emp_ent.getTelefonoEmp(), empent_email, emp_ent.getPasshash_emp(),emp_ent.getRol());
+                emp_ent.getTelefonoEmp(), empent_email, emp_ent.getPasshash_emp(),emp_ent.getRol_emp());
     }
 
     public EmpleadoEntity ToEntity(Empleado emp){
@@ -62,7 +62,7 @@ public class EmpleadoMapper {
                 .telefonoEmp(emp.getTelefono())
                 .email_emp(emp_emailemb)
                 .passhash_emp(emp.getPasshash_emp())
-                .rol(emp.getRolemp())
+                .rol_emp(emp.getRolemp())
                 .build();
     }
 }
