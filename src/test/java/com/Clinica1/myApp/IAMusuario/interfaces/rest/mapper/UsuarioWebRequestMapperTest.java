@@ -14,7 +14,7 @@ class UsuarioWebRequestMapperTest {
     @Test
     void testUsuarioRequestMapperCompleto() {
 
-        UsuarioRequestMapper mapper = new UsuarioRequestMapper();
+        LoginMapper mapper = new LoginMapper();
 
         CrearUsuarioRequest request = new CrearUsuarioRequest();
         request.setUsername("juan123");

@@ -1,7 +1,7 @@
 package com.Clinica1.myApp.IAMusuario.interfaces.controller;
 
-import com.Clinica1.myApp.IAMusuario.interfaces.rest.controller.AuthController;
-import com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper.UsuarioRequestMapper;
+import com.Clinica1.myApp.IAMusuario.interfaces.rest.controller.IAMController;
+import com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper.LoginMapper;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.ContraHash;
@@ -27,8 +27,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(AuthController.class)
-class AuthControllerTest {
+@WebMvcTest(IAMController.class)
+class IAMControllerTest {
 
         @Autowired
         private MockMvc mockMvc;
@@ -37,7 +37,7 @@ class AuthControllerTest {
         private UsuarioRepository usuarioRepository;
 
         @MockBean
-        private UsuarioRequestMapper usuarioRequestMapper;
+        private LoginMapper LoginMapper;
 
         private UsuarioWeb crearUsuarioPrueba() {
                 HashSet<Funcion> funciones = new HashSet<>();
@@ -76,7 +76,7 @@ class AuthControllerTest {
 
                 UsuarioWeb mockUsuarioWeb = crearUsuarioPrueba();
 
-                when(usuarioRequestMapper.toUsuario(any())).thenReturn(mockUsuarioWeb);
+                when(LoginMapper.toUsuario(any())).thenReturn(mockUsuarioWeb);
                 when(usuarioRepository.insert(any())).thenReturn(mockUsuarioWeb);
 
                 mockMvc.perform(post("/api/auth/register")

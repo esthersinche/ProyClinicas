@@ -5,9 +5,10 @@ import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.FuncionEmbeddable;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.RolEntity;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class RolMapper {

@@ -1,5 +1,8 @@
 package com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper;
 
+import com.Clinica1.myApp.IAMusuario.application.command.LoginCommand;
+import com.Clinica1.myApp.IAMusuario.application.dto.EmailDto;
+import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.LoginRequest;
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.ContraHash;
@@ -11,9 +14,22 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 
 @Component
-public class UsuarioRequestMapper {
+public class LoginMapper {
 
-    public UsuarioWeb toUsuario(CrearUsuarioRequest request) {
+    public LoginCommand ToCommand(LoginRequest login_req){
+        EmailDto em_dto= EmailDto.builder()
+                .email_emp(login_req.getEmail())
+                .build();
+
+        return LoginCommand.builder()
+                .email_emp(em_dto)
+                .contra(login_req.getPassword())
+                .build();
+    }
+
+
+
+    /*public UsuarioWeb toUsuario(CrearUsuarioRequest request) {
         // Email VO
         Email email = Email.of(request.getEmail());
 
@@ -51,5 +67,7 @@ public class UsuarioRequestMapper {
 
         // Para otros roles creamos uno nuevo sin funciones (se puede mejorar después)
         return Rol.crearrol(rolNombre, new HashSet<Funcion>());
-    }
+    }*/
+
+
 }
