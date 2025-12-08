@@ -10,7 +10,7 @@ import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
 import com.Clinica1.myApp.IAMusuario.domain.repository.UsuarioRepository;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
-import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
+import com.Clinica1.myApp.adquisicion.domain.model.UsuarioWeb;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
