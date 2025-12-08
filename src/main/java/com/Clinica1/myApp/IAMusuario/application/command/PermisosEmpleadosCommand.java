@@ -1,12 +1,14 @@
 package com.Clinica1.myApp.IAMusuario.application.command;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class PermisosEmpleadosCommand {
     private IDEntidad id_emp;

@@ -1,10 +1,11 @@
 package com.Clinica1.myApp.mantenimiento.infraestructure.persistence.mapper;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.appointments.infraestructure.persistence.jpa.entity.EspecialidadEmbeddable;
+import com.Clinica1.myApp.appointments.infraestructure.persistence.jpa.entity.NombreCompletoEmbeddable;
 import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Doctor;
 import com.Clinica1.myApp.mantenimiento.domain.model.valueobjects.Especialidad;
 
 import com.Clinica1.myApp.mantenimiento.infraestructure.persistence.jpa.entity.DoctorEntity;
-import com.Clinica1.myApp.mantenimiento.infraestructure.persistence.jpa.entity.NombreCompletoEmbeddable;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -18,7 +19,7 @@ public class DoctorMapper {
 
         try {
             List<Especialidad> especialidades = entity.getEspecialidades().stream()
-                    .map(Especialidad::new)
+                    .map(e -> new Especialidad(e.getNom_espe()))
                     .collect(Collectors.toList());
 
             Doctor doctor = Doctor.crear(
@@ -48,8 +49,12 @@ public class DoctorMapper {
                 .apellido(doctor.getNombreCompleto().apellido())
                 .build();
 
-        List<String> especialidades = doctor.getEspecialidades().stream()
+        List<String> especialidadesStr = doctor.getEspecialidades().stream()
                 .map(Especialidad::nom_espe)
+                .collect(Collectors.toList());
+
+        List<EspecialidadEmbeddable> especialidades = especialidadesStr.stream()
+                .map(nombre -> EspecialidadEmbeddable.builder().nom_espe(nombre).build())
                 .collect(Collectors.toList());
 
         return DoctorEntity.builder()

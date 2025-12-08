@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -39,10 +40,9 @@ public class DoctorRepositoryAdapter implements DoctorRepository {
     }
 
     @Override
-    public Doctor findById(IDEntidad id) {
+    public Optional<Doctor> findById(IDEntidad id) {
         return jpaRepository.findById(id.obtenerid())
-                .map(mapper::toDomain)
-                .orElse(null);
+                .map(mapper::toDomain);
     }
 
     @Override

@@ -23,7 +23,8 @@ public class EmpleadoMapper {
                     entity.getTelefono(),
                     new Email(entity.getEmail()),
                     entity.getPassword(),
-                    Roles.valueOf(entity.getRol())
+                    Roles.valueOf(entity.getRol()),
+                    IDEntidad.generar()  // id_clinica temporal
             );
 
             // Setear el ID original
