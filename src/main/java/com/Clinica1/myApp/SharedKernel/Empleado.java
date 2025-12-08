@@ -33,7 +33,7 @@ public class Empleado {
     //metodo factory, genera un id valido al crear un empleado y asi no hay null en id c:
     public static Empleado crearemp(String nombre, String apellido,
                                     String telefono, Email email,
-                                    String passhash_emp, Roles rolemp, IDEntidad id_clinica){
+                                    String passhash_emp, Roles rolemp){
         return new Empleado(IDEntidad.generar(), nombre,
                 apellido, telefono, email,
                 passhash_emp, rolemp);
@@ -66,7 +66,6 @@ public class Empleado {
     public Roles getRolemp() {
         return rolemp;
     }
-
 
     public void asignarCredenciales(String password) {
         this.passhash_emp = password;  // por ahora sin hash

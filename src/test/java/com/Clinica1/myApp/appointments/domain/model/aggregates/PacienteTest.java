@@ -1,7 +1,6 @@
 package com.Clinica1.myApp.appointments.domain.model.aggregates;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import com.Clinica1.myApp.appointments.domain.model.aggregates.Paciente;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Email;
 import org.junit.jupiter.api.Test;
 
@@ -92,5 +91,23 @@ class PacienteTest {
         );
 
         assertNotEquals(p1, p2);
+    }
+
+    @Test
+    void equals_debe_retornar_false_si_objeto_es_null_o_de_otra_clase() {
+        // Arrange
+        Paciente paciente = Paciente.createpac(
+                "Ana",
+                "Peruana",
+                "123",
+                "999",
+                new Email("a@test.com"),
+                new Date(),
+                "F"
+        );
+
+        // Assert
+        assertNotEquals(paciente, null);
+        assertNotEquals(paciente, "no soy paciente");
     }
 }
