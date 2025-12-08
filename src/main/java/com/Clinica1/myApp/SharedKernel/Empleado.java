@@ -66,7 +66,7 @@ public class Empleado {
     public Roles getRolemp() {
         return rolemp;
     }
-    
+
 
     public void asignarCredenciales(String password) {
         this.passhash_emp = password;  // por ahora sin hash
