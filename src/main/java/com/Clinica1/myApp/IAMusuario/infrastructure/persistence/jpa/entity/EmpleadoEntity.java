@@ -49,6 +49,8 @@ public class EmpleadoEntity {
     private Roles rol_emp;// este es el enum, no cambiar, ya que se convalidara con el nombre de rol la
                       // clase aggregate de domain
 
+    @Column(name = "id_clinica", nullable = false)
+    private String id_clinica;
     public void setNombre(String luis) {
 
     }

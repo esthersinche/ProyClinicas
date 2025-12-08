@@ -17,4 +17,5 @@ public class EmpleadoDto {
     private EmailDto email_emp;
     private String passhash_emp;
     private String rol_emp;
+    private String id_clinica;
 }
