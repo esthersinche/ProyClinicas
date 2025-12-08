@@ -16,11 +16,13 @@ class Doc_infoRequestMapperTest {
         req.setNom_com_doc("Luis Ramos");
         req.setEspe_doc("Cardiología");
         req.setConsult_doc("C201");
+        req.setCmp_doc("CMP12345");
 
         Doc_info_cita vo = mapper.toDomain(req);
 
-        assertEquals("Luis Ramos", vo.nombre_doc());
-        assertEquals("Cardiología", vo.espe_doc());
-        assertEquals("C201", vo.consult_doc());
+        assertEquals("Luis Ramos", vo.nombreCompleto());
+        assertEquals("Cardiología", vo.especialidad());
+        assertEquals("C201", vo.consultorio());
+        assertEquals("CMP12345", vo.cmp());
     }
 }

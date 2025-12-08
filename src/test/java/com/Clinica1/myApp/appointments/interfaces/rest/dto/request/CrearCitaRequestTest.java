@@ -25,7 +25,7 @@ class CrearCitaRequestTest {
     @Test
     void getterSetter_ok() {
         Pac_info_citaRequest pac = new Pac_info_citaRequest("Ana Pérez", "12345678");
-        Doc_info_citaRequest doc = new Doc_info_citaRequest("Luis Ramos", "Cardiología", "C-202");
+        Doc_info_citaRequest doc = new Doc_info_citaRequest("Luis Ramos", "Cardiología", "C-202", "CMP12345");
 
         CrearCitaRequest req = new CrearCitaRequest();
         req.setDni_pac("12345678");

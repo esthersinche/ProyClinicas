@@ -11,11 +11,13 @@ class Doc_info_citaTest {
         Doc_info_cita d = new Doc_info_cita(
                 "Dr. Juan Pérez",
                 "Cardiología",
-                "Consultorio 12");
+                "Consultorio 12",
+                "CMP12345");
 
-        assertEquals("Dr. Juan Pérez", d.nombre_doc());
-        assertEquals("Cardiología", d.espe_doc());
-        assertEquals("Consultorio 12", d.consult_doc());
+        assertEquals("Dr. Juan Pérez", d.nombreCompleto());
+        assertEquals("Cardiología", d.especialidad());
+        assertEquals("Consultorio 12", d.consultorio());
+        assertEquals("CMP12345", d.cmp());
     }
 
     @Test
@@ -23,31 +25,33 @@ class Doc_info_citaTest {
         Doc_info_cita d = Doc_info_cita.of(
                 "Dr. María López",
                 "Pediatría",
-                "Consultorio 3");
+                "Consultorio 3",
+                "CMP67890");
 
-        assertEquals("Dr. María López", d.nombre_doc());
-        assertEquals("Pediatría", d.espe_doc());
-        assertEquals("Consultorio 3", d.consult_doc());
+        assertEquals("Dr. María López", d.nombreCompleto());
+        assertEquals("Pediatría", d.especialidad());
+        assertEquals("Consultorio 3", d.consultorio());
+        assertEquals("CMP67890", d.cmp());
     }
 
     @Test
     void deberiaFallarSiNombreEsNuloOVacio() {
-        assertThrows(IllegalArgumentException.class, () -> new Doc_info_cita(null, "Cardiología", "C1"));
+        assertThrows(IllegalArgumentException.class, () -> new Doc_info_cita(null, "Cardiología", "C1", "CMP123"));
 
-        assertThrows(IllegalArgumentException.class, () -> new Doc_info_cita("  ", "Cardiología", "C1"));
+        assertThrows(IllegalArgumentException.class, () -> new Doc_info_cita("  ", "Cardiología", "C1", "CMP123"));
     }
 
     @Test
     void deberiaFallarSiEspecialidadEsNuloOVacio() {
-        assertThrows(IllegalArgumentException.class, () -> new Doc_info_cita("Dr. Juan", null, "C2"));
+        assertThrows(IllegalArgumentException.class, () -> new Doc_info_cita("Dr. Juan", null, "C2", "CMP456"));
 
-        assertThrows(IllegalArgumentException.class, () -> new Doc_info_cita("Dr. Juan", "   ", "C2"));
+        assertThrows(IllegalArgumentException.class, () -> new Doc_info_cita("Dr. Juan", "   ", "C2", "CMP456"));
     }
 
     @Test
     void deberiaFallarSiConsultorioEsNuloOVacio() {
-        assertThrows(IllegalArgumentException.class, () -> new Doc_info_cita("Dr. Juan", "Dermatología", null));
+        assertThrows(IllegalArgumentException.class, () -> new Doc_info_cita("Dr. Juan", "Dermatología", null, "CMP789"));
 
-        assertThrows(IllegalArgumentException.class, () -> new Doc_info_cita("Dr. Juan", "Dermatología", ""));
+        assertThrows(IllegalArgumentException.class, () -> new Doc_info_cita("Dr. Juan", "Dermatología", "", "CMP789"));
     }
 }

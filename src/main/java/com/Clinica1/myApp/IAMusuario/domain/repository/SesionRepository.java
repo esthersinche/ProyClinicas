@@ -5,7 +5,6 @@ import com.Clinica1.myApp.SharedKernel.ICRUD;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface SesionRepository extends ICRUD<Sesion> {
     //guardar es insert
