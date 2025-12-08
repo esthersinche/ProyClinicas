@@ -1,6 +1,5 @@
 package com.Clinica1.myApp.appointments.application.dto;
 
-import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import lombok.Builder;
 
 import java.time.LocalDateTime;

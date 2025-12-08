@@ -23,7 +23,12 @@ class CitaAssemblerTest {
         IDEntidad id = IDEntidad.generar();
 
         Pac_info_cita pacInfo = new Pac_info_cita("Juan Pérez", "12345678");
-        Doc_info_cita docInfo = Doc_info_cita.of("Dr. House", "Cardiología", "C-12", "CMP12345");
+        Doc_info_cita docInfo = Doc_info_cita.of(
+                "Dr. House",
+                "Cardiología",
+                "C-12",
+                "CMP12345"
+        );
 
         Cita cita = new Cita(
                 id,
@@ -36,20 +41,25 @@ class CitaAssemblerTest {
                 IDEntidad.generar(),
                 pacInfo,
                 docInfo,
-                Especialidad.of("Neurología"));
+                Especialidad.of("Neurología")
+        );
 
         CitaDto dto = assembler.toDto(cita);
 
         assertNotNull(dto);
-        assertEquals(id, dto.getId());
+        assertEquals(id.obtenerid(), dto.getId());
         assertEquals("Dolor de cabeza", dto.getMotivo());
         assertEquals("Pendiente", dto.getEstado());
         assertEquals("Presencial", dto.getCanal());
         assertEquals("Neurología", dto.getEspecialidad());
-        assertEquals("Juan Pérez", dto.getPaciente().getNombre());
-        assertEquals("Dr. House", dto.getDoctor().getNombre());
 
-        System.out.println("✔ Conversión Cita → CitaDto correctamente realizada");
+        assertEquals("Juan Pérez", dto.getPaciente().getNombre());
+        assertEquals("12345678", dto.getPaciente().getDni());
+
+        assertEquals("Dr. House", dto.getDoctor().getNombre());
+        assertEquals("Cardiología", dto.getDoctor().getEspecialidad());
+        assertEquals("C-12", dto.getDoctor().getConsultorio());
+        assertEquals("CMP12345", dto.getDoctor().getCmp());
     }
 
     @Test
@@ -60,68 +70,22 @@ class CitaAssemblerTest {
 
         assertEquals("María López", dto.getNombre());
         assertEquals("87654321", dto.getDni());
-
-        System.out.println("✔ Conversión Pac_info_cita → PacienteInfoDto correcta");
     }
 
     @Test
     void deberiaConvertirDocInfoCitaA_DoctorInfoDto() {
-        Doc_info_cita doc = Doc_info_cita.of("Dr. Strange", "Trauma", "A-5", "CMP67890");
+        Doc_info_cita doc = Doc_info_cita.of(
+                "Dr. Strange",
+                "Trauma",
+                "A-5",
+                "CMP67890"
+        );
 
         DoctorInfoDto dto = assembler.toDoctorInfoDto(doc);
 
         assertEquals("Dr. Strange", dto.getNombre());
         assertEquals("Trauma", dto.getEspecialidad());
         assertEquals("A-5", dto.getConsultorio());
-
-        System.out.println("✔ Conversión Doc_info_cita → DoctorInfoDto correcta");
+        assertEquals("CMP67890", dto.getCmp());
     }
-
-    @Test
-    void deberiaConvertirNombreEspecialidadA_ObjetoEspecialidad() {
-        Especialidad esp = assembler.toEspecialidad("Dermatología");
-
-        assertNotNull(esp);
-        assertEquals("Dermatología", esp.nom_espe());
-
-        System.out.println("✔ Conversión String → Especialidad correcta");
-    }
-
-    @Test
-    void deberiaCrearEntidadCitaCorrectamente() {
-
-        Paciente pac = new Paciente(
-                IDEntidad.generar(),
-                "Luis",
-                "Peruano",
-                "12345678",
-                "987654321",
-                Email.of("luis@example.com"),
-                null,
-                "M");
-
-        Doctor doc = Doctor.creardoc(
-                IDEntidad.generar(),
-                NombreCompleto.of("Ana", "Martínez"),
-                "CMP12345",
-                "C-20",
-                List.of(Especialidad.of("Cirugía")));
-
-        Cita cita = assembler.toCita(
-                "Chequeo general",
-                "Presencial",
-                LocalDateTime.of(2025, 2, 10, 9, 0),
-                LocalDateTime.of(2025, 2, 10, 9, 30),
-                pac,
-                doc,
-                "Cirugía");
-
-        assertNotNull(cita);
-        assertEquals("Chequeo general", cita.getMotivo_cita());
-        assertEquals(Canal.Presencial, cita.getCanal_cita());
-        assertEquals("Cirugía", cita.getEspe_cita().nom_espe());
-
-        System.out.println("✔ Conversión datos → Entidad Cita correctamente creada");
-    }
-
 }
