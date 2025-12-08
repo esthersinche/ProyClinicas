@@ -13,8 +13,6 @@ public class Empleado {
     private String passhash_emp;
     private Roles rolemp; //(admin, doctor, recepcionista)
 
-    private IDEntidad id_clinica;
-
     //referenciar a doctor del bc gestordecitas
     public Empleado() {//jpa
     }
@@ -31,7 +29,7 @@ public class Empleado {
         this.rolemp = rolemp;
     }
 
-    public Empleado(IDEntidad id_emp, String nombre, String apellido, String telefono, Email email, String passhash_emp, Roles rolemp, IDEntidad id_clinica) {
+    public Empleado(IDEntidad id_emp, String nombre, String apellido, String telefono, Email email, String passhash_emp, Roles rolemp) {
         this.id_emp = id_emp;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -39,7 +37,6 @@ public class Empleado {
         this.email = email;
         this.passhash_emp = passhash_emp;
         this.rolemp = rolemp;
-        this.id_clinica = id_clinica;
     }
 
     //metodo factory para tests (5 parámetros)
@@ -55,7 +52,7 @@ public class Empleado {
                                     String passhash_emp, Roles rolemp, IDEntidad id_clinica){
         return new Empleado(IDEntidad.generar(), nombre,
                 apellido, telefono, email,
-                passhash_emp, rolemp, id_clinica);
+                passhash_emp, rolemp);
     }
 
     public IDEntidad getId_emp() {
@@ -86,9 +83,6 @@ public class Empleado {
         return rolemp;
     }
 
-    public IDEntidad getId_clinica() {
-        return id_clinica;
-    }
 
     public void asignarCredenciales(String password) {
         this.passhash_emp = password;  // por ahora sin hash

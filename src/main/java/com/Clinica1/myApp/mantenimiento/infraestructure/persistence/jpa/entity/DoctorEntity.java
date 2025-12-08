@@ -17,7 +17,7 @@ import java.util.List;
 public class DoctorEntity {
 
     @Id
-    @Column(name = "id_doctor", length = 36)
+    @Column(name = "id_doc", length = 36)
     private String idDoctor;
 
     @Column(name = "id_empleado_doc", nullable = false, unique = true)

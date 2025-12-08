@@ -2,7 +2,6 @@ package com.Clinica1.myApp.mantenimiento.application.handler;
 
 import com.Clinica1.myApp.SharedKernel.Email;
 import com.Clinica1.myApp.SharedKernel.Empleado;
-import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.SharedKernel.Roles;
 import com.Clinica1.myApp.mantenimiento.application.command.CrearDoctorCommand;
 import com.Clinica1.myApp.mantenimiento.application.exception.DomainException;
@@ -60,8 +59,7 @@ public class CrearDoctorCommandHandler {
                 command.getTelefono(),
                 email,
                 command.getPassword(),   // luego harás hashing
-                Roles.Rol_Doctor,            // El doctor SIEMPRE es ROl DOCTOR
-                IDEntidad.generar()       // id_clinica temporal
+                Roles.Rol_Doctor // El doctor SIEMPRE es ROl DOCTOR
         );
 
         empleadoRepository.insert(empleado);
