@@ -3,15 +3,7 @@ package com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper;
 import com.Clinica1.myApp.IAMusuario.application.command.LoginCommand;
 import com.Clinica1.myApp.IAMusuario.application.dto.EmailDto;
 import com.Clinica1.myApp.IAMusuario.interfaces.rest.dto.request.LoginRequest;
-import com.Clinica1.myApp.SharedKernel.Empleado;
-import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
-import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.ContraHash;
-import com.Clinica1.myApp.SharedKernel.Email;
-import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
-import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
 import org.springframework.stereotype.Component;
-
-import java.util.HashSet;
 
 @Component
 public class LoginMapper {

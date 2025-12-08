@@ -3,7 +3,7 @@ package com.Clinica1.myApp.IAMusuario.domain.repository;
 import com.Clinica1.myApp.SharedKernel.Email;
 import com.Clinica1.myApp.SharedKernel.ICRUD;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
+import com.Clinica1.myApp.adquisicion.domain.model.UsuarioWeb;
 
 import java.util.Optional;
 

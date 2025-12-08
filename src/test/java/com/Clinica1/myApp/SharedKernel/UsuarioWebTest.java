@@ -1,5 +1,6 @@
 package com.Clinica1.myApp.SharedKernel;
 
+import com.Clinica1.myApp.adquisicion.domain.model.UsuarioWeb;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

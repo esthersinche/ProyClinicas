@@ -2,7 +2,7 @@ package com.Clinica1.myApp.IAMusuario.interfaces.rest.mapper;
 
 import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
-import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
+import com.Clinica1.myApp.adquisicion.domain.model.UsuarioWeb;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;

@@ -1,7 +1,7 @@
 package com.Clinica1.myApp.adquisicion.domain.repository;
 
 import com.Clinica1.myApp.SharedKernel.ICRUD;
-import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
+import com.Clinica1.myApp.adquisicion.domain.model.UsuarioWeb;
 
 import java.util.List;
 import java.util.Optional;

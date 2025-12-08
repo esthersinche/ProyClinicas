@@ -3,8 +3,7 @@ package com.Clinica1.myApp.IAMusuario.infrastructure.security;
 import com.Clinica1.myApp.IAMusuario.application.exception.JWTInvalidException;
 import com.Clinica1.myApp.SharedKernel.Email;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
-import io.jsonwebtoken.JwtException;
+import com.Clinica1.myApp.adquisicion.domain.model.UsuarioWeb;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
