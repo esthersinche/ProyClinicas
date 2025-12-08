@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 public class PacienteAssembler {
 
     public PacienteDto toDto(Paciente paciente) {
+        if (paciente == null) {
+            return null;
+        }
         return new PacienteDto(
                 paciente.getId_pac(),
                 paciente.getNombre_com_pac(),

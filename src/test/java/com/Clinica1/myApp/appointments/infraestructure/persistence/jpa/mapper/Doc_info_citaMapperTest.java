@@ -34,7 +34,7 @@ class Doc_info_citaMapperTest {
 
         assertEquals("Ana", emb.getNombre_doc());
         assertEquals("Dermatología", emb.getEspe_doc());
-        assertEquals("B11", emb.getConsult_doc());
         assertEquals("CMP55555", emb.getCmp_doc());
+        assertEquals("B11", emb.getConsult_doc());
     }
 }
