@@ -15,23 +15,26 @@ class Doc_info_citaMapperTest {
         Doc_info_cita_embeddable emb = new Doc_info_cita_embeddable(
                 "Dr Juan",
                 "Cardiología",
-                "C21");
+                "C21",
+                "CMP99999");
 
         Doc_info_cita vo = mapper.ToDomain(emb);
 
-        assertEquals("Dr Juan", vo.nombre_doc());
-        assertEquals("Cardiología", vo.espe_doc());
-        assertEquals("C21", vo.consult_doc());
+        assertEquals("Dr Juan", vo.nombreCompleto());
+        assertEquals("Cardiología", vo.especialidad());
+        assertEquals("C21", vo.consultorio());
+        assertEquals("CMP99999", vo.cmp());
     }
 
     @Test
     void toEntity_ok() {
-        Doc_info_cita vo = new Doc_info_cita("Ana", "Dermatología", "B11");
+        Doc_info_cita vo = new Doc_info_cita("Ana", "Dermatología", "B11", "CMP55555");
 
         Doc_info_cita_embeddable emb = mapper.ToEntity(vo);
 
         assertEquals("Ana", emb.getNombre_doc());
         assertEquals("Dermatología", emb.getEspe_doc());
         assertEquals("B11", emb.getConsult_doc());
+        assertEquals("CMP55555", emb.getCmp_doc());
     }
 }

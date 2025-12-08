@@ -17,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class CitaMapperTest {
 
     private EspecialidadesMapper espeMap;
-    private DoctorMapper docMap;
-    private PacienteMapper pacMap;
     private Pac_info_citaMapper pacinfoMap;
     private Doc_info_citaMapper docinfoMap;
     private CitaMapper mapper;
@@ -26,13 +24,10 @@ class CitaMapperTest {
     @BeforeEach
     void setup() {
         espeMap = Mockito.mock(EspecialidadesMapper.class);
-        docMap = Mockito.mock(DoctorMapper.class);
-        pacMap = Mockito.mock(PacienteMapper.class);
-
         pacinfoMap = Mockito.mock(Pac_info_citaMapper.class);
         docinfoMap = Mockito.mock(Doc_info_citaMapper.class);
 
-        mapper = new CitaMapper(espeMap, docMap, pacMap, pacinfoMap, docinfoMap);
+        mapper = new CitaMapper(espeMap, pacinfoMap, docinfoMap);
     }
 
     @Test
@@ -47,12 +42,12 @@ class CitaMapperTest {
                 .pac_id("PAC1")
                 .doc_id("DOC1")
                 .pac_info(new Pac_info_cita_embeddable("Luis", "12345678"))
-                .doc_info(new Doc_info_cita_embeddable("Dr Juan", "Cardio", "C21"))
+                .doc_info(new Doc_info_cita_embeddable("Dr Juan", "Cardio", "C21", "CMP123"))
                 .espe_cita(null)
                 .build();
 
         Pac_info_cita pacInfo = new Pac_info_cita("Luis", "12345678");
-        Doc_info_cita docInfo = new Doc_info_cita("Dr Juan", "Cardio", "C21");
+        Doc_info_cita docInfo = new Doc_info_cita("Dr Juan", "Cardio", "C21", "CMP123");
         Especialidad espe = new Especialidad("Cardio");
 
         Mockito.when(pacinfoMap.ToDomain(ent.getPac_info())).thenReturn(pacInfo);
@@ -79,7 +74,7 @@ class CitaMapperTest {
         IDEntidad docId = IDEntidad.astring("DOC2");
 
         Pac_info_cita pacInfo = new Pac_info_cita("Ana", "99999999");
-        Doc_info_cita docInfo = new Doc_info_cita("Dr Pepe", "Dermato", "C10");
+        Doc_info_cita docInfo = new Doc_info_cita("Dr Pepe", "Dermato", "C10", "CMP456");
         Especialidad espe = new Especialidad("Dermato");
 
         Cita cita = new Cita(id, "Revisión", Estado.Pendiente, Canal.Presencial,
@@ -87,7 +82,7 @@ class CitaMapperTest {
                 pacId, docId, pacInfo, docInfo, espe);
 
         Pac_info_cita_embeddable pacEmb = new Pac_info_cita_embeddable("Ana", "99999999");
-        Doc_info_cita_embeddable docEmb = new Doc_info_cita_embeddable("Dr Pepe", "Dermato", "C10");
+        Doc_info_cita_embeddable docEmb = new Doc_info_cita_embeddable("Dr Pepe", "Dermato", "C10", "CMP456");
 
         Mockito.when(pacinfoMap.ToEntity(pacInfo)).thenReturn(pacEmb);
         Mockito.when(docinfoMap.ToEntity(docInfo)).thenReturn(docEmb);

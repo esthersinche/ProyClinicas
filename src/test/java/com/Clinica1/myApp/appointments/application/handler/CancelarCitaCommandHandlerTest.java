@@ -32,7 +32,7 @@ class CancelarCitaCommandHandlerTest {
 
         Cita cita = mock(Cita.class);
         when(cita.getEstado_cita()).thenReturn(Estado.Pendiente);
-        when(citaRepository.findById(citaId)).thenReturn(cita);
+        when(citaRepository.findById(citaId)).thenReturn(java.util.Optional.of(cita));
 
         CancelarCitaCommand command = new CancelarCitaCommand(citaId);
 
@@ -46,7 +46,7 @@ class CancelarCitaCommandHandlerTest {
     void deberiaLanzarExcepcionSiCitaNoExiste() {
         IDEntidad citaId = IDEntidad.generar();
 
-        when(citaRepository.findById(citaId)).thenReturn(null);
+        when(citaRepository.findById(citaId)).thenReturn(java.util.Optional.empty());
 
         CancelarCitaCommand command = new CancelarCitaCommand(citaId);
 
@@ -59,7 +59,7 @@ class CancelarCitaCommandHandlerTest {
 
         Cita cita = mock(Cita.class);
         when(cita.getEstado_cita()).thenReturn(Estado.Desercion);
-        when(citaRepository.findById(citaId)).thenReturn(cita);
+        when(citaRepository.findById(citaId)).thenReturn(java.util.Optional.of(cita));
 
         CancelarCitaCommand command = new CancelarCitaCommand(citaId);
 
