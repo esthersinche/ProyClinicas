@@ -21,6 +21,6 @@ public interface JPAEmpleadoRepository extends JpaRepository<EmpleadoEntity, Str
     Optional<EmpleadoEntity> findbyNamecompleto (@Param("nom_empent") String nom_empent,
                                                  @Param("ape_empent") String ape_empent);
 
-    @Query("SELECT e FROM EmpleadoEntity e WHERE e.rol_emp = :nomrol_empent")
+    @Query("SELECT e FROM EmpleadoEntity e WHERE e.rol = :nomrol_empent")
     List<EmpleadoEntity> findbyRol (@Param("nomrol_empent") Roles nomrol_empent);
 }

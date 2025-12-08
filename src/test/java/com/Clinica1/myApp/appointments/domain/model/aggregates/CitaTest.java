@@ -18,7 +18,7 @@ class CitaTest {
     }
 
     private Doc_info_cita crearDocInfoDummy() {
-        return new Doc_info_cita("Luis Ramos", "Cardiología", "C101", "12345678");
+        return new Doc_info_cita("Luis Ramos", "Cardiología", "C101", "CMP123");
     }
 
     private Especialidad crearEspecialidadDummy() {
@@ -110,7 +110,7 @@ class CitaTest {
         assertEquals(pac.getDni_pac(), cita.getInst_pac().dni_pac());
 
         assertEquals(doc.getNom_com_doc().completar(), cita.getInst_doctor().nombreCompleto());
-        assertEquals(doc.getEspecialidades().get(0).nom_espe(), cita.getInst_doctor());
+        assertEquals(doc.getEspecialidades().get(0).nom_espe(), cita.getInst_doctor().especialidad());
         assertEquals(doc.getConsultorio_doc(), cita.getInst_doctor().consultorio());
         assertEquals(doc.getCmp_doc(), cita.getInst_doctor().cmp());
     }

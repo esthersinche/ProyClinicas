@@ -3,7 +3,7 @@ package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.EmailEmbeddable;
 import com.Clinica1.myApp.SharedKernel.Email;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import com.Clinica1.myApp.adquisicion.domain.model.UsuarioWeb;
+import com.Clinica1.myApp.SharedKernel.UsuarioWeb;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

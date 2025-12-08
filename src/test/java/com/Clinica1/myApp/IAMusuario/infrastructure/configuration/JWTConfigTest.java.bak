@@ -1,6 +1,5 @@
 package com.Clinica1.myApp.IAMusuario.infrastructure.configuration;
 
-import com.Clinica1.myApp.IAMusuario.application.TokenProvider;
 import com.Clinica1.myApp.IAMusuario.infrastructure.security.JWTTokenProvider;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +16,7 @@ class JWTConfigTest {
         setField(config, "jwtsecreto", "MI_SECRETO_DE_32_CARACTERES_123456");
         setField(config, "jwtexpiracionsg", 900L);
 
-        TokenProvider provider = config.tokenProvider();
+        JWTTokenProvider provider = (JWTTokenProvider) config.tokenProvider();
 
         assertNotNull(provider);
         assertTrue(provider instanceof JWTTokenProvider);

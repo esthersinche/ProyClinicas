@@ -50,14 +50,14 @@ class RolMapperTest {
 
         RolEntity entity = RolEntity.builder()
                 .id(IDEntidad.generar().obtenerid())
-                .nombreRol(Roles.Rol_Doctor)
+                .nombreRol("Rol_Doctor")
                 .funciones(funcs)
                 .build();
 
         Rol rol = mapper.ToDomain(entity);
 
         assertNotNull(rol);
-        assertEquals(Roles.Rol_Doctor, rol.getNombrerol());
+        assertEquals("Rol_Doctor", rol.getNombrerol().toString());
 
         assertTrue(
                 rol.getFunciones().stream()

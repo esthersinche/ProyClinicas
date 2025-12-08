@@ -1,7 +1,6 @@
 package com.Clinica1.myApp.appointments.infraestructure.persistence.jpa.adapter;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import com.Clinica1.myApp.appointments.application.exception.CitaNoEncontradaException;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Cita;
 import com.Clinica1.myApp.appointments.infraestructure.persistence.jpa.entity.CitaEntity;
 import com.Clinica1.myApp.appointments.infraestructure.persistence.jpa.mapper.CitaMapper;
@@ -42,7 +41,9 @@ class CitaRepositoryAdapterTest {
         when(citadao.findById("1")).thenReturn(Optional.of(entity));
         when(cit_map.ToDomain(entity)).thenReturn(cita);
 
-        assertEquals(cita, adapter.findById(id));
+        Optional<Cita> result = adapter.findById(id);
+        assertTrue(result.isPresent());
+        assertEquals(cita, result.get());
     }
 
     @Test
@@ -52,7 +53,8 @@ class CitaRepositoryAdapterTest {
 
         when(citadao.findById("99")).thenReturn(Optional.empty());
 
-        assertThrows(CitaNoEncontradaException.class, () -> adapter.findById(id));
+        Optional<Cita> result = adapter.findById(id);
+        assertFalse(result.isPresent());
     }
 
     @Test
