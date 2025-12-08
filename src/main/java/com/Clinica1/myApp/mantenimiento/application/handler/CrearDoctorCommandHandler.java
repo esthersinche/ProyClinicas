@@ -59,7 +59,7 @@ public class CrearDoctorCommandHandler {
                 command.getTelefono(),
                 email,
                 command.getPassword(),   // luego harás hashing
-                Roles.Rol_Doctor            // El doctor SIEMPRE es ROl DOCTOR
+                Roles.Rol_Doctor // El doctor SIEMPRE es ROl DOCTOR
         );
 
         empleadoRepository.insert(empleado);
