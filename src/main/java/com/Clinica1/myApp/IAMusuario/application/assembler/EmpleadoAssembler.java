@@ -30,7 +30,7 @@ public class EmpleadoAssembler {
                 .email_emp(em_dto)
                 .passhash_emp(emp.getPasshash_emp())
                 .rol_emp(emp.getRolemp().name())
-                .id_clinica(emp.getId_clinica().obtenerid())
+
                 .build();
 
     }
@@ -41,6 +41,6 @@ public class EmpleadoAssembler {
         }
         Email em_emp= em_assem.ToDomain(emp_dto.getEmail_emp());
         return new Empleado(IDEntidad.astring(emp_dto.getId_emp()), emp_dto.getNom_emp(), emp_dto.getApe_emp(),
-                emp_dto.getTel_emp(), em_emp, emp_dto.getPasshash_emp(), Roles.valueOf(emp_dto.getRol_emp()), IDEntidad.astring(emp_dto.getId_clinica()));
+                emp_dto.getTel_emp(), em_emp, emp_dto.getPasshash_emp(), Roles.valueOf(emp_dto.getRol_emp()));
     }
 }
