@@ -28,10 +28,12 @@ class Doc_info_citaRequestTest {
         req.setNom_com_doc("Luis Ramos");
         req.setEspe_doc("Cardiología");
         req.setConsult_doc("C-202");
+        req.setCmp_doc("CMP12345");
 
         assertEquals("Luis Ramos", req.getNom_com_doc());
         assertEquals("Cardiología", req.getEspe_doc());
         assertEquals("C-202", req.getConsult_doc());
+        assertEquals("CMP12345", req.getCmp_doc());
     }
 
     @Test
@@ -40,10 +42,11 @@ class Doc_info_citaRequestTest {
         req.setNom_com_doc("");
         req.setEspe_doc("");
         req.setConsult_doc("");
+        req.setCmp_doc("");
 
         Set<ConstraintViolation<Doc_info_citaRequest>> violations = validator.validate(req);
 
-        assertEquals(3, violations.size());
+        assertEquals(4, violations.size());
     }
 
     @Test
@@ -51,7 +54,8 @@ class Doc_info_citaRequestTest {
         Doc_info_citaRequest req = new Doc_info_citaRequest(
                 "Luis Ramos",
                 "Cardiología",
-                "C-202");
+                "C-202",
+                "CMP12345");
 
         Set<ConstraintViolation<Doc_info_citaRequest>> violations = validator.validate(req);
 

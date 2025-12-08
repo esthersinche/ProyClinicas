@@ -57,6 +57,20 @@ public class Doctor {// se quita la herencia para q no compartan persistencia
         return especialidades;
     }
 
+    // Factory method
+    public static Doctor creardoc(IDEntidad id_empleado_doc, NombreCompleto nom_com_doc,
+                                  String cmp_doc, String consultorio_doc,
+                                  List<Especialidad> especialidades) {
+        return new Doctor(
+                id_empleado_doc,
+                IDEntidad.generar(), // genera nuevo ID para doctor
+                nom_com_doc,
+                cmp_doc,
+                consultorio_doc,
+                especialidades
+        );
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)

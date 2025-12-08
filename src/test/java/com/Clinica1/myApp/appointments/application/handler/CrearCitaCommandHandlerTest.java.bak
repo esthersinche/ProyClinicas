@@ -10,6 +10,7 @@ import com.Clinica1.myApp.appointments.application.exception.FechaInvalidaExcept
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Cita;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Doctor;
 import com.Clinica1.myApp.appointments.domain.model.aggregates.Paciente;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.Canal;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.Especialidad;
 import com.Clinica1.myApp.appointments.domain.model.valueobjects.NombreCompleto;
 import com.Clinica1.myApp.appointments.domain.repository.CitaRepository;
@@ -22,6 +23,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;

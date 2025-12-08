@@ -1,6 +1,7 @@
 package com.Clinica1.myApp.appointments.application.command;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
+import com.Clinica1.myApp.appointments.domain.model.valueobjects.Canal;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -16,25 +17,23 @@ class CrearCitaCommandTest {
 
         IDEntidad pacienteId = IDEntidad.astring("PAC001");
         IDEntidad doctorId = IDEntidad.astring("DOC001");
-        IDEntidad clinicaId = IDEntidad.astring("CLIN001");
 
         CrearCitaCommand cmd = new CrearCitaCommand(
                 pacienteId,
                 doctorId,
                 "fiebre por varios dias",
-                ,
-                pacienteId,
-                doctorId,
-                "Neurología"
+                "Neurología",
+                Canal.Presencial,
+                inicio,
+                fin
         );
 
-        assertEquals("Dolor de cabeza", cmd.getMotivo());
-        assertEquals("Presencial", cmd.getCanal());
+        assertEquals("fiebre por varios dias", cmd.getMotivo());
+        assertEquals(Canal.Presencial, cmd.getCanal());
         assertEquals(inicio, cmd.getInicio());
         assertEquals(fin, cmd.getFin());
         assertEquals("PAC001", cmd.getPacienteId().obtenerid());
         assertEquals("DOC001", cmd.getDoctorId().obtenerid());
-        assertEquals("CLIN001", cmd.getClinicaId().obtenerid());
         assertEquals("Neurología", cmd.getEspecialidad());
     }
 
@@ -45,22 +44,20 @@ class CrearCitaCommandTest {
 
         CrearCitaCommand cmd = CrearCitaCommand.builder()
                 .motivo("Control")
-                .canal("Virtual")
+                .canal(Canal.Virtual)
                 .inicio(inicio)
                 .fin(fin)
                 .pacienteId(IDEntidad.astring("P001"))
                 .doctorId(IDEntidad.astring("D001"))
-                .clinicaId(IDEntidad.astring("C001"))
                 .especialidad("Dermatología")
                 .build();
 
         assertEquals("Control", cmd.getMotivo());
-        assertEquals("Virtual", cmd.getCanal());
+        assertEquals(Canal.Virtual, cmd.getCanal());
         assertEquals(inicio, cmd.getInicio());
         assertEquals(fin, cmd.getFin());
         assertEquals("P001", cmd.getPacienteId().obtenerid());
         assertEquals("D001", cmd.getDoctorId().obtenerid());
-        assertEquals("C001", cmd.getClinicaId().obtenerid());
         assertEquals("Dermatología", cmd.getEspecialidad());
     }
 }

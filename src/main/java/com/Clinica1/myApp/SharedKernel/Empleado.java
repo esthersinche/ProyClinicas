@@ -19,6 +19,15 @@ public class Empleado {
 
     //este tendra el id ya creado
 
+    // Constructor para tests (6 parámetros)
+    public Empleado(IDEntidad id_emp, String nombre, String apellido, String telefono, Email email, Roles rolemp) {
+        this.id_emp = id_emp;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+        this.email = email;
+        this.rolemp = rolemp;
+    }
 
     public Empleado(IDEntidad id_emp, String nombre, String apellido, String telefono, Email email, String passhash_emp, Roles rolemp) {
         this.id_emp = id_emp;
@@ -28,6 +37,13 @@ public class Empleado {
         this.email = email;
         this.passhash_emp = passhash_emp;
         this.rolemp = rolemp;
+    }
+
+    //metodo factory para tests (5 parámetros)
+    public static Empleado crearemp(String nombre, String apellido,
+                                    String telefono, Email email, Roles rolemp){
+        return new Empleado(IDEntidad.generar(), nombre,
+                apellido, telefono, email, rolemp);
     }
 
     //metodo factory, genera un id valido al crear un empleado y asi no hay null en id c:

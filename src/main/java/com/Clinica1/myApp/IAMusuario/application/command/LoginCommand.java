@@ -2,12 +2,14 @@ package com.Clinica1.myApp.IAMusuario.application.command;
 
 import com.Clinica1.myApp.IAMusuario.application.dto.EmailDto;
 import com.Clinica1.myApp.SharedKernel.Email;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class LoginCommand {
     private EmailDto email_emp;

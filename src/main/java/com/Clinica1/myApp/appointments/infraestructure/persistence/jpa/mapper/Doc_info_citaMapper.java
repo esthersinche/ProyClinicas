@@ -17,7 +17,7 @@ public class Doc_info_citaMapper {
                 .nombre_doc(docinfo_ent.nombreCompleto())
                 .espe_doc(docinfo_ent.especialidad())
                 .consult_doc(docinfo_ent.consultorio())
-                .consult_doc(docinfo_ent.cmp())
+                .cmp_doc(docinfo_ent.cmp())
                 .build();
     }
 }

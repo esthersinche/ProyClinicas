@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -39,8 +40,8 @@ public class EmpleadoRepositoryAdapter implements EmpleadoRepository {
     }
 
     @Override
-    public Empleado findById(IDEntidad id) {
-        return jpaRepository.findById(id.obtenerid()).map(mapper::toDomain).orElse(null);
+    public Optional<Empleado> findById(IDEntidad id) {
+        return jpaRepository.findById(id.obtenerid()).map(mapper::toDomain);
     }
 
     @Override
