@@ -46,16 +46,32 @@ public class EmpleadoEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "rol_emp", nullable = false)
-    private Roles rol_emp;// este es el enum, no cambiar, ya que se convalidara con el nombre de rol la
+    private Roles rol;// este es el enum, no cambiar, ya que se convalidara con el nombre de rol la
                       // clase aggregate de domain
 
     @Column(name = "id_clinica", nullable = false)
     private String id_clinica;
+    
+    public Roles getRol() {
+        return rol;
+    }
+    
     public void setNombre(String luis) {
 
     }
 
     public void setApellido(String ramos) {
 
+    }
+    
+    // Constructor adicional para tests (6 parámetros)
+    public EmpleadoEntity(String id_Emp, String nombresEmp, String apellidosEmp, 
+                         String telefonoEmp, EmailEmbeddable email_emp, Roles rol) {
+        this.id_Emp = id_Emp;
+        this.nombresEmp = nombresEmp;
+        this.apellidosEmp = apellidosEmp;
+        this.telefonoEmp = telefonoEmp;
+        this.email_emp = email_emp;
+        this.rol = rol;
     }
 }
