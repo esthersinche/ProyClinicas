@@ -3,7 +3,7 @@ package com.Clinica1.myApp.IAMusuario.application.assembler;
 import com.Clinica1.myApp.IAMusuario.application.dto.EmailDto;
 import com.Clinica1.myApp.IAMusuario.application.dto.EmpleadoDto;
 import com.Clinica1.myApp.SharedKernel.Email;
-import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.SharedKernel.Roles;
 import lombok.Builder;

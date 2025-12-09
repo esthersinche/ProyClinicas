@@ -20,4 +20,7 @@ public class RecepcionistaEntity {
 
     @Column(name = "id_emp", nullable = false)
     private String id_emp;
+
+    @Column(name = "nomcom_recep", nullable = false)
+    private NombreCompletoEmbeddable nomcom_recep;
 }

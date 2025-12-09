@@ -3,7 +3,7 @@ package com.Clinica1.myApp.IAMusuario.infrastructure.security;
 
 import com.Clinica1.myApp.IAMusuario.application.dto.TokenDto;
 import com.Clinica1.myApp.IAMusuario.application.exception.JWTInvalidException;
-import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

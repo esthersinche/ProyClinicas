@@ -1,7 +1,9 @@
-package com.Clinica1.myApp.SharedKernel.ActuPass;
+package com.Clinica1.myApp.mantenimiento.application.handler;
 
-import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.mantenimiento.application.command.ActualizarCredencialesEmpleadoCommand;
+import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.mantenimiento.application.exception.DomainException;
+import com.Clinica1.myApp.mantenimiento.domain.repository.EmpleadoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

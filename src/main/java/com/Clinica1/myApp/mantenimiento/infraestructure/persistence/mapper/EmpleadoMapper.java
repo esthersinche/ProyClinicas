@@ -1,7 +1,7 @@
 package com.Clinica1.myApp.mantenimiento.infraestructure.persistence.mapper;
 
 import com.Clinica1.myApp.SharedKernel.Email;
-import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.SharedKernel.Roles;
 

@@ -5,7 +5,7 @@ import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.Emple
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper.EmpleadoMapper;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.repository.JPAEmpleadoRepository;
 import com.Clinica1.myApp.SharedKernel.Email;
-import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.SharedKernel.Roles;
 import org.springframework.stereotype.Component;

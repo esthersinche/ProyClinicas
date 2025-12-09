@@ -1,5 +1,8 @@
-package com.Clinica1.myApp.SharedKernel.ActuPass;
-import com.Clinica1.myApp.SharedKernel.Empleado;
+package com.Clinica1.myApp.mantenimiento.interfaces.rest.controller;
+import com.Clinica1.myApp.mantenimiento.application.assembler.ActualizarCredencialesEmpleadoAssembler;
+import com.Clinica1.myApp.mantenimiento.application.handler.ActualizarCredencialesEmpleadoHandler;
+import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
+import com.Clinica1.myApp.mantenimiento.interfaces.rest.dto.request.ActualizarCredencialesEmpleadoRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

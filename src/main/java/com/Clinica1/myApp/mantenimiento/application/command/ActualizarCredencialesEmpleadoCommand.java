@@ -1,4 +1,4 @@
-package com.Clinica1.myApp.SharedKernel.ActuPass;
+package com.Clinica1.myApp.mantenimiento.application.command;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import lombok.Getter;
 

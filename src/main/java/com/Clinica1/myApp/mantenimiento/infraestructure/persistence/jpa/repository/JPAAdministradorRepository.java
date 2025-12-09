@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface JPAAdministradorRepository extends JpaRepository<AdministradorEntity, String> {
 
     Optional<AdministradorEntity> findByIdEmp(String id_emp);
+
 }

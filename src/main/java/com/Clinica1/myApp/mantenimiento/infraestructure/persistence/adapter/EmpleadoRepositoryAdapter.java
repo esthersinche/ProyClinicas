@@ -1,8 +1,8 @@
 package com.Clinica1.myApp.mantenimiento.infraestructure.persistence.adapter;
 
-import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
-import com.Clinica1.myApp.SharedKernel.ActuPass.EmpleadoRepository;
+import com.Clinica1.myApp.mantenimiento.domain.repository.EmpleadoRepository;
 import com.Clinica1.myApp.mantenimiento.infraestructure.persistence.jpa.repository.EmpleadoJpaRepository;
 import com.Clinica1.myApp.mantenimiento.infraestructure.persistence.mapper.EmpleadoMapper;
 import lombok.RequiredArgsConstructor;

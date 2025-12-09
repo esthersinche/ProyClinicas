@@ -1,19 +1,18 @@
 package com.Clinica1.myApp.mantenimiento.application.handler;
 
 import com.Clinica1.myApp.SharedKernel.Email;
-import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.SharedKernel.Roles;
 import com.Clinica1.myApp.mantenimiento.application.command.CrearDoctorCommand;
 import com.Clinica1.myApp.mantenimiento.application.exception.DomainException;
 import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Doctor;
 import com.Clinica1.myApp.mantenimiento.domain.model.valueobjects.Especialidad;
 import com.Clinica1.myApp.mantenimiento.domain.repository.DoctorRepository;
-import com.Clinica1.myApp.SharedKernel.ActuPass.EmpleadoRepository;
+import com.Clinica1.myApp.mantenimiento.domain.repository.EmpleadoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
-
 
 @Service
 @RequiredArgsConstructor
@@ -50,9 +49,7 @@ public class CrearDoctorCommandHandler {
             throw new DomainException("Email inválido: " + e.getMessage());
         }
 
-        // ------------------------------------------------------------------
         // PASO 1: CREAR EMPLEADO
-        // ------------------------------------------------------------------
         Empleado empleado = Empleado.crearemp(
                 command.getNombre(),
                 command.getApellido(),
@@ -64,10 +61,7 @@ public class CrearDoctorCommandHandler {
 
         empleadoRepository.insert(empleado);
 
-        // ------------------------------------------------------------------
         // PASO 2: CREAR DOCTOR usando el id_emp recién generado
-        // ------------------------------------------------------------------
-
         Doctor doctor = Doctor.crear(
                 empleado.getId_emp(),                 // ← idEmpleado
                 command.getNombre(),
@@ -78,7 +72,6 @@ public class CrearDoctorCommandHandler {
                         .map(Especialidad::new)
                         .collect(Collectors.toList())
         );
-
         doctorRepository.insert(doctor);
 
         return doctor.getIdDoctor().obtenerid();  // retorna el UUID del doctor

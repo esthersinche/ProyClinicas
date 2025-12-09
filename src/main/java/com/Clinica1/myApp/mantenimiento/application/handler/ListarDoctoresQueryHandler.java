@@ -1,7 +1,5 @@
 package com.Clinica1.myApp.mantenimiento.application.handler;
 
-import com.Clinica1.myApp.SharedKernel.ActuPass.EmpleadoRepository;
-import com.Clinica1.myApp.SharedKernel.Empleado;
 import com.Clinica1.myApp.mantenimiento.application.assembler.DoctorAssembler;
 import com.Clinica1.myApp.mantenimiento.application.dto.DoctorDto;
 import com.Clinica1.myApp.mantenimiento.application.query.ListarDoctoresQuery;

@@ -1,6 +1,6 @@
-package com.Clinica1.myApp.SharedKernel.ActuPass;
+package com.Clinica1.myApp.mantenimiento.domain.repository;
 
-import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.SharedKernel.ICRUD;
 
 

@@ -1,5 +1,7 @@
-package com.Clinica1.myApp.SharedKernel.ActuPass;
+package com.Clinica1.myApp.mantenimiento.application.assembler;
 
+import com.Clinica1.myApp.mantenimiento.application.command.ActualizarCredencialesEmpleadoCommand;
+import com.Clinica1.myApp.mantenimiento.interfaces.rest.dto.request.ActualizarCredencialesEmpleadoRequest;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import org.springframework.stereotype.Component;
 

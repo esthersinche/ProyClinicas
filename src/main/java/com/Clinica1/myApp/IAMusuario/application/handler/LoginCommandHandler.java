@@ -12,7 +12,7 @@ import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
 import com.Clinica1.myApp.IAMusuario.domain.repository.EmpleadoRepository;
 import com.Clinica1.myApp.IAMusuario.domain.repository.RolRepository;
 import com.Clinica1.myApp.IAMusuario.domain.repository.SesionRepository;
-import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.SharedKernel.Roles;
 import jakarta.transaction.Transactional;

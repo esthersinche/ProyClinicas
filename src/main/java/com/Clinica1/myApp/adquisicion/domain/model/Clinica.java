@@ -1,7 +1,7 @@
 package com.Clinica1.myApp.adquisicion.domain.model;
 
 
-import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
 import java.util.List;

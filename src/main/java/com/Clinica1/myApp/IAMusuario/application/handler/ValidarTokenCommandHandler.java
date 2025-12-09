@@ -5,14 +5,13 @@ import com.Clinica1.myApp.IAMusuario.application.command.ValidarTokenCommand;
 import com.Clinica1.myApp.IAMusuario.application.dto.TokenDto;
 import com.Clinica1.myApp.IAMusuario.application.services.TokenProvider;
 import com.Clinica1.myApp.IAMusuario.domain.repository.EmpleadoRepository;
-import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

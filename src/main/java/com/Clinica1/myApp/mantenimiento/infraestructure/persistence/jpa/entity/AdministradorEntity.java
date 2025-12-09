@@ -20,4 +20,7 @@ public class AdministradorEntity {
 
     @Column(name = "id_emp", nullable = false)
     private String id_emp;
+
+    @Column(name = "nomcom_admin", nullable = false)
+    private NombreCompletoEmbeddable nomcom_admin;
 }

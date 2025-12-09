@@ -1,6 +1,7 @@
 package com.Clinica1.myApp.IAMusuario.domain.repository;
 
 import com.Clinica1.myApp.SharedKernel.*;
+import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,10 +1,9 @@
 package com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.mapper;
 
-import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Rol;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.EmailEmbeddable;
 import com.Clinica1.myApp.IAMusuario.infrastructure.persistence.jpa.entity.EmpleadoEntity;
 import com.Clinica1.myApp.SharedKernel.Email;
-import com.Clinica1.myApp.SharedKernel.Empleado;
+import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
 public class EmpleadoMapper {

@@ -77,8 +77,6 @@ public class Doctor {
         this.nombreCompleto = new Nombrecompleto(nombre, apellido);
     }
 
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,6 +89,5 @@ public class Doctor {
     public int hashCode() {
         return Objects.hash(idDoctor);
     }
-
 
 }
