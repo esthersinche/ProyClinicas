@@ -14,7 +14,7 @@ public class LoginRequest {
     private String email;
 
     @NotBlank(message = "La contraseña es obligatoria")
-    private String password;
+    private String contra;
 
     //espera rpta de token y metadata (200 o 401)
 

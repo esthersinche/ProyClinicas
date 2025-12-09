@@ -1,12 +1,14 @@
 package com.Clinica1.myApp.IAMusuario.application.handler;
 
 import com.Clinica1.myApp.IAMusuario.application.assembler.EmailAssembler;
+import com.Clinica1.myApp.IAMusuario.application.assembler.EmpleadoAssembler;
 import com.Clinica1.myApp.IAMusuario.application.assembler.SesionAssembler;
 import com.Clinica1.myApp.IAMusuario.application.command.LoginCommand;
 import com.Clinica1.myApp.IAMusuario.application.dto.SesionDto;
 import com.Clinica1.myApp.IAMusuario.application.dto.TokenDto;
 import com.Clinica1.myApp.IAMusuario.application.exception.InvalidCredentialsException;
 import com.Clinica1.myApp.IAMusuario.application.services.*;
+import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.EmpleadoIAM;
 import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.Sesion;
 import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
 import com.Clinica1.myApp.IAMusuario.domain.repository.EmpleadoRepository;
@@ -27,8 +29,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class LoginCommandHandler{
     private final EmpleadoRepository emp_repo;
-    private final EmailAssembler em_assem;
-    private final ContraService con_serv;
     private final TokenProvider tok_prov;
     private final SesionRepository ses_repo;
     private final SesionAssembler ses_assem;
@@ -51,19 +51,21 @@ public class LoginCommandHandler{
 
 
         //buscar usuarioweb(1)/empleado por email
-        Optional<Empleado> fantasmitaemp= emp_repo.findbyEmail(em_assem.ToDomain(log_com.getEmail_emp()));
+        Optional<EmpleadoIAM> fantasmitaemp= emp_repo.validaryobtenerporemail(log_com.getEmail_emp().getEmail_emp(),
+                log_com.getContra());
 
-        Empleado emp= fantasmitaemp.orElseThrow(() ->
+        EmpleadoIAM emp= fantasmitaemp.orElseThrow(() ->
                 new InvalidCredentialsException("Credenciales invalidas"));
 
-        //ver lo de la contraseña
+        /*//ver lo de la contraseña
         String hashguardado= emp.getPasshash_emp();
         if (!con_serv.matches(log_com.getContra(), hashguardado)){
             throw new InvalidCredentialsException("Credenciales invalidas");
-        }
+        }*/
+
 
         //rol
-        Roles rolemp_ses= emp.getRolemp();
+        Roles rolemp_ses= emp.getRol_empiam();
 
 
         //obtener token
@@ -87,7 +89,7 @@ public class LoginCommandHandler{
         if (ses_repo != null){
             Instant ahoracausa= Instant.now();
             Instant expirarcausa= ahoracausa.plusSeconds(token_dto.getExpiracion());
-            SesionDto ses_dto= new SesionDto(IDEntidad.generar().obtenerid(), emp.getId_emp().obtenerid(),
+            SesionDto ses_dto= new SesionDto(IDEntidad.generar().obtenerid(), emp.getId_empiam().obtenerid(),
                     ahoracausa, expirarcausa);
             Sesion ses_saved= ses_assem.ToDomain(ses_dto);
             ses_repo.insert(ses_saved);

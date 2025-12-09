@@ -3,21 +3,17 @@ package com.Clinica1.myApp.IAMusuario.infrastructure.security;
 
 import com.Clinica1.myApp.IAMusuario.application.dto.TokenDto;
 import com.Clinica1.myApp.IAMusuario.application.exception.JWTInvalidException;
-import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
+import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.EmpleadoIAM;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
-
 import com.Clinica1.myApp.IAMusuario.application.services.TokenProvider;
-import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.time.Instant;
 import java.util.*;
 
-
-@Component
 public class JWTTokenProvider implements TokenProvider {
     //genera tokens desde usuarioweb sin consultar empleado
     private final SecretKey sec_key;//clave para firmar el token
@@ -31,23 +27,23 @@ public class JWTTokenProvider implements TokenProvider {
     }
 
     @Override
-    public TokenDto generartokendeacceso(Empleado emp){
+    public TokenDto generartokendeacceso(EmpleadoIAM emp){
         Instant ahora= Instant.now();
         Date inicio= Date.from(ahora);
         Date expiracion= Date.from(ahora.plusSeconds(accesstokensc));
 
         //claims adicionales
         List<String> roles= new ArrayList<>();
-        if (emp.getRolemp() != null){
-            roles.add(emp.getRolemp().name());
+        if (emp.getRol_empiam() != null){
+            roles.add(emp.getRol_empiam().name());
         }
         Map<String, Object> claimsadds= new HashMap<>();
         claimsadds.put("roles", roles);
 
         //para email
         try{
-            if (emp.getEmail() != null){
-                claimsadds.put("email", emp.getEmail().email_valor());
+            if (emp.getEmail_empiam() != null){
+                claimsadds.put("email", emp.getEmail_empiam().email_valor());
             }
         } catch (Exception ignore){
 
@@ -55,14 +51,14 @@ public class JWTTokenProvider implements TokenProvider {
 
         //constructor del jwt
         JwtBuilder blackbullet= Jwts.builder().setId(IDEntidad.generar().obtenerid())
-                .setSubject(emp.getId_emp().obtenerid())
+                .setSubject(emp.getId_empiam().obtenerid())
                 .setIssuedAt(inicio)
                 .setExpiration(expiracion)
                 .addClaims(claimsadds);
 
         String kishi= blackbullet.signWith(sec_key, SignatureAlgorithm.HS256).compact();
         //funciones empty pq aqui no se asignan cosos
-        return new TokenDto(kishi, emp.getId_emp().obtenerid(), this.accesstokensc, Collections.emptyList());
+        return new TokenDto(kishi, emp.getId_empiam().obtenerid(), this.accesstokensc, Collections.emptyList());
 
         //construccion del tokendto, quiero dormir
 

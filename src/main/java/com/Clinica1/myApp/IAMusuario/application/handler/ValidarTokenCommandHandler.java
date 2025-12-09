@@ -4,8 +4,8 @@ import com.Clinica1.myApp.IAMusuario.application.assembler.TokenAssembler;
 import com.Clinica1.myApp.IAMusuario.application.command.ValidarTokenCommand;
 import com.Clinica1.myApp.IAMusuario.application.dto.TokenDto;
 import com.Clinica1.myApp.IAMusuario.application.services.TokenProvider;
+import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.EmpleadoIAM;
 import com.Clinica1.myApp.IAMusuario.domain.repository.EmpleadoRepository;
-import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class ValidarTokenCommandHandler {
         long expiracion= (long)claims_tok.get("exp");
 
         //empleado
-        Empleado emp= emp_repo.findById(emp_id)
+        EmpleadoIAM emp= emp_repo.findById(emp_id)
                 .orElseThrow(() -> new RuntimeException("Empleado not found"));
 
         return tok_assem.ToDto(emp, valtok_com.getToken(), expiracion, funcioneslist);

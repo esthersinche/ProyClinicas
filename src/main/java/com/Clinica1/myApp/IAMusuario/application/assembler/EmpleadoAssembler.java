@@ -1,9 +1,6 @@
 package com.Clinica1.myApp.IAMusuario.application.assembler;
-
-import com.Clinica1.myApp.IAMusuario.application.dto.EmailDto;
-import com.Clinica1.myApp.IAMusuario.application.dto.EmpleadoDto;
-import com.Clinica1.myApp.SharedKernel.Email;
-import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
+import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.EmpleadoIAM;
+import com.Clinica1.myApp.IAMusuario.infrastructure.integration.EmpleadoMinDto;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.SharedKernel.Roles;
 import lombok.Builder;
@@ -14,7 +11,21 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Builder
 public class EmpleadoAssembler {
-    private final EmailAssembler em_assem;
+    public EmpleadoMinDto ToDto(EmpleadoIAM emp){
+        return EmpleadoMinDto.builder()
+                .id_empiam(emp.getId_empiam().obtenerid())
+                .nom_empiam(emp.getNom_empiam())
+                .ape_empiam(emp.getApe_empiam())
+                .rol_empiam(emp.getRol_empiam().name())
+                .build();
+    }
+
+    public EmpleadoIAM ToDomain(EmpleadoMinDto neverever_dto){
+        return new EmpleadoIAM(IDEntidad.astring(neverever_dto.getId_empiam()), neverever_dto.getNom_empiam(),
+                neverever_dto.getApe_empiam(), null, null,
+                Roles.valueOf(neverever_dto.getRol_empiam()));
+    }
+    /*private final EmailAssembler em_assem;
 
     public EmpleadoDto ToDto(Empleado emp){
         if (emp == null){
@@ -42,5 +53,6 @@ public class EmpleadoAssembler {
         Email em_emp= em_assem.ToDomain(emp_dto.getEmail_emp());
         return new Empleado(IDEntidad.astring(emp_dto.getId_emp()), emp_dto.getNom_emp(), emp_dto.getApe_emp(),
                 emp_dto.getTel_emp(), em_emp, emp_dto.getPasshash_emp(), Roles.valueOf(emp_dto.getRol_emp()));
-    }
+    }*/
+
 }

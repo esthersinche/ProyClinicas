@@ -1,6 +1,7 @@
 package com.Clinica1.myApp.IAMusuario.application.assembler;
 
 import com.Clinica1.myApp.IAMusuario.application.dto.TokenDto;
+import com.Clinica1.myApp.IAMusuario.domain.model.aggregates.EmpleadoIAM;
 import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -13,11 +14,11 @@ import java.util.List;
 @Builder
 public class TokenAssembler {
 
-    public TokenDto ToDto(Empleado emp, String jwt, long expiracion, List<String> funciones){
+    public TokenDto ToDto(EmpleadoIAM emp, String jwt, long expiracion, List<String> funciones){
 
         return TokenDto.builder()
                 .accesstoken(jwt)
-                .id_emp(emp.getId_emp().obtenerid())
+                .id_emp(emp.getId_empiam().obtenerid())
                 .expiracion(expiracion)
                 .funciones(funciones)
                 .build();
