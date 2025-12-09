@@ -6,8 +6,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AdministradorAssembler {
-    public AdministradorDto ToDto(Administrador admin){
-        //falta nombrecompleto, hacer eso
+    public AdministradorDto toDto(Administrador admin) {
+        if (admin == null) return null;
+
+        return new AdministradorDto(
+                admin.getId_admin().obtenerid(),
+                admin.getId_emp().obtenerid(),
+                admin.getNomcom_admin().nombre(),
+                admin.getNomcom_admin().apellido()
+        );
     }
 
 }

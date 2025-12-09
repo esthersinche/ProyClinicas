@@ -12,7 +12,6 @@ import java.util.List;
 public class DoctorDto {
     private String idDoctor;
     private String idEmpleado;
-    private String nombreCompleto;
     private String cmp;
     private String consultorio;
     private List<String> especialidades;

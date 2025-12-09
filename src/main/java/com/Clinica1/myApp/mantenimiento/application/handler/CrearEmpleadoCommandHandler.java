@@ -16,7 +16,7 @@ public class CrearEmpleadoCommandHandler {
     private final EmpleadoRepository empleadoRepository;
     private final ContraService contraService;
 
-    public void handle(CrearEmpleadoCommand command) {
+    public String handle(CrearEmpleadoCommand command) {
 
         if (empleadoRepository.existsByEmail(command.getEmail()))
             throw new IllegalArgumentException("Email ya registrado");
@@ -33,5 +33,7 @@ public class CrearEmpleadoCommandHandler {
         );
 
         empleadoRepository.insert(empleado);
+
+        return empleado.getId_emp().obtenerid();
     }
 }

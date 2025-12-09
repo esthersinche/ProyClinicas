@@ -2,7 +2,6 @@ package com.Clinica1.myApp.mantenimiento.domain.model.aggregates;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
-import com.Clinica1.myApp.mantenimiento.domain.model.valueobjects.Nombrecompleto;
 import com.Clinica1.myApp.mantenimiento.domain.model.valueobjects.Especialidad;
 import lombok.Getter;
 
@@ -13,7 +12,6 @@ import java.util.Objects;
 public class Doctor {
     private IDEntidad idDoctor;
     private IDEntidad idEmpleado; // Solo referencia por ID
-    private Nombrecompleto nombreCompleto; // Duplicado para lectura
     private String cmp;
     private String consultorio;
     private List<Especialidad> especialidades;
@@ -22,13 +20,11 @@ public class Doctor {
 
     private Doctor(IDEntidad idDoctor,
                    IDEntidad idEmpleado,
-                   Nombrecompleto nombreCompleto,
                    String cmp,
                    String consultorio,
                    List<Especialidad> especialidades) {
         this.idDoctor = idDoctor;
         this.idEmpleado = idEmpleado;
-        this.nombreCompleto = nombreCompleto;
         this.cmp = cmp;
         this.consultorio = consultorio;
         this.especialidades = especialidades;
@@ -37,8 +33,6 @@ public class Doctor {
     /// ---------- FACTORY ----------
     public static Doctor crear(
             IDEntidad idEmpleado,
-            String nombre,
-            String apellido,
             String cmp,
             String consultorio,
             List<Especialidad> especialidades
@@ -59,7 +53,6 @@ public class Doctor {
         return new Doctor(
                 IDEntidad.generar(),
                 idEmpleado,
-                Nombrecompleto.of(nombre, apellido),
                 cmp,
                 consultorio,
                 especialidades
@@ -70,7 +63,6 @@ public class Doctor {
     public static Doctor reconstruir(
             IDEntidad idDoctor,
             IDEntidad idEmpleado,
-            Nombrecompleto nombreCompleto,
             String cmp,
             String consultorio,
             List<Especialidad> especialidades
@@ -79,7 +71,6 @@ public class Doctor {
         return new Doctor(
                 idDoctor,
                 idEmpleado,
-                nombreCompleto,
                 cmp,
                 consultorio,
                 especialidades
@@ -106,6 +97,7 @@ public class Doctor {
         this.consultorio = consultorio;
         this.especialidades = List.copyOf(especialidades);
     }
+
 
     // ---------- EQUALS / HASH ----------
     @Override

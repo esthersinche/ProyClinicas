@@ -16,27 +16,15 @@ public class EmpleadoMapper {
     public Empleado toDomain(EmpleadoEntity entity) {
         if (entity == null) return null;
 
-        try {
-            Empleado empleado = Empleado.crearemp(
-                    entity.getNombre(),
-                    entity.getApellido(),
-                    entity.getTelefono(),
-                    new Email(entity.getEmail()),
-                    entity.getPassword(),
-                    Roles.valueOf(entity.getRol())
-                     // id_clinica temporal
-            );
-
-            // Setear el ID original
-            Field field = Empleado.class.getDeclaredField("id_emp");
-            field.setAccessible(true);
-            field.set(empleado, IDEntidad.astring(entity.getIdEmpleado()));
-
-            return empleado;
-
-        } catch (Exception e) {
-            throw new RuntimeException("Error al mapear EmpleadoEntity a Empleado: " + e.getMessage(), e);
-        }
+        return Empleado.reconstruir(
+                IDEntidad.astring(entity.getIdEmpleado()),
+                entity.getNombre(),
+                entity.getApellido(),
+                entity.getTelefono(),
+                new Email(entity.getEmail()),
+                entity.getPassword(),
+                Roles.valueOf(entity.getRol())
+        );
     }
 
     public EmpleadoEntity toEntity(Empleado empleado) {

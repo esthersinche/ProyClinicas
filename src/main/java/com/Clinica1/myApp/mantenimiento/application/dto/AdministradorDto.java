@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdministradorDto {
-    private String id_admin;
-    private String nombre_admin;
-    private String ape_admin;
-
+    private String idAdmin;
+    private String idEmpleado;
+    private String nombre;
+    private String apellido;
 }

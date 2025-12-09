@@ -23,11 +23,6 @@ public class DoctorEntity {
     @Column(name = "id_empleado_doc", nullable = false, unique = true)
     private String idEmpleado; // Solo FK, sin relación JPA
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "nombre", column = @Column(name = "nom_com_nombre")),
-            @AttributeOverride(name = "apellido", column = @Column(name = "nom_com_apellido"))
-    })
     @Column(name = "nom_com_doc", nullable = false)
     private NombreCompletoEmbeddable nombreCompleto;
 

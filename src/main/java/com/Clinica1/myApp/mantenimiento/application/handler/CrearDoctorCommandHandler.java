@@ -18,26 +18,26 @@ public class CrearDoctorCommandHandler {
     private final DoctorRepository doctorRepository;
     private final EmpleadoRepository empleadoRepository;
 
-    public String handle(CrearDoctorCommand command) {
+    public void handle(CrearDoctorCommand command) {
 
         IDEntidad idEmpleado = IDEntidad.astring(command.getIdEmpleado());
 
         if (!empleadoRepository.existsById(idEmpleado))
             throw new IllegalArgumentException("Empleado no existe");
 
+        if (doctorRepository.existsByCmp(command.getCmp()))
+            throw new IllegalArgumentException("CMP ya registrado");
+
         Doctor doctor = Doctor.crear(
                 idEmpleado,
-                command.getNombre(),
-                command.getApellido(),
                 command.getCmp(),
                 command.getConsultorio(),
-                command.getEspecialidades().stream()
+                command.getEspecialidades()
+                        .stream()
                         .map(Especialidad::of)
-                        .collect(Collectors.toList())
+                        .toList()
         );
 
         doctorRepository.insert(doctor);
-
-        return doctor.getIdDoctor().obtenerid();
     }
 }

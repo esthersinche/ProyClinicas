@@ -5,10 +5,14 @@ import com.Clinica1.myApp.mantenimiento.application.command.ActualizarDoctorComm
 import com.Clinica1.myApp.mantenimiento.application.command.CrearDoctorCommand;
 import com.Clinica1.myApp.mantenimiento.application.command.EliminarDoctorCommand;
 import com.Clinica1.myApp.mantenimiento.application.dto.DoctorDto;
+import com.Clinica1.myApp.mantenimiento.application.dto.DoctorListadoDto;
 import com.Clinica1.myApp.mantenimiento.application.handler.*;
 import com.Clinica1.myApp.mantenimiento.application.query.BuscarDoctorPorCMPQuery;
 import com.Clinica1.myApp.mantenimiento.application.query.BuscarDoctorPorNombreQuery;
 import com.Clinica1.myApp.mantenimiento.application.query.ListarDoctoresQuery;
+import com.Clinica1.myApp.mantenimiento.interfaces.rest.dto.request.ActualizarDoctorRequest;
+import com.Clinica1.myApp.mantenimiento.interfaces.rest.dto.request.CrearDoctorRequest;
+import com.Clinica1.myApp.mantenimiento.interfaces.rest.mapper.DoctorRequestMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,50 +24,48 @@ import java.util.List;
 @RequestMapping("/api/v1/mantenimiento/doctores")
 @RequiredArgsConstructor
 public class DoctorController {
-    private final CrearDoctorCommandHandler crearDoctorCommandHandler;
-    private final ActualizarDoctorCommandHandler actualizarDoctorCommandHandler;
-    private final EliminarDoctorCommandHandler eliminarDoctorCommandHandler;
-    private final ListarDoctoresQueryHandler listarDoctoresQueryHandler;
-    private final BuscarDoctorPorCMPQueryHandler cmpHandler;
-    private final BuscarDoctorPorNombreQueryHandler nombreHandler;
 
+    private final DoctorRequestMapper requestMapper;
+    private final CrearDoctorCommandHandler crearHandler;
+    private final ActualizarDoctorCommandHandler actualizarHandler;
+    private final EliminarDoctorCommandHandler eliminarHandler;
+    private final ListarDoctoresQueryHandler listarHandler;
+    private final BuscarDoctorPorNombreHandler buscarNombreHandler;
 
     @PostMapping
-    public ResponseEntity<String> crear(@RequestBody CrearDoctorCommand command) {
-        return ResponseEntity.ok(crearDoctorCommandHandler.handle(command));
+    public ResponseEntity<Void> crear(@RequestBody CrearDoctorRequest request) {
+        crearHandler.handle(requestMapper.toCommand(request));
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizar(
+    public ResponseEntity<Void> actualizar(
             @PathVariable String id,
-            @RequestBody ActualizarDoctorCommand command
+            @RequestBody ActualizarDoctorRequest request
     ) {
-        command.setIdDoctor(IDEntidad.astring(id));
-        actualizarDoctorCommandHandler.handle(command);
+        actualizarHandler.handle(
+                requestMapper.toCommand(id, request)
+        );
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminar(@PathVariable String id) {
-        var command = new EliminarDoctorCommand(IDEntidad.astring(id));
-        eliminarDoctorCommandHandler.handle(command);
+    public ResponseEntity<Void> eliminar(@PathVariable String id) {
+        eliminarHandler.handle(new EliminarDoctorCommand(id));
         return ResponseEntity.ok().build();
     }
 
     @GetMapping
     public ResponseEntity<List<DoctorDto>> listar() {
-        return ResponseEntity.ok(
-                listarDoctoresQueryHandler.handle(new ListarDoctoresQuery())
-        );
-    }
-
-    @GetMapping("/cmp/{cmp}")
-    public DoctorDto buscarPorCMP(@PathVariable String cmp) {
-        return cmpHandler.handle(new BuscarDoctorPorCMPQuery(cmp));
+        return ResponseEntity.ok(listarHandler.handle(new ListarDoctoresQuery()));
     }
 
     @GetMapping("/buscar")
-    public List<DoctorDto> buscarPorNombre(@RequestParam String nombre) {
-        return nombreHandler.handle(new BuscarDoctorPorNombreQuery(nombre));
+    public ResponseEntity<List<DoctorListadoDto>> buscarPorNombre(
+            @RequestParam String nombre
+    ) {
+        return ResponseEntity.ok(
+                buscarNombreHandler.handle(new BuscarDoctorPorNombreQuery(nombre))
+        );
     }
 }

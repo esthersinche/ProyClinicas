@@ -23,9 +23,7 @@ public class DoctorRepositoryAdapter implements DoctorRepository {
     @Override
     @Transactional
     public Doctor insert(Doctor doctor) {
-        var entity = mapper.toEntity(doctor);
-        var saved = jpaRepository.save(entity);
-        return mapper.toDomain(saved);
+        return mapper.toDomain(jpaRepository.save(mapper.toEntity(doctor)));
     }
 
     @Override
@@ -34,15 +32,12 @@ public class DoctorRepositoryAdapter implements DoctorRepository {
         if (!jpaRepository.existsById(doctor.getIdDoctor().obtenerid())) {
             throw new RuntimeException("Doctor no encontrado");
         }
-        var entity = mapper.toEntity(doctor);
-        var updated = jpaRepository.save(entity);
-        return mapper.toDomain(updated);
+        return mapper.toDomain(jpaRepository.save(mapper.toEntity(doctor)));
     }
 
     @Override
     public Optional<Doctor> findById(IDEntidad id) {
-        return jpaRepository.findById(id.obtenerid())
-                .map(mapper::toDomain);
+        return jpaRepository.findById(id.obtenerid()).map(mapper::toDomain);
     }
 
     @Override
@@ -50,7 +45,7 @@ public class DoctorRepositoryAdapter implements DoctorRepository {
         return jpaRepository.findAll()
                 .stream()
                 .map(mapper::toDomain)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -66,21 +61,9 @@ public class DoctorRepositoryAdapter implements DoctorRepository {
                 .orElse(null);
     }
 
-
     @Override
     public List<Doctor> findByEspecialidad(String nomEspe) {
-        return jpaRepository
-                .findByEspecialidades_NomEspeIgnoreCase(nomEspe)
-                .stream()
-                .map(mapper::toDomain)
-                .toList();
-    }
-
-    @Override
-    public List<Doctor> findByNombre(String nombre) {
-        return jpaRepository
-                .findByNombreCompleto_NombreContainingIgnoreCaseOrNombreCompleto_ApellidoContainingIgnoreCase(
-                        nombre, nombre)
+        return jpaRepository.findByEspecialidades_NomEspeIgnoreCase(nomEspe)
                 .stream()
                 .map(mapper::toDomain)
                 .toList();
@@ -89,5 +72,11 @@ public class DoctorRepositoryAdapter implements DoctorRepository {
     @Override
     public boolean existsByCmp(String cmp) {
         return jpaRepository.existsByCmp(cmp);
+    }
+
+    @Override
+    public Optional<Doctor> findByIdEmpleado(IDEntidad idEmpleado) {
+        return jpaRepository.findByIdEmpleado(idEmpleado.obtenerid())
+                .map(mapper::toDomain);
     }
 }

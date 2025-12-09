@@ -64,6 +64,19 @@ public class Empleado {
         this.telefono = telefono;
     }
 
+    //factory que solo reconstruye desde persistencia
+    public static Empleado reconstruir(
+            IDEntidad id,
+            String nombre,
+            String apellido,
+            String telefono,
+            Email email,
+            String passhash_emp,
+            Roles rol
+    ) {
+        return new Empleado(id, nombre, apellido, telefono, email, passhash_emp, rol);
+    }
+
     public IDEntidad getId_emp() {
         return id_emp;
     }

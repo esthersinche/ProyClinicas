@@ -12,49 +12,39 @@ public class Administrador {
 
     private IDEntidad id_admin;
     private IDEntidad id_emp;
-    private Nombrecompleto nomcom_admin;
+
 
     protected Administrador() {
     }
 
     private Administrador(
             IDEntidad id_admin,
-            IDEntidad id_emp,
-            Nombrecompleto nomcom_admin
+            IDEntidad id_emp
     ) {
         this.id_admin = id_admin;
         this.id_emp = id_emp;
-        this.nomcom_admin = nomcom_admin;
     }
 
     // ---------- FACTORY (CREACIÓN) ----------
     public static Administrador crear(
-            IDEntidad id_emp,
-            String nombre,
-            String apellido
+            IDEntidad id_emp
     ) {
         if (id_emp == null)
             throw new IllegalArgumentException("El ID del empleado es obligatorio");
 
         return new Administrador(
                 IDEntidad.generar(),
-                id_emp,
-                Nombrecompleto.of(nombre, apellido)
+                id_emp
         );
     }
+
 
     // ---------- RECONSTRUCCIÓN (PERSISTENCIA) ----------
     public static Administrador reconstruir(
             IDEntidad id_admin,
-            IDEntidad id_emp,
-            Nombrecompleto nombreCompleto
+            IDEntidad id_emp
     ) {
-        return new Administrador(id_admin, id_emp, nombreCompleto);
-    }
-
-    // ---------- COMPORTAMIENTO ----------
-    public void actualizarNombre(String nombre, String apellido) {
-        this.nomcom_admin = Nombrecompleto.of(nombre, apellido);
+        return new Administrador(id_admin, id_emp);
     }
 
     @Override
