@@ -1,27 +1,23 @@
 package com.Clinica1.myApp.mantenimiento.application.handler;
 
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.mantenimiento.application.assembler.DoctorAssembler;
 import com.Clinica1.myApp.mantenimiento.application.dto.DoctorDto;
-import com.Clinica1.myApp.mantenimiento.application.query.BuscarDoctorPorNombreQuery;
-import com.Clinica1.myApp.mantenimiento.application.query.ListarDoctorPorNombreQuery;
+import com.Clinica1.myApp.mantenimiento.application.query.ObtenerDoctorPorIdQuery;
 import com.Clinica1.myApp.mantenimiento.domain.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 @RequiredArgsConstructor
-public class BuscarDoctorPorNombreQueryHandler {
+public class ObtenerDoctorPorIdQueryHandler {
 
     private final DoctorRepository doctorRepository;
-    private final DoctorAssembler assembler = new DoctorAssembler();
+    private final DoctorAssembler assembler;
 
-    public List<DoctorDto> handle(ListarDoctorPorNombreQuery query) {
-
-        return doctorRepository.findByNombre(query.getNombre())
-                .stream()
+    public DoctorDto handle(ObtenerDoctorPorIdQuery query) {
+        return doctorRepository.findById(IDEntidad.astring(query.getIdDoctor()))
                 .map(assembler::toDto)
-                .toList();
+                .orElse(null);
     }
 }

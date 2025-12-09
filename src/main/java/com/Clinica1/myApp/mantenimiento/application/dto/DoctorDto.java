@@ -10,9 +10,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DoctorDto {
-    private String id;
-    private String nombre;
-    private String apellido;
+    private String idDoctor;
+    private String idEmpleado;
+    private String nombreCompleto;
     private String cmp;
     private String consultorio;
     private List<String> especialidades;

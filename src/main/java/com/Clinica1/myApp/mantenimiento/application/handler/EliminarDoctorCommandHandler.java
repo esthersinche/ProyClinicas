@@ -1,33 +1,18 @@
 package com.Clinica1.myApp.mantenimiento.application.handler;
 
+import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.mantenimiento.application.command.EliminarDoctorCommand;
-import com.Clinica1.myApp.mantenimiento.application.exception.DomainException;
 import com.Clinica1.myApp.mantenimiento.domain.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class EliminarDoctorCommandHandler {
+
     private final DoctorRepository doctorRepository;
 
     public void handle(EliminarDoctorCommand command) {
-
-        // --- Validar ID ---
-        if (command.getIdDoctor() == null)
-            throw new DomainException("El ID del doctor es obligatorio");
-
-        doctorRepository.findById(command.getIdDoctor())
-                .orElseThrow(() ->
-                        new DomainException(
-                                "Doctor no encontrado: " + command.getIdDoctor().obtenerid()
-                        )
-                );
-
-        try {
-            doctorRepository.delete(command.getIdDoctor());
-        } catch (Exception e) {
-            throw new DomainException("No se pudo eliminar el doctor: " + e.getMessage());
-        }
+        doctorRepository.delete(IDEntidad.astring(command.getIdDoctor()));
     }
 }

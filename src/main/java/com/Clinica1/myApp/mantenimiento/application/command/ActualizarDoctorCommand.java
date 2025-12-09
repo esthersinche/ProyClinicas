@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @Builder
 public class ActualizarDoctorCommand {
-    private IDEntidad idDoctor;
+    private String idDoctor;
     private String cmp;
     private String consultorio;
     private List<String> especialidades;

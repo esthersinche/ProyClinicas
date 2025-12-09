@@ -10,5 +10,4 @@ public interface DoctorRepository extends ICRUD<Doctor> {
     List<Doctor> findByEspecialidad(String nomEspe);
     List<Doctor> findByNombre(String nombre);
     boolean existsByCmp(String cmp);
-
 }

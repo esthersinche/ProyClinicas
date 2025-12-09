@@ -34,7 +34,7 @@ public class Doctor {
         this.especialidades = especialidades;
     }
 
-    // ----- FACTORY -----
+    /// ---------- FACTORY ----------
     public static Doctor crear(
             IDEntidad idEmpleado,
             String nombre,
@@ -43,40 +43,71 @@ public class Doctor {
             String consultorio,
             List<Especialidad> especialidades
     ) {
-        if (idEmpleado == null) {
+
+        if (idEmpleado == null)
             throw new IllegalArgumentException("El ID del empleado es obligatorio");
-        }
+
+        if (cmp == null || cmp.isBlank())
+            throw new IllegalArgumentException("El CMP es obligatorio");
+
+        if (consultorio == null || consultorio.isBlank())
+            throw new IllegalArgumentException("El consultorio es obligatorio");
+
+        if (especialidades == null || especialidades.isEmpty())
+            throw new IllegalArgumentException("Debe tener al menos una especialidad");
 
         return new Doctor(
                 IDEntidad.generar(),
                 idEmpleado,
-                new Nombrecompleto(nombre, apellido),
+                Nombrecompleto.of(nombre, apellido),
                 cmp,
                 consultorio,
                 especialidades
         );
     }
 
-    // ----- COMPORTAMIENTO -----
-    public void actualizarDatos(String cmp, String consultorio, List<Especialidad> especialidades) {
-        if (cmp == null || cmp.isBlank()) {
+    // ---------- FACTORY DE RECONSTRUCCIÓN ----------
+    public static Doctor reconstruir(
+            IDEntidad idDoctor,
+            IDEntidad idEmpleado,
+            Nombrecompleto nombreCompleto,
+            String cmp,
+            String consultorio,
+            List<Especialidad> especialidades
+    ) {
+
+        return new Doctor(
+                idDoctor,
+                idEmpleado,
+                nombreCompleto,
+                cmp,
+                consultorio,
+                especialidades
+        );
+    }
+
+    // ---------- COMPORTAMIENTO ----------
+    public void actualizarDatosProfesionales(
+            String cmp,
+            String consultorio,
+            List<Especialidad> especialidades
+    ) {
+
+        if (cmp == null || cmp.isBlank())
             throw new IllegalArgumentException("El CMP no puede estar vacío");
-        }
-        if (consultorio == null || consultorio.isBlank()) {
+
+        if (consultorio == null || consultorio.isBlank())
             throw new IllegalArgumentException("El consultorio no puede estar vacío");
-        }
-        if (especialidades == null || especialidades.isEmpty()) {
+
+        if (especialidades == null || especialidades.isEmpty())
             throw new IllegalArgumentException("Debe tener al menos una especialidad");
-        }
 
         this.cmp = cmp;
         this.consultorio = consultorio;
-        this.especialidades = especialidades;
-    }
-    public void actualizarNombre(String nombre, String apellido) {
-        this.nombreCompleto = new Nombrecompleto(nombre, apellido);
+        this.especialidades = List.copyOf(especialidades);
     }
 
+    // ---------- EQUALS / HASH ----------
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,5 +120,4 @@ public class Doctor {
     public int hashCode() {
         return Objects.hash(idDoctor);
     }
-
 }

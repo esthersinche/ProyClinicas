@@ -8,5 +8,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class EliminarDoctorCommand {
-    private IDEntidad idDoctor;
+    private String idDoctor;
 }

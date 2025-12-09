@@ -57,6 +57,13 @@ public class Empleado {
                 passhash_emp, rolemp);
     }
 
+    //factory para actualizar empleado
+    public void actualizarDatos(String nombre, String apellido, String telefono) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+    }
+
     public IDEntidad getId_emp() {
         return id_emp;
     }

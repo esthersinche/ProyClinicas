@@ -5,12 +5,12 @@ import com.Clinica1.myApp.mantenimiento.application.dto.DoctorDto;
 import com.Clinica1.myApp.mantenimiento.application.query.ListarDoctoresQuery;
 import com.Clinica1.myApp.mantenimiento.domain.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class ListarDoctoresQueryHandler {
 
@@ -18,7 +18,8 @@ public class ListarDoctoresQueryHandler {
     private final DoctorAssembler assembler;
 
     public List<DoctorDto> handle(ListarDoctoresQuery query) {
-        return doctorRepository.findall().stream()
+        return doctorRepository.findall()
+                .stream()
                 .map(assembler::toDto)
                 .toList();
     }

@@ -1,7 +1,7 @@
 package com.Clinica1.myApp.mantenimiento.interfaces.rest.controller;
 
 import com.Clinica1.myApp.mantenimiento.application.command.AuthValidateCommand;
-import com.Clinica1.myApp.mantenimiento.application.dto.AuthValidateRequest;
+import com.Clinica1.myApp.mantenimiento.interfaces.rest.dto.request.AuthValidateRequest;
 import com.Clinica1.myApp.mantenimiento.application.dto.EmpleadoMinimalDto;
 import com.Clinica1.myApp.mantenimiento.application.handler.AuthValidateCommandHandler;
 import lombok.RequiredArgsConstructor;

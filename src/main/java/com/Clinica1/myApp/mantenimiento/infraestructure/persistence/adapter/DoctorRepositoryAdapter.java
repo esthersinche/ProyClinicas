@@ -48,7 +48,8 @@ public class DoctorRepositoryAdapter implements DoctorRepository {
     @Override
     public List<Doctor> findall() {
         return jpaRepository.findAll()
-                .stream().map(mapper::toDomain)
+                .stream()
+                .map(mapper::toDomain)
                 .collect(Collectors.toList());
     }
 
@@ -68,20 +69,21 @@ public class DoctorRepositoryAdapter implements DoctorRepository {
 
     @Override
     public List<Doctor> findByEspecialidad(String nomEspe) {
-        return jpaRepository.findAll().stream()
-                .filter(e -> e.getEspecialidades() != null && e.getEspecialidades().contains(nomEspe))
+        return jpaRepository
+                .findByEspecialidades_NomEspeIgnoreCase(nomEspe)
+                .stream()
                 .map(mapper::toDomain)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<Doctor> findByNombre(String nombre) {
-        return jpaRepository.findAll().stream()
-                .filter(e -> e.getNombreCompleto() != null &&
-                        (e.getNombreCompleto().getNombre().toLowerCase().contains(nombre.toLowerCase())
-                                || e.getNombreCompleto().getApellido().toLowerCase().contains(nombre.toLowerCase())))
+        return jpaRepository
+                .findByNombreCompleto_NombreContainingIgnoreCaseOrNombreCompleto_ApellidoContainingIgnoreCase(
+                        nombre, nombre)
+                .stream()
                 .map(mapper::toDomain)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

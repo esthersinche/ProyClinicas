@@ -4,10 +4,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CrearDoctorRequest {
-    private String idEmpleado;
-    private String nombre;
-    private String apellido;
+public class ActualizarDoctorRequest {
     private String cmp;
     private String consultorio;
     private List<String> especialidades;

@@ -67,4 +67,9 @@ public class EmpleadoRepositoryAdapter implements EmpleadoRepository {
     public boolean existsByEmail(String email) {
         return jpaRepository.existsByEmail(email);
     }
+
+    @Override
+    public boolean existsById(IDEntidad id) {
+        return jpaRepository.existsById(id.obtenerid());
+    }
 }

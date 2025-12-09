@@ -13,15 +13,11 @@ import org.springframework.stereotype.Component;
 public class BuscarDoctorPorCMPQueryHandler {
 
     private final DoctorRepository doctorRepository;
-    private final DoctorAssembler doctorAssembler;
+    private final DoctorAssembler assembler = new DoctorAssembler();
 
     public DoctorDto handle(BuscarDoctorPorCMPQuery query) {
-        Doctor doctor = doctorRepository.findByCmp(query.getCmp());
-
-        if (doctor == null) {
-            throw new DomainException("El CMP no puede estar vacío");
-        }
-
-        return doctorAssembler.toDto(doctor);
+        return assembler.toDto(
+                doctorRepository.findByCmp(query.getCmp())
+        );
     }
 }
