@@ -36,4 +36,31 @@ public class AuthController {
 
         return ResponseEntity.ok(dto);
     }
+
+    //lau: hara un controller para empleado? pq necesito el findbyid, es un @get
+    /* public EmpleadoMinDto findEmpById(String id_empiam){
+        String url= base_url + "/api/v1/empleados/{" + id_empiam + "}";
+
+        HttpHeaders header2= new HttpHeaders();
+        header2.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Void> tommyheavenly6= new HttpEntity<>(header2);
+
+        try{
+            ResponseEntity<EmpleadoMinDto> soul_eater_resp= rest_temp.exchange(url, HttpMethod.GET, tommyheavenly6,
+                    EmpleadoMinDto.class);
+            return soul_eater_resp.getBody();
+        }catch (HttpClientErrorException.NotFound given){
+            //empleado no encontrado en manteniminedo pipipi
+            return null;
+        } catch (HttpClientErrorException yoru_no_akeru){
+            //error 4xx
+            throw new ExternalServiceException("Error 4xx al intentar obtener empleado por ID" + yoru_no_akeru.getStatusCode(),
+                    yoru_no_akeru);
+
+        } catch (Exception tricker){
+            throw new ExternalServiceException("Error al comunicarse con mantenimiento", tricker);
+
+        }
+
+    }*/
 }

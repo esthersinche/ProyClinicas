@@ -15,7 +15,7 @@ public class LoginMapper {
 
         return LoginCommand.builder()
                 .email_emp(em_dto)
-                .contra(login_req.getPassword())
+                .contra(login_req.getContra())
                 .build();
     }
 

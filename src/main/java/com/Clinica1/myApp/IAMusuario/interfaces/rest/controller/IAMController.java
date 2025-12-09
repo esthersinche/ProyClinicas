@@ -28,7 +28,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/IAM")
+@RequestMapping("/api/v1/iam")
 @Validated
 public class IAMController {
     private final LoginCommandHandler login_com_hand;
@@ -76,7 +76,7 @@ public class IAMController {
         LogoutCommand logout_com= logout_map.ToCommand(logout_req);
         logout_com_hand.handle(logout_com);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
 
     }
 
