@@ -23,9 +23,6 @@ public class DoctorEntity {
     @Column(name = "id_empleado_doc", nullable = false, unique = true)
     private String idEmpleado; // Solo FK, sin relación JPA
 
-    @Column(name = "nom_com_doc", nullable = false)
-    private NombreCompletoEmbeddable nombreCompleto;
-
     @Column(name = "cmp_doc", nullable = false, unique = true, length = 20)
     private String cmp;
 

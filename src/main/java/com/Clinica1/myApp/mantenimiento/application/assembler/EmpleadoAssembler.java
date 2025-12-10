@@ -2,7 +2,9 @@ package com.Clinica1.myApp.mantenimiento.application.assembler;
 
 import com.Clinica1.myApp.mantenimiento.application.dto.EmpleadoDto;
 import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EmpleadoAssembler {
 
     public EmpleadoDto toDto(Empleado empleado) {

@@ -2,8 +2,11 @@ package com.Clinica1.myApp.mantenimiento.application.handler;
 
 import com.Clinica1.myApp.mantenimiento.application.assembler.DoctorAssembler;
 import com.Clinica1.myApp.mantenimiento.application.dto.DoctorDto;
+import com.Clinica1.myApp.mantenimiento.application.dto.DoctorListadoDto;
 import com.Clinica1.myApp.mantenimiento.application.query.BuscarDoctorPorEspecialidadQuery;
+import com.Clinica1.myApp.mantenimiento.domain.model.valueobjects.Especialidad;
 import com.Clinica1.myApp.mantenimiento.domain.repository.DoctorRepository;
+import com.Clinica1.myApp.mantenimiento.domain.repository.EmpleadoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,12 +17,28 @@ import java.util.List;
 public class BuscarDoctorPorEspecialidadHandler {
 
     private final DoctorRepository doctorRepository;
-    private final DoctorAssembler assembler;
+    private final EmpleadoRepository empleadoRepository;
 
-    public List<DoctorDto> handle(BuscarDoctorPorEspecialidadQuery query) {
-        return doctorRepository.findByEspecialidad(query.especialidad())
+    public List<DoctorListadoDto> handle(BuscarDoctorPorEspecialidadQuery query) {
+        return doctorRepository.findByEspecialidad(query.getEspecialidad())
                 .stream()
-                .map(assembler::toDto)
+                .map(doctor -> {
+                    var emp = empleadoRepository
+                            .findById(doctor.getIdEmpleado())
+                            .orElse(null);
+
+                    return new DoctorListadoDto(
+                            doctor.getIdDoctor().obtenerid(),
+                            doctor.getIdEmpleado().obtenerid(),
+                            emp != null ? emp.getNombre() + " " + emp.getApellido() : "",
+                            doctor.getCmp(),
+                            doctor.getConsultorio(),
+                            doctor.getEspecialidades()
+                                    .stream()
+                                    .map(Especialidad::nom_espe)
+                                    .toList()
+                    );
+                })
                 .toList();
     }
 }

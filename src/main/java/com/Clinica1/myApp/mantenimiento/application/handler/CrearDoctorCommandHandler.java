@@ -18,7 +18,7 @@ public class CrearDoctorCommandHandler {
     private final DoctorRepository doctorRepository;
     private final EmpleadoRepository empleadoRepository;
 
-    public void handle(CrearDoctorCommand command) {
+    public String handle(CrearDoctorCommand command) {
 
         IDEntidad idEmpleado = IDEntidad.astring(command.getIdEmpleado());
 
@@ -27,6 +27,9 @@ public class CrearDoctorCommandHandler {
 
         if (doctorRepository.existsByCmp(command.getCmp()))
             throw new IllegalArgumentException("CMP ya registrado");
+
+        if (doctorRepository.findByIdEmpleado(idEmpleado).isPresent())
+            throw new IllegalArgumentException("El empleado ya está asignado a un doctor");
 
         Doctor doctor = Doctor.crear(
                 idEmpleado,
@@ -39,5 +42,6 @@ public class CrearDoctorCommandHandler {
         );
 
         doctorRepository.insert(doctor);
+        return doctor.getIdDoctor().obtenerid();
     }
 }

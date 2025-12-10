@@ -2,7 +2,6 @@ package com.Clinica1.myApp.mantenimiento.domain.model.aggregates;
 
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 
-import com.Clinica1.myApp.mantenimiento.domain.model.valueobjects.Nombrecompleto;
 import lombok.Getter;
 
 import java.util.Objects;

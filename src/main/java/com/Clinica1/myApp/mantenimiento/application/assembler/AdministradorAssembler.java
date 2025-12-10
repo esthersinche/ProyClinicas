@@ -11,10 +11,7 @@ public class AdministradorAssembler {
 
         return new AdministradorDto(
                 admin.getId_admin().obtenerid(),
-                admin.getId_emp().obtenerid(),
-                admin.getNomcom_admin().nombre(),
-                admin.getNomcom_admin().apellido()
+                admin.getId_emp().obtenerid()
         );
     }
-
 }

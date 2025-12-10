@@ -8,22 +8,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AdministradorMapper {
-    private final NombreCompletoMapper nomcom_map;
 
-    public AdministradorMapper(NombreCompletoMapper nomcom_map) {
-        this.nomcom_map = nomcom_map;
-    }
-
-    public Administrador ToDomain(AdministradorEntity admin_ent){
-        Nombrecompleto nomcom_admin= nomcom_map.ToDomain(admin_ent.getNomcom_admin());
-        return new Administrador(IDEntidad.astring(admin_ent.getId_admin()),
-                IDEntidad.astring(admin_ent.getId_emp()), nomcom_admin);
-    }
-
-    public AdministradorEntity ToEntity(Administrador admin){
+    public AdministradorEntity toEntity(Administrador admin) {
         return AdministradorEntity.builder()
                 .id_admin(admin.getId_admin().obtenerid())
                 .id_emp(admin.getId_emp().obtenerid())
                 .build();
+    }
+
+    public Administrador toDomain(AdministradorEntity entity) {
+        return Administrador.reconstruir(
+                IDEntidad.astring(entity.getId_admin()),
+                IDEntidad.astring(entity.getId_emp())
+        );
     }
 }

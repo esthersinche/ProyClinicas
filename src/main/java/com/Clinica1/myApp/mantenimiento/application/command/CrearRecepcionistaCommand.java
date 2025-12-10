@@ -1,12 +1,10 @@
 package com.Clinica1.myApp.mantenimiento.application.command;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 @AllArgsConstructor
-public class EliminarAdministradorCommand {
-    private String idAdmin;
+public class CrearRecepcionistaCommand {
+    private String idEmpleado;
 }

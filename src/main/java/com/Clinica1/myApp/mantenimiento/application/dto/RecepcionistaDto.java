@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecepcionistaDto {
-    private String id_recep;
-    private String nombre_recep;
-    private String ape_recep;
+
+    private String idRecepcionista;
+    private String idEmpleado;
 }

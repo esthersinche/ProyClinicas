@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 public class DoctorAssembler {
 
     public DoctorDto toDto(Doctor doctor) {
+        if (doctor == null) return null;
+
         return new DoctorDto(
                 doctor.getIdDoctor().obtenerid(),
                 doctor.getIdEmpleado().obtenerid(),

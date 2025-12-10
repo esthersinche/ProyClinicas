@@ -1,3 +1,4 @@
 package com.Clinica1.myApp.mantenimiento.application.query;
 
-public class ListarDoctoresQuery {}
+public class ListarAdministradoresQuery {
+}
