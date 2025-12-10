@@ -1,7 +1,5 @@
 package com.Clinica1.myApp.IAMusuario.application.handler;
 
-import com.Clinica1.myApp.IAMusuario.application.assembler.EmailAssembler;
-import com.Clinica1.myApp.IAMusuario.application.assembler.EmpleadoAssembler;
 import com.Clinica1.myApp.IAMusuario.application.assembler.SesionAssembler;
 import com.Clinica1.myApp.IAMusuario.application.command.LoginCommand;
 import com.Clinica1.myApp.IAMusuario.application.dto.SesionDto;
@@ -14,7 +12,6 @@ import com.Clinica1.myApp.IAMusuario.domain.model.valueobjects.Funcion;
 import com.Clinica1.myApp.IAMusuario.domain.repository.EmpleadoRepository;
 import com.Clinica1.myApp.IAMusuario.domain.repository.RolRepository;
 import com.Clinica1.myApp.IAMusuario.domain.repository.SesionRepository;
-import com.Clinica1.myApp.mantenimiento.domain.model.aggregates.Empleado;
 import com.Clinica1.myApp.SharedKernel.IDEntidad;
 import com.Clinica1.myApp.SharedKernel.Roles;
 import jakarta.transaction.Transactional;

@@ -26,7 +26,4 @@ public class DireccionEmbeddable {
     private String provincia;
 
 
-
-
-
 }
