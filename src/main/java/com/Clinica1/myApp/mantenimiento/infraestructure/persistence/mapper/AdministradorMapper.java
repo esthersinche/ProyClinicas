@@ -9,17 +9,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class AdministradorMapper {
 
-    public AdministradorEntity toEntity(Administrador admin) {
-        return AdministradorEntity.builder()
-                .id_admin(admin.getId_admin().obtenerid())
-                .id_emp(admin.getId_emp().obtenerid())
-                .build();
-    }
-
+    // Entity -> Domain
     public Administrador toDomain(AdministradorEntity entity) {
+        if (entity == null) return null;
+
         return Administrador.reconstruir(
                 IDEntidad.astring(entity.getId_admin()),
                 IDEntidad.astring(entity.getId_emp())
         );
+    }
+
+    // Domain -> Entity
+    public AdministradorEntity toEntity(Administrador domain) {
+        if (domain == null) return null;
+
+        return AdministradorEntity.builder()
+                .id_admin(domain.getId_admin().obtenerid())
+                .id_emp(domain.getId_emp().obtenerid())
+                .build();
     }
 }

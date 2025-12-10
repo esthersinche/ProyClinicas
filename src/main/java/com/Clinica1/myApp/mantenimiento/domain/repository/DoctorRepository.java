@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DoctorRepository extends ICRUD<Doctor> {
-    Doctor findByCmp(String cmp);
+    Optional<Doctor> findByCmp(String cmp);
     List<Doctor> findByEspecialidad(String nomEspe);
     boolean existsByCmp(String cmp);
     Optional<Doctor> findByIdEmpleado(IDEntidad idEmpleado);

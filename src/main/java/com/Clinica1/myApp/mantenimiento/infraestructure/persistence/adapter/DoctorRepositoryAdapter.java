@@ -21,23 +21,19 @@ public class DoctorRepositoryAdapter implements DoctorRepository {
     private final DoctorMapper mapper;
 
     @Override
-    @Transactional
     public Doctor insert(Doctor doctor) {
         return mapper.toDomain(jpaRepository.save(mapper.toEntity(doctor)));
     }
 
     @Override
-    @Transactional
     public Doctor update(Doctor doctor) {
-        if (!jpaRepository.existsById(doctor.getIdDoctor().obtenerid())) {
-            throw new RuntimeException("Doctor no encontrado");
-        }
         return mapper.toDomain(jpaRepository.save(mapper.toEntity(doctor)));
     }
 
     @Override
     public Optional<Doctor> findById(IDEntidad id) {
-        return jpaRepository.findById(id.obtenerid()).map(mapper::toDomain);
+        return jpaRepository.findById(id.obtenerid())
+                .map(mapper::toDomain);
     }
 
     @Override
@@ -49,16 +45,14 @@ public class DoctorRepositoryAdapter implements DoctorRepository {
     }
 
     @Override
-    @Transactional
     public void delete(IDEntidad id) {
         jpaRepository.deleteById(id.obtenerid());
     }
 
     @Override
-    public Doctor findByCmp(String cmp) {
+    public Optional<Doctor> findByCmp(String cmp) {
         return jpaRepository.findByCmp(cmp)
-                .map(mapper::toDomain)
-                .orElse(null);
+                .map(mapper::toDomain);
     }
 
     @Override

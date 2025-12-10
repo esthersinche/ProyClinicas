@@ -8,15 +8,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class RecepcionistaMapper {
 
-    public Recepcionista ToDomain(RecepcionistaEntity recep_ent){
-        return new Recepcionista(IDEntidad.astring(recep_ent.getId_recep()),
-                IDEntidad.astring(recep_ent.getId_emp()));
+    // Entity -> Domain
+    public Recepcionista toDomain(RecepcionistaEntity entity) {
+        if (entity == null) return null;
+
+        return Recepcionista.reconstruir(
+                IDEntidad.astring(entity.getId_recep()),
+                IDEntidad.astring(entity.getId_emp())
+        );
     }
 
-    public RecepcionistaEntity ToEntity(Recepcionista recep){
+    // Domain -> Entity
+    public RecepcionistaEntity toEntity(Recepcionista domain) {
+        if (domain == null) return null;
+
         return RecepcionistaEntity.builder()
-                .id_recep(recep.getId_recep().obtenerid())
-                .id_emp(recep.getId_recep().obtenerid())
+                .id_recep(domain.getId_recep().obtenerid())
+                .id_emp(domain.getId_emp().obtenerid())
                 .build();
     }
 }

@@ -16,8 +16,9 @@ public class BuscarDoctorPorCMPQueryHandler {
     private final DoctorAssembler assembler = new DoctorAssembler();
 
     public DoctorDto handle(BuscarDoctorPorCMPQuery query) {
-        return assembler.toDto(
-                doctorRepository.findByCmp(query.getCmp())
-        );
+        Doctor doctor = doctorRepository.findByCmp(query.getCmp())
+                .orElseThrow(() -> new DomainException("Doctor no encontrado"));
+
+        return assembler.toDto(doctor);
     }
 }
